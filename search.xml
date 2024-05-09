@@ -1038,7 +1038,7 @@
 <p><img data-src="https://media.githubusercontent.com/media/2015winter/MarkDownImages/master/C/Cocos2dx-Built/error.webp"></p>
 <h4 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h4><p>添加库目录，并设置libcocos2d_2013.dll的环境变量， 如下图所示， 这个目录就是上面的预编译库的目录<br><img data-src="https://media.githubusercontent.com/media/2015winter/MarkDownImages/master/C/Cocos2dx-Built/addlidDir.webp"></p>
 <p>然后添加libcocos2d_2013.lib库<br><img data-src="https://media.githubusercontent.com/media/2015winter/MarkDownImages/master/C/Cocos2dx-Built/addlib.webp"></p>
-<p>接下来是设置dll环境变量，把该变量添加到Path中.<br><img data-src="https://c/raw.githubusercontent.com/2015winter/MarkDownImages@master/C/Cocos2dx-Built/dllVar.webp"></p>
+<p>接下来是设置dll环境变量，把该变量添加到Path中.<br><img data-src="https://media.githubusercontent.com/media/2015winter/MarkDownImages/master/C/Cocos2dx-Built/dllVar.webp"></p>
 <p>然后就可以ctrl + F5，就可以成功运行啦！<br><img data-src="https://media.githubusercontent.com/media/2015winter/MarkDownImages/master/C/Cocos2dx-Built/samples.webp"></p>
 <h4 id="debug模式"><a href="#debug模式" class="headerlink" title="debug模式"></a>debug模式</h4><p>同样在cpp-cocosbuilt项目下测试，生成预编译库</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cocos gen-libs -p win32 -m debug --vs2013</span><br></pre></td></tr></table></figure>
@@ -1951,6 +1951,76 @@ packge.json
 
 <h3 id="2-GitHub-Pages设置"><a href="#2-GitHub-Pages设置" class="headerlink" title="2. GitHub Pages设置"></a>2. GitHub Pages设置</h3><p>修改为自定义的域名  </p>
 <p><img data-src="https://media.githubusercontent.com/media/2015winter/MarkDownImages/master/H/Hexo/0.webp"></p>
+<h3 id="3-记录描述"><a href="#3-记录描述" class="headerlink" title="3. 记录描述"></a>3. 记录描述</h3><p>记录类型</p>
+<table>
+<thead>
+<tr>
+<th align="center">记录类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">A</td>
+<td>将域名指向一个 IP 地址</td>
+</tr>
+<tr>
+<td align="center">CNAME</td>
+<td>将域名指向另一个域名，再由另一个域名提供 IP 地址</td>
+</tr>
+<tr>
+<td align="center">MX</td>
+<td>设置邮箱，让邮箱能收到邮件</td>
+</tr>
+<tr>
+<td align="center">NS</td>
+<td>将子域名交给其他 DNS 服务商解析</td>
+</tr>
+<tr>
+<td align="center">AAAA</td>
+<td>将域名指向一个 IPv6 地址</td>
+</tr>
+<tr>
+<td align="center">SRV</td>
+<td>用来标识某台服务器使用了某个服务，常见于微软系统的目录管理</td>
+</tr>
+<tr>
+<td align="center">TXT</td>
+<td>对域名进行标识和说明，绝大多数的 TXT 记录是用来做 SPF 记录（反垃圾邮件）</td>
+</tr>
+</tbody></table>
+<p>主机记录  </p>
+<table>
+<thead>
+<tr>
+<th align="center">主机记录</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">www</td>
+<td>解析后的域名为<a href="http://www.xxx.com/">www.xxx.com</a></td>
+</tr>
+<tr>
+<td align="center">@</td>
+<td>直接解析主域名xxx.com</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td>泛解析, 匹配其他所有域名*.xxx.com</td>
+</tr>
+<tr>
+<td align="center">mail</td>
+<td>将域名解析为mail.xxx.com</td>
+</tr>
+<tr>
+<td align="center">二级域名</td>
+<td>如: abc.xxx.com, 填写abc</td>
+</tr>
+<tr>
+<td align="center">手机网站</td>
+<td>如: m.xxx.com, 填写m</td>
+</tr>
+</tbody></table>
 <h2 id="插件及扩展清单"><a href="#插件及扩展清单" class="headerlink" title="插件及扩展清单"></a>插件及扩展清单</h2><ul>
 <li><a href="https://twikoo.js.org/">hexo-next-twikoo</a> 评论系统,  <a href="https://yzs020220.gitee.io/posts/44102/">Hexo评论系统对比推荐</a>, 依赖  <ul>
 <li><a href="https://www.mongodb.com/">MongoDB</a> 数据库</li>
