@@ -56,57 +56,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Windows平台Cmd工具Cmder</title>
-    <url>//posts/201604/</url>
-    <content><![CDATA[<h2 id="1-Cmder-Sublime-实现多Window共存"><a href="#1-Cmder-Sublime-实现多Window共存" class="headerlink" title="1. Cmder + Sublime 实现多Window共存"></a>1. Cmder + Sublime 实现多Window共存</h2><p>配置过程比较简单。</p>
-<span id="more"></span>
-<p>打开Cmder安装目录下的config文件夹下的aliases文件。<br>在aliases中增加一行，添加别名。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subl=&quot;D:\PROGRA~1\sublimeText3\sublime_text.exe&quot; $1 -new_console:s50H</span><br></pre></td></tr></table></figure>
-<p>其中，subl为别名，后面是您的Sublime所在的路径，-new_console:s50H代表在新增的Tab中打开sublime，同时横向排列，占比50%， H表示Horizontal, 水平方向创建.<br>下面的操作也可以，我来添加sublime text 2的快捷方式，纵向分布，占比75%， V表示Vertical，垂直方向创建。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subl2=&quot;D:\PROGRA~1\sublimeText2\sublime_text.exe&quot; $1 -new_console:s75V</span><br></pre></td></tr></table></figure>
-<p>注意，其中的路径有空格时, c:\progra<del>1 替代 C:\Program Files， c:\progra</del>2 替代 C:\Program Files (x86)。<br>如果想退出Sublime而保留Cmd, 将光标保持在Sublime上. 按下Alt+F+X, 你就能回到cmd上.</p>
-<h2 id="将Cmder添加到右键菜单"><a href="#将Cmder添加到右键菜单" class="headerlink" title="将Cmder添加到右键菜单"></a>将Cmder添加到右键菜单</h2><p>以管理员模式打开命令行提示符，cd到Cmder.exe目录下，执行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Cmder.exe /REGISTER ALL</span><br></pre></td></tr></table></figure>
-
-<h2 id="给Vim添加插件"><a href="#给Vim添加插件" class="headerlink" title="给Vim添加插件"></a>给Vim添加插件</h2><p>首当其冲的当然是强大的<a href="https://github.com/VundleVim/Vundle.vim">Vundle</a> vim插件管理， Vundle在Windows的安装可以参考<br><a href="https://github.com/VundleVim/Vundle.vim/wiki/Vundle-for-Windows">Vundle for Windows</a>.  </p>
-<ol>
-<li>安装Vundle for Windows前，需安装两个依赖，git和curl， 因为Cmder full版已经包含git，这里只需安装curl，安装curl最简单的方式是通过.cmd执行，只需将下面代码复制到C:\Program Files\Git\cmd\curl.cmd(没有则新建，touch curl.cmd)</li>
-</ol>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="comment">@rem Do not use &quot;echo off&quot; to not affect any child calls.</span></span><br><span class="line">@<span class="built_in">setlocal</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">@rem Get the abolute path to the parent directory, which is assumed to be the</span></span><br><span class="line"><span class="comment">@rem Git installation root.</span></span><br><span class="line">@<span class="keyword">for</span> /F &quot;delims=&quot; <span class="variable">%%I</span> <span class="keyword">in</span> (&quot;%~dp0..&quot;) <span class="keyword">do</span> @<span class="built_in">set</span> git_install_root=<span class="variable">%%~</span>fI</span><br><span class="line">@<span class="built_in">set</span> <span class="built_in">PATH</span>=<span class="variable">%git_install_root%</span>\bin;<span class="variable">%git_install_root%</span>\mingw\bin;<span class="variable">%git_install_root%</span>\mingw64\bin;<span class="variable">%PATH%</span></span><br><span class="line"><span class="comment">@rem !!!!!!! For 64bit msysgit, replace &#x27;mingw&#x27; above with &#x27;mingw64&#x27; !!!!!!!</span></span><br><span class="line"></span><br><span class="line">@<span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exist</span> &quot;<span class="variable">%HOME%</span>&quot; @<span class="built_in">set</span> HOME=<span class="variable">%HOMEDRIVE%</span><span class="variable">%HOMEPATH%</span></span><br><span class="line">@<span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exist</span> &quot;<span class="variable">%HOME%</span>&quot; @<span class="built_in">set</span> HOME=<span class="variable">%USERPROFILE%</span></span><br><span class="line"></span><br><span class="line">@curl.exe %*</span><br></pre></td></tr></table></figure>
-<p>注意：需要将上面的git_install_root替换为你的git安装根目录，然后验证curl是否安装成功</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">C:\&gt; curl --version</span><br><span class="line">curl 7.21.1 (i686-pc-mingw32) libcurl/7.21.1 OpenSSL/0.9.8k zlib/1.2.3</span><br><span class="line">Protocols: dict file ftp ftps http https imap imaps ldap ldaps pop3 pop3s rtsp smtp smtps telnet tftp</span><br><span class="line">Features: Largefile NTLM SSL SSPI libz</span><br></pre></td></tr></table></figure>
-<p>在命令行执行</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> %USERPROFILE%</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/gmarik/Vundle.vim.git %USERPROFILE%/vimfiles/bundle/Vundle.vim</span><br><span class="line">gvim _vimrc</span><br></pre></td></tr></table></figure>
-<p>如果没安装gvim，可以使用vim替换  </p>
-<ol start="2">
-<li>接下来修改.vimrc配置文件, 将下面Vundle 例子配置文件复制到.vimrc中</li>
-</ol>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> nocompatible              <span class="comment">&quot; be iMproved, required</span></span><br><span class="line"><span class="keyword">filetype</span> off                  <span class="comment">&quot; required</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; set the runtime path to include Vundle and initialize</span></span><br><span class="line"><span class="keyword">set</span> rtp+=~/.<span class="keyword">vim</span>/bundle/Vundle.<span class="keyword">vim</span></span><br><span class="line"><span class="keyword">call</span> vundle#begin()</span><br><span class="line"><span class="comment">&quot; alternatively, pass a path where Vundle should install plugins</span></span><br><span class="line"><span class="comment">&quot;call vundle#begin(&#x27;~/some/path/here&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; let Vundle manage Vundle, required</span></span><br><span class="line">Plugin <span class="string">&#x27;VundleVim/Vundle.vim&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; The following are examples of different formats supported.</span></span><br><span class="line"><span class="comment">&quot; Keep Plugin commands between vundle#begin/end.</span></span><br><span class="line"><span class="comment">&quot; plugin on GitHub repo</span></span><br><span class="line">Plugin <span class="string">&#x27;tpope/vim-fugitive&#x27;</span></span><br><span class="line"><span class="comment">&quot; plugin from http://vim-scripts.org/vim/scripts.html</span></span><br><span class="line">Plugin <span class="string">&#x27;L9&#x27;</span></span><br><span class="line"><span class="comment">&quot; Git plugin not hosted on GitHub</span></span><br><span class="line">Plugin <span class="string">&#x27;git://git.wincent.com/command-t.git&#x27;</span></span><br><span class="line"><span class="comment">&quot; git repos on your local machine (i.e. when working on your own plugin)</span></span><br><span class="line">Plugin <span class="string">&#x27;file:///home/gmarik/path/to/plugin&#x27;</span></span><br><span class="line"><span class="comment">&quot; The sparkup vim script is in a subdirectory of this repo called vim.</span></span><br><span class="line"><span class="comment">&quot; Pass the path to set the runtimepath properly.</span></span><br><span class="line">Plugin <span class="string">&#x27;rstacruz/sparkup&#x27;</span>, &#123;<span class="string">&#x27;rtp&#x27;</span>: <span class="string">&#x27;vim/&#x27;</span>&#125;</span><br><span class="line"><span class="comment">&quot; Install L9 and avoid a Naming conflict if you&#x27;ve already installed a</span></span><br><span class="line"><span class="comment">&quot; different version somewhere else.</span></span><br><span class="line">Plugin <span class="string">&#x27;ascenator/L9&#x27;</span>, &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;newL9&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; All of your Plugins must be added before the following line</span></span><br><span class="line"><span class="keyword">call</span> vundle#end()            <span class="comment">&quot; required</span></span><br><span class="line"><span class="keyword">filetype</span> plugin <span class="built_in">indent</span> <span class="keyword">on</span>    <span class="comment">&quot; required</span></span><br><span class="line"><span class="comment">&quot; To ignore plugin indent changes, instead use:</span></span><br><span class="line"><span class="comment">&quot;filetype plugin on</span></span><br><span class="line"><span class="comment">&quot;</span></span><br><span class="line"><span class="comment">&quot; Brief help</span></span><br><span class="line"><span class="comment">&quot; :PluginList       - lists configured plugins</span></span><br><span class="line"><span class="comment">&quot; :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span></span><br><span class="line"><span class="comment">&quot; :PluginSearch foo - searches for foo; append `!` to refresh local cache</span></span><br><span class="line"><span class="comment">&quot; :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span></span><br><span class="line"><span class="comment">&quot;</span></span><br><span class="line"><span class="comment">&quot; see :h vundle for more details or wiki for FAQ</span></span><br><span class="line"><span class="comment">&quot; Put your non-Plugin stuff after this line</span></span><br></pre></td></tr></table></figure>
-<p>同时还需要将上面的</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> rtp+=~/.<span class="keyword">vim</span>/bundle/Vundle.<span class="keyword">vim</span></span><br><span class="line"><span class="keyword">call</span> vundle#begin()</span><br></pre></td></tr></table></figure>
-<p>替换为</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> rtp+=$HOME/vimfiles/bundle/Vundle.<span class="keyword">vim</span>/</span><br><span class="line"><span class="keyword">call</span> vundle#begin(<span class="string">&#x27;$USERPROFILE/vimfiles/bundle/&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>注意</strong>：如果没有配置$HOME的环境变量，可以将上面的代码替换为  </p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> rtp+=~/vimfiles/bundle/Vundle.<span class="keyword">vim</span>/</span><br><span class="line"><span class="keyword">call</span> vundle#begin(<span class="string">&#x27;~/vimfiles/bundle/&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>Windows上出现Vundle 插件路径安装错误，需要修改Plugin ‘file:’为  </p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">Plugin <span class="string">&#x27;file:///~/vimfiles/plugin&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>可以参照 <a href="https://github.com/VundleVim/Vundle.vim/issues/472">(Windows) Vundle installs plugins to wrong directory</a></p>
-<p>现在，可以开始安装我们的Vim插件了<br>启动vim并运行   </p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">:PluginInstall</span><br></pre></td></tr></table></figure>
-<p>也可以通过命令行安装： </p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">vim</span> +PluginInstall +<span class="keyword">qall</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>开发</category>
-        <category>平台</category>
-        <category>PC</category>
-      </categories>
-      <tags>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Cocos2dx透明背景 + 植入广告</title>
     <url>//posts/201603/</url>
     <content><![CDATA[<blockquote>
@@ -157,6 +106,57 @@
       </categories>
       <tags>
         <tag>Cocos2dx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows平台Cmd工具Cmder</title>
+    <url>//posts/201604/</url>
+    <content><![CDATA[<h2 id="1-Cmder-Sublime-实现多Window共存"><a href="#1-Cmder-Sublime-实现多Window共存" class="headerlink" title="1. Cmder + Sublime 实现多Window共存"></a>1. Cmder + Sublime 实现多Window共存</h2><p>配置过程比较简单。</p>
+<span id="more"></span>
+<p>打开Cmder安装目录下的config文件夹下的aliases文件。<br>在aliases中增加一行，添加别名。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subl=&quot;D:\PROGRA~1\sublimeText3\sublime_text.exe&quot; $1 -new_console:s50H</span><br></pre></td></tr></table></figure>
+<p>其中，subl为别名，后面是您的Sublime所在的路径，-new_console:s50H代表在新增的Tab中打开sublime，同时横向排列，占比50%， H表示Horizontal, 水平方向创建.<br>下面的操作也可以，我来添加sublime text 2的快捷方式，纵向分布，占比75%， V表示Vertical，垂直方向创建。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subl2=&quot;D:\PROGRA~1\sublimeText2\sublime_text.exe&quot; $1 -new_console:s75V</span><br></pre></td></tr></table></figure>
+<p>注意，其中的路径有空格时, c:\progra<del>1 替代 C:\Program Files， c:\progra</del>2 替代 C:\Program Files (x86)。<br>如果想退出Sublime而保留Cmd, 将光标保持在Sublime上. 按下Alt+F+X, 你就能回到cmd上.</p>
+<h2 id="将Cmder添加到右键菜单"><a href="#将Cmder添加到右键菜单" class="headerlink" title="将Cmder添加到右键菜单"></a>将Cmder添加到右键菜单</h2><p>以管理员模式打开命令行提示符，cd到Cmder.exe目录下，执行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Cmder.exe /REGISTER ALL</span><br></pre></td></tr></table></figure>
+
+<h2 id="给Vim添加插件"><a href="#给Vim添加插件" class="headerlink" title="给Vim添加插件"></a>给Vim添加插件</h2><p>首当其冲的当然是强大的<a href="https://github.com/VundleVim/Vundle.vim">Vundle</a> vim插件管理， Vundle在Windows的安装可以参考<br><a href="https://github.com/VundleVim/Vundle.vim/wiki/Vundle-for-Windows">Vundle for Windows</a>.  </p>
+<ol>
+<li>安装Vundle for Windows前，需安装两个依赖，git和curl， 因为Cmder full版已经包含git，这里只需安装curl，安装curl最简单的方式是通过.cmd执行，只需将下面代码复制到C:\Program Files\Git\cmd\curl.cmd(没有则新建，touch curl.cmd)</li>
+</ol>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="comment">@rem Do not use &quot;echo off&quot; to not affect any child calls.</span></span><br><span class="line">@<span class="built_in">setlocal</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">@rem Get the abolute path to the parent directory, which is assumed to be the</span></span><br><span class="line"><span class="comment">@rem Git installation root.</span></span><br><span class="line">@<span class="keyword">for</span> /F &quot;delims=&quot; <span class="variable">%%I</span> <span class="keyword">in</span> (&quot;%~dp0..&quot;) <span class="keyword">do</span> @<span class="built_in">set</span> git_install_root=<span class="variable">%%~</span>fI</span><br><span class="line">@<span class="built_in">set</span> <span class="built_in">PATH</span>=<span class="variable">%git_install_root%</span>\bin;<span class="variable">%git_install_root%</span>\mingw\bin;<span class="variable">%git_install_root%</span>\mingw64\bin;<span class="variable">%PATH%</span></span><br><span class="line"><span class="comment">@rem !!!!!!! For 64bit msysgit, replace &#x27;mingw&#x27; above with &#x27;mingw64&#x27; !!!!!!!</span></span><br><span class="line"></span><br><span class="line">@<span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exist</span> &quot;<span class="variable">%HOME%</span>&quot; @<span class="built_in">set</span> HOME=<span class="variable">%HOMEDRIVE%</span><span class="variable">%HOMEPATH%</span></span><br><span class="line">@<span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exist</span> &quot;<span class="variable">%HOME%</span>&quot; @<span class="built_in">set</span> HOME=<span class="variable">%USERPROFILE%</span></span><br><span class="line"></span><br><span class="line">@curl.exe %*</span><br></pre></td></tr></table></figure>
+<p>注意：需要将上面的git_install_root替换为你的git安装根目录，然后验证curl是否安装成功</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">C:\&gt; curl --version</span><br><span class="line">curl 7.21.1 (i686-pc-mingw32) libcurl/7.21.1 OpenSSL/0.9.8k zlib/1.2.3</span><br><span class="line">Protocols: dict file ftp ftps http https imap imaps ldap ldaps pop3 pop3s rtsp smtp smtps telnet tftp</span><br><span class="line">Features: Largefile NTLM SSL SSPI libz</span><br></pre></td></tr></table></figure>
+<p>在命令行执行</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> %USERPROFILE%</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/gmarik/Vundle.vim.git %USERPROFILE%/vimfiles/bundle/Vundle.vim</span><br><span class="line">gvim _vimrc</span><br></pre></td></tr></table></figure>
+<p>如果没安装gvim，可以使用vim替换  </p>
+<ol start="2">
+<li>接下来修改.vimrc配置文件, 将下面Vundle 例子配置文件复制到.vimrc中</li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> nocompatible              <span class="comment">&quot; be iMproved, required</span></span><br><span class="line"><span class="keyword">filetype</span> off                  <span class="comment">&quot; required</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; set the runtime path to include Vundle and initialize</span></span><br><span class="line"><span class="keyword">set</span> rtp+=~/.<span class="keyword">vim</span>/bundle/Vundle.<span class="keyword">vim</span></span><br><span class="line"><span class="keyword">call</span> vundle#begin()</span><br><span class="line"><span class="comment">&quot; alternatively, pass a path where Vundle should install plugins</span></span><br><span class="line"><span class="comment">&quot;call vundle#begin(&#x27;~/some/path/here&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; let Vundle manage Vundle, required</span></span><br><span class="line">Plugin <span class="string">&#x27;VundleVim/Vundle.vim&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; The following are examples of different formats supported.</span></span><br><span class="line"><span class="comment">&quot; Keep Plugin commands between vundle#begin/end.</span></span><br><span class="line"><span class="comment">&quot; plugin on GitHub repo</span></span><br><span class="line">Plugin <span class="string">&#x27;tpope/vim-fugitive&#x27;</span></span><br><span class="line"><span class="comment">&quot; plugin from http://vim-scripts.org/vim/scripts.html</span></span><br><span class="line">Plugin <span class="string">&#x27;L9&#x27;</span></span><br><span class="line"><span class="comment">&quot; Git plugin not hosted on GitHub</span></span><br><span class="line">Plugin <span class="string">&#x27;git://git.wincent.com/command-t.git&#x27;</span></span><br><span class="line"><span class="comment">&quot; git repos on your local machine (i.e. when working on your own plugin)</span></span><br><span class="line">Plugin <span class="string">&#x27;file:///home/gmarik/path/to/plugin&#x27;</span></span><br><span class="line"><span class="comment">&quot; The sparkup vim script is in a subdirectory of this repo called vim.</span></span><br><span class="line"><span class="comment">&quot; Pass the path to set the runtimepath properly.</span></span><br><span class="line">Plugin <span class="string">&#x27;rstacruz/sparkup&#x27;</span>, &#123;<span class="string">&#x27;rtp&#x27;</span>: <span class="string">&#x27;vim/&#x27;</span>&#125;</span><br><span class="line"><span class="comment">&quot; Install L9 and avoid a Naming conflict if you&#x27;ve already installed a</span></span><br><span class="line"><span class="comment">&quot; different version somewhere else.</span></span><br><span class="line">Plugin <span class="string">&#x27;ascenator/L9&#x27;</span>, &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;newL9&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; All of your Plugins must be added before the following line</span></span><br><span class="line"><span class="keyword">call</span> vundle#end()            <span class="comment">&quot; required</span></span><br><span class="line"><span class="keyword">filetype</span> plugin <span class="built_in">indent</span> <span class="keyword">on</span>    <span class="comment">&quot; required</span></span><br><span class="line"><span class="comment">&quot; To ignore plugin indent changes, instead use:</span></span><br><span class="line"><span class="comment">&quot;filetype plugin on</span></span><br><span class="line"><span class="comment">&quot;</span></span><br><span class="line"><span class="comment">&quot; Brief help</span></span><br><span class="line"><span class="comment">&quot; :PluginList       - lists configured plugins</span></span><br><span class="line"><span class="comment">&quot; :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span></span><br><span class="line"><span class="comment">&quot; :PluginSearch foo - searches for foo; append `!` to refresh local cache</span></span><br><span class="line"><span class="comment">&quot; :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span></span><br><span class="line"><span class="comment">&quot;</span></span><br><span class="line"><span class="comment">&quot; see :h vundle for more details or wiki for FAQ</span></span><br><span class="line"><span class="comment">&quot; Put your non-Plugin stuff after this line</span></span><br></pre></td></tr></table></figure>
+<p>同时还需要将上面的</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> rtp+=~/.<span class="keyword">vim</span>/bundle/Vundle.<span class="keyword">vim</span></span><br><span class="line"><span class="keyword">call</span> vundle#begin()</span><br></pre></td></tr></table></figure>
+<p>替换为</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> rtp+=$HOME/vimfiles/bundle/Vundle.<span class="keyword">vim</span>/</span><br><span class="line"><span class="keyword">call</span> vundle#begin(<span class="string">&#x27;$USERPROFILE/vimfiles/bundle/&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：如果没有配置$HOME的环境变量，可以将上面的代码替换为  </p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> rtp+=~/vimfiles/bundle/Vundle.<span class="keyword">vim</span>/</span><br><span class="line"><span class="keyword">call</span> vundle#begin(<span class="string">&#x27;~/vimfiles/bundle/&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>Windows上出现Vundle 插件路径安装错误，需要修改Plugin ‘file:’为  </p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">Plugin <span class="string">&#x27;file:///~/vimfiles/plugin&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以参照 <a href="https://github.com/VundleVim/Vundle.vim/issues/472">(Windows) Vundle installs plugins to wrong directory</a></p>
+<p>现在，可以开始安装我们的Vim插件了<br>启动vim并运行   </p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">:PluginInstall</span><br></pre></td></tr></table></figure>
+<p>也可以通过命令行安装： </p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">vim</span> +PluginInstall +<span class="keyword">qall</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>开发</category>
+        <category>平台</category>
+        <category>PC</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
@@ -1113,8 +1113,8 @@
 ]]></content>
       <categories>
         <category>开发</category>
-        <category>工具</category>
         <category>平台</category>
+        <category>工具</category>
         <category>PC</category>
       </categories>
       <tags>
@@ -1348,7 +1348,8 @@ packge.json
 <li><a href="https://lanzous.com/icvbc9a">百度网盘下载</a></li>
 </ul>
 <ol start="12">
-<li><a href="https://www.fosshub.com/SpaceSniffer.html">SpaceSniffer</a>:  强大且好用的硬盘空间分析软件</li>
+<li><a href="https://www.fosshub.com/SpaceSniffer.html">SpaceSniffer</a>:  强大且好用的硬盘空间分析软件  </li>
+<li><a href="https://bulkrenameutility.co.uk/">Bulk Rename Utility</a>, 重命名工具</li>
 </ol>
 <h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><ol>
 <li><a href="https://www.imagemagick.org/script/index.php">imagemagick</a>: <a href="http://jingyan.baidu.com/article/c33e3f48ab2a45ea15cbb5dd.html">图片分辨率转换</a></li>
@@ -1384,6 +1385,7 @@ packge.json
 </ol>
 <h2 id="跨平台"><a href="#跨平台" class="headerlink" title="跨平台"></a>跨平台</h2><ol>
 <li><a href="https://obsidian.md/">Obsidian</a>, 带思维图的MarkDown软件</li>
+<li><a href="https://www.wenshushu.cn/">Wenshushu</a>, 跨平台文件传输</li>
 </ol>
 <p>Mac设置指南<br><a href="https://www.kancloud.cn/kancloud/ocds-guide-to-setting-up-mac/71034">常用工具</a></p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
@@ -1692,8 +1694,8 @@ packge.json
 <!-- http://cache.baiducontent.com/c?m=Ly2VEfuyC9-bB5UOFFDRtZGqCBL_nxeQAkkZFPeQxkVh3eklNEgwzX_Z__5T4VUfBzUf8z5QG1F0RH8dBYa3md8SAoZqF4wQUHjVZdKBTea0N90Znvpu6VO9iU9iwnLqCbtn6VnuCSp-J5nE8WkBnG61lMT3VO3mFkbHxvqfX-p2AmRHXQjTAQ8wkkWYrfDxcG21C3I3yS6EX15CWu1IFyIibtcW1VKBG4A5V5mLKkTETPmvFZWpbQrBS97mL9v-2S6ykda663F9jzhPLDrguq&p=9f759a46d39f12a05afbd1265040&newp=9b769a47889b07c308e2977b5b5c92695d0fc20e3bd0d701298ffe0cc4241a1a1a3aecbe25271202d2c5796406af4f57edf63d723d0034f1f689df08d2ecce7e71d06158&s=cfcd208495d565ef&user=baidu&fm=sc&query=%B8%F6%C8%CB%C3%E2%B7%D1%C9%EA%C7%EB%C6%BB%B9%FB%BF%AA%B7%A2%D5%DF%D5%CB%BA%C5&qid=e3b167fa000024a9&p1=10 -->]]></content>
       <categories>
         <category>开发</category>
-        <category>引擎</category>
         <category>平台</category>
+        <category>引擎</category>
         <category>Mobile</category>
       </categories>
       <tags>
@@ -2032,7 +2034,78 @@ packge.json
 <li><a href="https://github.com/next-theme/hexo-word-counter">hexo-word-counter</a>, 字数统计  </li>
 <li><a href="https://github.com/Molunerfinn/PicGo">PicGo</a>, 用于快速上传图片并获取图片 URL 链接的工具</li>
 </ul>
-<h3 id="插件注意事项"><a href="#插件注意事项" class="headerlink" title="插件注意事项"></a>插件注意事项</h3><p><code>hexo-filter-mathjax</code><br>使用的是<code>LaTeX</code>, 用VSCode等预览渲染时, 注意插件是否是用的<code>LaTeX</code>, 安装插件<a href="https://github.com/James-Yu/LaTeX-Workshop/wiki/Install#installation">LaTeX-Workshop</a></p>
+<h3 id="插件注意事项"><a href="#插件注意事项" class="headerlink" title="插件注意事项"></a>插件注意事项</h3><p><code>hexo-filter-mathjax</code><br>使用的是<code>LaTeX</code>, 用VSCode等预览渲染时, 注意插件是否是用的<code>LaTeX</code>, 安装插件<a href="https://github.com/James-Yu/LaTeX-Workshop/wiki/Install#installation">LaTeX-Workshop</a>  </p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>1.<a href="https://west.cn/web/mi">域名查找</a><br>2.<a href="https://zhuanlan.zhihu.com/p/678493393">注册域名邮箱教程</a>  </p>
+]]></content>
+      <categories>
+        <category>随记</category>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>GitHub</tag>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker的那些事</title>
+    <url>//posts/202303/</url>
+    <content><![CDATA[<h2 id="Docker的那些容器"><a href="#Docker的那些容器" class="headerlink" title="Docker的那些容器"></a>Docker的那些容器</h2><h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>1.先拉取Nginx镜像  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker pull nginx</span><br></pre></td></tr></table></figure>
+
+<p>2.创建Host对Nginx的配置目录  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /data/nginx/&#123;conf,html,<span class="built_in">log</span>,ssl&#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<p>3.Host主机Prewarm一下, 创建一个Nginx容器, 得到初始的配置目录文件  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker run --name nginx -p 80:80 -d nginx</span><br></pre></td></tr></table></figure>
+
+<p>4.将初始的配置目录文件拷一份出来  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">cp</span> nginx:/etc/nginx/conf.d /data/nginx/conf/</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">cp</span> nginx:/etc/nginx/nginx.conf /data/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">cp</span> nginx:/usr/share/nginx/html/index.html /data/nginx/html/index.html</span><br></pre></td></tr></table></figure>
+
+<p>5.Host主机强制移除Prewarm时的Nginx容器</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">rm</span> -f nginx</span><br></pre></td></tr></table></figure>
+
+<p>6.Host主机创建Nginx容器, 并映射容器配置目录及相关文件至Host主机上</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker run --name nginx -p 80:80 -p 443:443 --restart=always \</span><br><span class="line">-v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \</span><br><span class="line">-v /data/nginx/conf/cert:/etc/nginx/cert \</span><br><span class="line">-v /data/nginx/ssl:/etc/nginx/ssl \</span><br><span class="line">-v /data/nginx/conf/conf.d:/etc/nginx/conf.d \</span><br><span class="line">-v /data/nginx/log:/var/log/nginx \</span><br><span class="line">-v /data/nginx/html:/usr/share/nginx/html \</span><br><span class="line">-d nginx</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>1.编辑配置文件     </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vim /data/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<p>若只需http, 可加配置如下  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name xxx.xxx.com; // 要匹配的二级域名</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://xxx.xxx.xxx.xxx:9000; //要转发到的ip及端口 </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>若需http及https, 可加配置如下  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name xxx.xxx.com; // 要匹配的二级域名</span><br><span class="line">    rewrite ^(.*)$ https://$host$1 permanent; // 将请求转成https</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name xxx.xxx.com;</span><br><span class="line">    localtion / &#123;</span><br><span class="line">        ssl_certificate /**/*.cr</span><br><span class="line">        ssl_certificate_key /xxx/xxx.key</span><br><span class="line">        proxy_pass http://xxx.xxx.xxx.xxx:9000; //要转发到的ip及端口 </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="https://www.cnblogs.com/sunsung/articles/17008057.html">配置https</a><br>2.<a href="https://blog.csdn.net/cmy768330962/article/details/137828686">nginx配置, 访问不同二级域名到达不同目标网站</a>  </p>
+<h3 id="ACME"><a href="#ACME" class="headerlink" title="ACME"></a>ACME</h3><h4 id="Token申请"><a href="#Token申请" class="headerlink" title="Token申请"></a>Token申请</h4><p>1.<a href="https://console.dnspod.cn/">腾讯云DNSPod控制台</a>打开<br>2.获取 DNSPod Token<br>点击右上角头像，点击API密钥，选择DNSPod Token，创建 Token<br><img data-src="https://media.githubusercontent.com/media/2015winter/MarkDownImages/master/H/Hexo/2.webp"></p>
+<h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><p>1.先拉取ACME镜像  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker pull neilpang/acme.sh</span><br></pre></td></tr></table></figure>
+
+<p>2.创建目录, 用于挂在acme.sh生成的证书等文件  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /data &amp;&amp; <span class="built_in">mkdir</span> acme</span><br></pre></td></tr></table></figure>
+
+<p>3.创建容器<br>可用docker-compose.yml</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker run -it -d --name acme --restart=always --net host -v /data/acme:/acme.sh -e DP_Id= <span class="string">&#x27;xxxxx&#x27;</span> -e DP_Key=<span class="string">&#x27;xxxxx&#x27;</span> neilpang/acme.sh daemon</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">version: <span class="string">&#x27;3&#x27;</span></span><br><span class="line">services:</span><br><span class="line">  acme-sh:</span><br><span class="line">    image: neilpang/acme.sh</span><br><span class="line">    container_name: acme</span><br><span class="line">    restart: always</span><br><span class="line">    <span class="built_in">command</span>: daemon</span><br><span class="line">    environment:</span><br><span class="line">      - DP_Id=<span class="string">&quot;xxxxx&quot;</span></span><br><span class="line">      - DP_Key=<span class="string">&quot;xxxxx&quot;</span></span><br><span class="line">    volumes:</span><br><span class="line">      - /data/acme:/acme.sh</span><br><span class="line">    network_mode: host</span><br></pre></td></tr></table></figure>
+<p>4.检查容器<br>这里其实就已经部署成功，可以使用docker命令查看容器运行  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<h4 id="证书申请"><a href="#证书申请" class="headerlink" title="证书申请"></a>证书申请</h4><p>1.自签泛域名证书<br>acme.sh 容器部署成功后，执行下面命令开始自签泛域名证书  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> acme --issue --dns dns_dp -d xxx.com -d *.xxx.com</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里使用的是腾讯云dns，所以 –dns后面是 dns_dp 如果使用其他的请自行查询官网<br>-d 后面是你想要签名证书的域名，* 表示所有的子域名。<br>证书生成后，会在 &#x2F;data&#x2F;acme 目录下生成 xxx.com 目录，里面包含生成的证书信息，部署到nginx就可以使用了  </p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ssl_certificate /data/acme/xxx.com_ecc/fullchain.cer;</span><br><span class="line">ssl_certificate_key /data/acme/xxx.com_ecc/xxx.com.key;</span><br></pre></td></tr></table></figure>
+<h4 id="自动续签"><a href="#自动续签" class="headerlink" title="自动续签"></a>自动续签</h4><p>1.使用定时任务保证证书不会过期<br>在docker 宿主机添加一条定时任务，让acme去检查证书是否过期，是否能更新证书（一般提前30天即可更新证书），如果可以就会执行证书的更新。这里可以添加一下 acme.sh 的自动更新，保证 acme是最新的版本。  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> acme --upgrade --auto-upgrade</span><br></pre></td></tr></table></figure>
+
+<p>2.添加自动更新任务  (可选)<br>执行  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+<p>编辑crontab文件, 添加如下类容, 保存即可  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">10 0 * * * docker exec acme --cron &gt; /dev/null # acme为容器名, 每天0点10分执行</span><br><span class="line">10 1 * * * nginx -s reload    # 重新加载nginx配置</span><br></pre></td></tr></table></figure>
+<h4 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="https://blog.cmyang.cn/archives/docker-acme-auto">基于docker部署&lt;acme.sh&gt;申请泛域名证书并自动续签</a><br>2.<a href="https://www.cnblogs.com/-mrl/p/13335360.html">docker运行&lt;acme.sh&gt;安装配置泛域名证书</a>  </p>
 ]]></content>
       <categories>
         <category>随记</category>
