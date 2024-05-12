@@ -19,8 +19,7 @@
         <category>Cocos2dx</category>
       </categories>
       <tags>
-        <tag>OpenGL</tag>
-        <tag>Cocos2dx</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -52,7 +51,7 @@
         <category>PC</category>
       </categories>
       <tags>
-        <tag>Ubuntu</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -105,7 +104,7 @@
         <category>Cocos2dx</category>
       </categories>
       <tags>
-        <tag>Cocos2dx</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -156,7 +155,7 @@
         <category>PC</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -219,7 +218,7 @@
         <category>工具</category>
       </categories>
       <tags>
-        <tag>Android</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -325,7 +324,7 @@
         <category>PC</category>
       </categories>
       <tags>
-        <tag>Ubuntu</tag>
+        <tag>服务器</tag>
       </tags>
   </entry>
   <entry>
@@ -370,7 +369,7 @@
         <category>PC</category>
       </categories>
       <tags>
-        <tag>Ubuntu</tag>
+        <tag>服务器</tag>
       </tags>
   </entry>
   <entry>
@@ -396,7 +395,7 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>C++</tag>
+        <tag>语言</tag>
       </tags>
   </entry>
   <entry>
@@ -576,7 +575,7 @@
         <category>PC</category>
       </categories>
       <tags>
-        <tag>Ubuntu</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -614,7 +613,6 @@
         <category>工具</category>
       </categories>
       <tags>
-        <tag>CDN</tag>
         <tag>GitHub</tag>
       </tags>
   </entry>
@@ -635,7 +633,33 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>C++</tag>
+        <tag>语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数组名,数组首地址,a,&amp;a,&amp;a[0]</title>
+    <url>//posts/201613/</url>
+    <content><![CDATA[<p>(1)指针数组: 是数组,但数组中的每个元素都是指针</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> *p[<span class="number">5</span>];<span class="comment">//如p[2]是指针,可*p[ 2]=3;</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>(2)指向数组的指针: 是个指针,但它指向的是一个数组</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">5</span>];</span><br><span class="line"><span class="type">int</span> (*p)[<span class="number">5</span>];<span class="comment">//与前一行比较,*p相当于a,即p=&amp;a;就像:int m;int *pm;//*pm就相当于m.pm=&amp;m;</span></span><br><span class="line">p= &amp;a;<span class="comment">//可与前一行合并为int (*p)[5]=&amp;a; </span></span><br></pre></td></tr></table></figure>
+<p>a代表这个数组，它是一个指针，指向第一个元素<br>这里一定要记住，a是数组名，&amp;a代表的不是取a这个变量的地址，而是取数组元素的地址</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">a     的类型是 <span class="type">int</span>[<span class="number">5</span>]       数组</span><br><span class="line">&amp;a    的类型是 <span class="type">int</span>(*)[<span class="number">5</span>]    指针——指向<span class="type">int</span>[<span class="number">5</span>]数组的指针</span><br><span class="line">&amp;a[<span class="number">0</span>] 的类型是 <span class="type">int</span> *         指针——指向<span class="type">int</span>类型的指针。</span><br><span class="line"><span class="keyword">sizeof</span>(a)=<span class="number">20</span>;</span><br><span class="line"><span class="keyword">sizeof</span>(*a)=<span class="number">4</span>; 因为有取值符*，表示把a当成一个指针(<span class="type">int</span>*)，而a指向数组的首地址，</span><br><span class="line">                        即a=&amp;(a[<span class="number">0</span>])，即<span class="keyword">sizeof</span>(*a)=<span class="keyword">sizeof</span>(*&amp;(a[<span class="number">0</span>]))=<span class="keyword">sizeof</span>(a[<span class="number">0</span>])=<span class="keyword">sizeof</span>(<span class="type">int</span>)=<span class="number">4</span>。</span><br><span class="line"><span class="keyword">sizeof</span>(*&amp;a)=<span class="number">20</span>;<span class="comment">//因为p=&amp;a,所以=sizeof(*p),而*p=a,所以=sizeof(a)=20;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="type">int</span> *ptr=(<span class="type">int</span> *)(&amp;a+<span class="number">1</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d,%d&quot;</span>,*(a+<span class="number">1</span>),*(ptr<span class="number">-1</span>));<span class="comment">//输出：2,5</span></span><br></pre></td></tr></table></figure>
+<p>指针加1要根据指针类型加上一定的值，不同类型的指针+1之后增加的大小不同,指针只是一个内存地址,但指针指向地址的长度可能不同,如<code>char *pc</code>与<code>int *pi</code>,<code>sizeof(pc)=sizeof(pi)=4</code>,但为什么输出时,<code>cout&lt;&lt;*pc</code>只从内存处取一个字符,而<code>cout&lt;&lt;*pi</code>则从内存处取4个字符,这是由指针类型<code>(char,int)</code>决定的.<strong>对<code>A* p;p+1=(A*)</code>(p的地址值+sizeof(A)),如<code>pc+1=pc+sizeof(char)=(char*)</code>(pc的地址值+1个字节),而<code>pi+1=pi+sizeof(int)=(int*)</code>(pi的地址值+4个字节).</strong></p>
+<p><strong>对代码中的<code>&amp;a+1</code>,<code>&amp;a</code>是数组指针，其类型为<code>int (*)[5]</code>,因为<code>p=&amp;a</code>,也即是p的类型.所以<code>&amp;a+1=&amp;a+sizeof(A)</code>,其中A为int[5]:(把<code>A=int[5]</code>代入<code>A* p</code>,即相当于<code>int(*p)[5])</code>. 所以<code>&amp;a+1=&amp;a</code>的地址值+5<em>4字节,即变为数组a的结束地址的下一个地址(即<code>&amp;a[5]</code>),<code>&amp;a+1</code>仍是<code>int (*)[5]</code>类型,经<code>(int *)(&amp;a+1)</code>强制转化为int</em>,赋值给ptr.后面的<code>ptr-1=ptr-sizeof(int)=ptr</code>的地址值-4个字节,即变为数组a的最后一个元素的地址&amp;a[4],<code>*(ptr-1)</code>即为a[4],故输出为5.<br>而<code>a+1=a+sizeof(int)</code>:(此处a退化为<code>int*</code>,故对于<code>A* p</code>,A为int)&#x3D;a的地址值+4个字节,即是<code>&amp;a[1]</code>,则<code>*(a+1)</code>即a[1],故输出2.</strong><br>又如:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> t[]=&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">578</span>, <span class="number">111</span>,<span class="number">90</span>&#125; ;</span><br><span class="line"><span class="type">double</span> *pt= &amp;t[<span class="number">3</span>];<span class="comment">//指向值为111</span></span><br><span class="line"><span class="type">int</span> *ptInt= reinterpret_cast&lt; <span class="type">int</span> * &gt; (pt);</span><br><span class="line"><span class="type">char</span> *ptCh= reinterpret_cast&lt; <span class="type">char</span> * &gt; (pt);</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt; *( pt- <span class="number">1</span>)&lt;&lt; <span class="string">&quot;\t&quot;</span>&lt;&lt; *(reinterpret_cast&lt;<span class="type">double</span>*&gt;(ptInt<span class="number">-2</span>))&lt;&lt;<span class="string">&quot;\t&quot;</span>&lt;&lt;</span><br><span class="line">*(reinterpret_cast&lt;<span class="type">double</span>*&gt;(ptCh<span class="number">-8</span>));<span class="comment">//最后输出结果全为578 </span></span><br></pre></td></tr></table></figure>
+<p><code>void Fun( int *p)</code>与<code>void Fun( int p[])</code>是一样的,即函数列表中的数组此时退化成了指针</p>
+<p>相关链接：<br><a href="http://blog.sina.cn/dpool/blog/s/blog_9e2e84050101cche.html?vt=4">指针函数与函数指针的区别</a><br><a href="http://m.blog.csdn.net/article/details?id=6704535">数组名,数组首地址,a,&amp;a,&amp;a[0]</a></p>
+]]></content>
+      <categories>
+        <category>开发</category>
+        <category>语言</category>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>语言</tag>
       </tags>
   </entry>
   <entry>
@@ -677,33 +701,7 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数组名,数组首地址,a,&amp;a,&amp;a[0]</title>
-    <url>//posts/201613/</url>
-    <content><![CDATA[<p>(1)指针数组: 是数组,但数组中的每个元素都是指针</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> *p[<span class="number">5</span>];<span class="comment">//如p[2]是指针,可*p[ 2]=3;</span></span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>(2)指向数组的指针: 是个指针,但它指向的是一个数组</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">5</span>];</span><br><span class="line"><span class="type">int</span> (*p)[<span class="number">5</span>];<span class="comment">//与前一行比较,*p相当于a,即p=&amp;a;就像:int m;int *pm;//*pm就相当于m.pm=&amp;m;</span></span><br><span class="line">p= &amp;a;<span class="comment">//可与前一行合并为int (*p)[5]=&amp;a; </span></span><br></pre></td></tr></table></figure>
-<p>a代表这个数组，它是一个指针，指向第一个元素<br>这里一定要记住，a是数组名，&amp;a代表的不是取a这个变量的地址，而是取数组元素的地址</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">a     的类型是 <span class="type">int</span>[<span class="number">5</span>]       数组</span><br><span class="line">&amp;a    的类型是 <span class="type">int</span>(*)[<span class="number">5</span>]    指针——指向<span class="type">int</span>[<span class="number">5</span>]数组的指针</span><br><span class="line">&amp;a[<span class="number">0</span>] 的类型是 <span class="type">int</span> *         指针——指向<span class="type">int</span>类型的指针。</span><br><span class="line"><span class="keyword">sizeof</span>(a)=<span class="number">20</span>;</span><br><span class="line"><span class="keyword">sizeof</span>(*a)=<span class="number">4</span>; 因为有取值符*，表示把a当成一个指针(<span class="type">int</span>*)，而a指向数组的首地址，</span><br><span class="line">                        即a=&amp;(a[<span class="number">0</span>])，即<span class="keyword">sizeof</span>(*a)=<span class="keyword">sizeof</span>(*&amp;(a[<span class="number">0</span>]))=<span class="keyword">sizeof</span>(a[<span class="number">0</span>])=<span class="keyword">sizeof</span>(<span class="type">int</span>)=<span class="number">4</span>。</span><br><span class="line"><span class="keyword">sizeof</span>(*&amp;a)=<span class="number">20</span>;<span class="comment">//因为p=&amp;a,所以=sizeof(*p),而*p=a,所以=sizeof(a)=20;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="type">int</span> *ptr=(<span class="type">int</span> *)(&amp;a+<span class="number">1</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d,%d&quot;</span>,*(a+<span class="number">1</span>),*(ptr<span class="number">-1</span>));<span class="comment">//输出：2,5</span></span><br></pre></td></tr></table></figure>
-<p>指针加1要根据指针类型加上一定的值，不同类型的指针+1之后增加的大小不同,指针只是一个内存地址,但指针指向地址的长度可能不同,如<code>char *pc</code>与<code>int *pi</code>,<code>sizeof(pc)=sizeof(pi)=4</code>,但为什么输出时,<code>cout&lt;&lt;*pc</code>只从内存处取一个字符,而<code>cout&lt;&lt;*pi</code>则从内存处取4个字符,这是由指针类型<code>(char,int)</code>决定的.<strong>对<code>A* p;p+1=(A*)</code>(p的地址值+sizeof(A)),如<code>pc+1=pc+sizeof(char)=(char*)</code>(pc的地址值+1个字节),而<code>pi+1=pi+sizeof(int)=(int*)</code>(pi的地址值+4个字节).</strong></p>
-<p><strong>对代码中的<code>&amp;a+1</code>,<code>&amp;a</code>是数组指针，其类型为<code>int (*)[5]</code>,因为<code>p=&amp;a</code>,也即是p的类型.所以<code>&amp;a+1=&amp;a+sizeof(A)</code>,其中A为int[5]:(把<code>A=int[5]</code>代入<code>A* p</code>,即相当于<code>int(*p)[5])</code>. 所以<code>&amp;a+1=&amp;a</code>的地址值+5<em>4字节,即变为数组a的结束地址的下一个地址(即<code>&amp;a[5]</code>),<code>&amp;a+1</code>仍是<code>int (*)[5]</code>类型,经<code>(int *)(&amp;a+1)</code>强制转化为int</em>,赋值给ptr.后面的<code>ptr-1=ptr-sizeof(int)=ptr</code>的地址值-4个字节,即变为数组a的最后一个元素的地址&amp;a[4],<code>*(ptr-1)</code>即为a[4],故输出为5.<br>而<code>a+1=a+sizeof(int)</code>:(此处a退化为<code>int*</code>,故对于<code>A* p</code>,A为int)&#x3D;a的地址值+4个字节,即是<code>&amp;a[1]</code>,则<code>*(a+1)</code>即a[1],故输出2.</strong><br>又如:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> t[]=&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">578</span>, <span class="number">111</span>,<span class="number">90</span>&#125; ;</span><br><span class="line"><span class="type">double</span> *pt= &amp;t[<span class="number">3</span>];<span class="comment">//指向值为111</span></span><br><span class="line"><span class="type">int</span> *ptInt= reinterpret_cast&lt; <span class="type">int</span> * &gt; (pt);</span><br><span class="line"><span class="type">char</span> *ptCh= reinterpret_cast&lt; <span class="type">char</span> * &gt; (pt);</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt; *( pt- <span class="number">1</span>)&lt;&lt; <span class="string">&quot;\t&quot;</span>&lt;&lt; *(reinterpret_cast&lt;<span class="type">double</span>*&gt;(ptInt<span class="number">-2</span>))&lt;&lt;<span class="string">&quot;\t&quot;</span>&lt;&lt;</span><br><span class="line">*(reinterpret_cast&lt;<span class="type">double</span>*&gt;(ptCh<span class="number">-8</span>));<span class="comment">//最后输出结果全为578 </span></span><br></pre></td></tr></table></figure>
-<p><code>void Fun( int *p)</code>与<code>void Fun( int p[])</code>是一样的,即函数列表中的数组此时退化成了指针</p>
-<p>相关链接：<br><a href="http://blog.sina.cn/dpool/blog/s/blog_9e2e84050101cche.html?vt=4">指针函数与函数指针的区别</a><br><a href="http://m.blog.csdn.net/article/details?id=6704535">数组名,数组首地址,a,&amp;a,&amp;a[0]</a></p>
-]]></content>
-      <categories>
-        <category>开发</category>
-        <category>语言</category>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
+        <tag>语言</tag>
       </tags>
   </entry>
   <entry>
@@ -723,6 +721,9 @@
         <category>随记</category>
         <category>杂项</category>
       </categories>
+      <tags>
+        <tag>随记</tag>
+      </tags>
   </entry>
   <entry>
     <title>算法题--股神</title>
@@ -783,6 +784,9 @@
         <category>语言</category>
         <category>C++</category>
       </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
   </entry>
   <entry>
     <title>Sublime Text 3 Plugins</title>
@@ -813,6 +817,9 @@
         <category>开发</category>
         <category>工具</category>
       </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
   </entry>
   <entry>
     <title>Cocos2dx中调用Android摄像头</title>
@@ -987,9 +994,7 @@
         <category>Cocos2dx</category>
       </categories>
       <tags>
-        <tag>Cocos2dx</tag>
-        <tag>Android</tag>
-        <tag>OpenCV</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -1010,8 +1015,7 @@
         <category>Cocos2dx</category>
       </categories>
       <tags>
-        <tag>Cocos2dx</tag>
-        <tag>Android</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -1066,7 +1070,7 @@
         <category>Cocos2dx</category>
       </categories>
       <tags>
-        <tag>Cocos2dx</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -1086,8 +1090,7 @@
         <category>Cocos2dx</category>
       </categories>
       <tags>
-        <tag>Cocos2dx</tag>
-        <tag>CV</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -1118,7 +1121,7 @@
         <category>PC</category>
       </categories>
       <tags>
-        <tag>Ubuntu</tag>
+        <tag>开发小杂箱</tag>
       </tags>
   </entry>
   <entry>
@@ -1136,7 +1139,7 @@
         <category>Mobile</category>
       </categories>
       <tags>
-        <tag>Android</tag>
+        <tag>开发小杂箱</tag>
       </tags>
   </entry>
   <entry>
@@ -1163,9 +1166,6 @@
 <p>SLAM Viewer<br><img data-src="https://media.githubusercontent.com/media/2015winter/MarkDownImages/master/S/SlamImage/3.webp"></p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>[1] <a href="https://github.com/tum-vision/lsd_slam">https://github.com/tum-vision/lsd_slam</a>   LSD_SLAM官网<br>[2] <a href="http://vision.in.tum.de/research/vslam/lsdslam">http://vision.in.tum.de/research/vslam/lsdslam</a> 德国慕尼黑工业大学(TUM)计算机视觉组<br>[3] <a href="http://wiki.ros.org/indigo/Installation/Ubuntu">http://wiki.ros.org/indigo/Installation/Ubuntu</a>  在Ubuntu14.04.4上安装ROS Indigo<br>[4] <a href="http://releases.ubuntu.com/14.04/">http://releases.ubuntu.com/14.04/</a>   官网下载ubuntu-14.04.4-desktop-i386.iso<br>[5] <a href="http://wiki.ros.org/ROS/Tutorials">http://wiki.ros.org/ROS/Tutorials</a> 用于ROS安装成功之后的测试<br>[6] <a href="http://www.dev47apps.com/droidcam/linuxx/">http://www.dev47apps.com/droidcam/linuxx/</a>  将手机摄像头的视频传输到电脑上的工具</p>
 ]]></content>
-      <tags>
-        <tag>CV</tag>
-      </tags>
   </entry>
   <entry>
     <title>Cocos2dx Screen Log</title>
@@ -1214,7 +1214,7 @@
         <category>Cocos2dx</category>
       </categories>
       <tags>
-        <tag>Cocos2dx</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -1250,9 +1250,8 @@ packge.json
         <category>工具</category>
       </categories>
       <tags>
-        <tag>Ubuntu</tag>
         <tag>GitHub</tag>
-        <tag>Hexo</tag>
+        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -1299,7 +1298,7 @@ packge.json
         <category>工具</category>
       </categories>
       <tags>
-        <tag>CMake</tag>
+        <tag>开发小杂箱</tag>
       </tags>
   </entry>
   <entry>
@@ -1318,8 +1317,7 @@ packge.json
         <category>PC</category>
       </categories>
       <tags>
-        <tag>OpenGL</tag>
-        <tag>Mac</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -1410,10 +1408,7 @@ packge.json
         <category>工具</category>
       </categories>
       <tags>
-        <tag>Ubuntu</tag>
-        <tag>Windows</tag>
-        <tag>Mac</tag>
-        <tag>IOS</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -1426,7 +1421,7 @@ packge.json
         <category>工具</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
+        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -1451,6 +1446,10 @@ packge.json
         <category>随记</category>
         <category>工具</category>
       </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>博客</tag>
+      </tags>
   </entry>
   <entry>
     <title>PicGo Plugins记录</title>
@@ -1478,6 +1477,10 @@ packge.json
         <category>随记</category>
         <category>工具</category>
       </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>博客</tag>
+      </tags>
   </entry>
   <entry>
     <title>CMake编译传递</title>
@@ -1508,7 +1511,7 @@ packge.json
         <category>工具</category>
       </categories>
       <tags>
-        <tag>CMake</tag>
+        <tag>开发小杂箱</tag>
       </tags>
   </entry>
   <entry>
@@ -1525,6 +1528,9 @@ packge.json
         <category>随记</category>
         <category>杂项</category>
       </categories>
+      <tags>
+        <tag>随记</tag>
+      </tags>
   </entry>
   <entry>
     <title>免费的苹果开发者账号申请iOS证书</title>
@@ -1699,7 +1705,7 @@ packge.json
         <category>Mobile</category>
       </categories>
       <tags>
-        <tag>IOS</tag>
+        <tag>开发小杂箱</tag>
       </tags>
   </entry>
   <entry>
@@ -1749,7 +1755,7 @@ packge.json
         <category>UE</category>
       </categories>
       <tags>
-        <tag>UnrealEngine</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -1802,7 +1808,7 @@ packge.json
         <category>UE</category>
       </categories>
       <tags>
-        <tag>UnrealEngine</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -1901,7 +1907,7 @@ packge.json
         <category>UE</category>
       </categories>
       <tags>
-        <tag>UnrealEngine</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -1943,6 +1949,10 @@ packge.json
         <category>引擎</category>
         <category>渲染</category>
       </categories>
+      <tags>
+        <tag>图形</tag>
+        <tag>算法</tag>
+      </tags>
   </entry>
   <entry>
     <title>Hexo博客搭建记录</title>
@@ -2043,7 +2053,7 @@ packge.json
       </categories>
       <tags>
         <tag>GitHub</tag>
-        <tag>Hexo</tag>
+        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -2086,9 +2096,9 @@ packge.json
 <p>2.创建目录, 用于挂在acme.sh生成的证书等文件  </p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /data &amp;&amp; <span class="built_in">mkdir</span> acme</span><br></pre></td></tr></table></figure>
 
-<p>3.创建容器<br>可用docker-compose.yml</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker run -it -d --name acme --restart=always --net host -v /data/acme:/acme.sh -e DP_Id= <span class="string">&#x27;xxxxx&#x27;</span> -e DP_Key=<span class="string">&#x27;xxxxx&#x27;</span> neilpang/acme.sh daemon</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>或</p>
+<p>3.创建容器<br>可用docker-cii  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker run -it -d --name acme --restart=always --net host -v /data/acme:/acme.sh -e DP_Id= <span class="string">&#x27;xxxxx&#x27;</span> -e DP_Key=<span class="string">&#x27;xxxxx&#x27;</span> neilpang/acme.sh daemon</span><br></pre></td></tr></table></figure>
+<p>或docker-compose.yml  </p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">version: <span class="string">&#x27;3&#x27;</span></span><br><span class="line">services:</span><br><span class="line">  acme-sh:</span><br><span class="line">    image: neilpang/acme.sh</span><br><span class="line">    container_name: acme</span><br><span class="line">    restart: always</span><br><span class="line">    <span class="built_in">command</span>: daemon</span><br><span class="line">    environment:</span><br><span class="line">      - DP_Id=<span class="string">&quot;xxxxx&quot;</span></span><br><span class="line">      - DP_Key=<span class="string">&quot;xxxxx&quot;</span></span><br><span class="line">    volumes:</span><br><span class="line">      - /data/acme:/acme.sh</span><br><span class="line">    network_mode: host</span><br></pre></td></tr></table></figure>
 <p>4.检查容器<br>这里其实就已经部署成功，可以使用docker命令查看容器运行  </p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
@@ -2103,7 +2113,7 @@ packge.json
 
 <p>2.添加自动更新任务  (可选)<br>执行  </p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
-<p>编辑crontab文件, 添加如下类容, 保存即可  </p>
+<p>编辑crontab文件, 添加如下内容, 保存即可  </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">10 0 * * * docker exec acme --cron &gt; /dev/null # acme为容器名, 每天0点10分执行</span><br><span class="line">10 1 * * * nginx -s reload    # 重新加载nginx配置</span><br></pre></td></tr></table></figure>
 <h4 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="https://blog.cmyang.cn/archives/docker-acme-auto">基于docker部署&lt;acme.sh&gt;申请泛域名证书并自动续签</a><br>2.<a href="https://www.cnblogs.com/-mrl/p/13335360.html">docker运行&lt;acme.sh&gt;安装配置泛域名证书</a>  </p>
 ]]></content>
@@ -2112,8 +2122,9 @@ packge.json
         <category>工具</category>
       </categories>
       <tags>
+        <tag>服务器</tag>
         <tag>GitHub</tag>
-        <tag>Hexo</tag>
+        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -2215,7 +2226,7 @@ packge.json
         <category>UE</category>
       </categories>
       <tags>
-        <tag>UnrealEngine</tag>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -2242,7 +2253,7 @@ packge.json
         <category>工具</category>
       </categories>
       <tags>
-        <tag>VPN</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
 </search>
