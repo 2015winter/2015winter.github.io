@@ -399,44 +399,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CDN加速，解决Github博客被百度蜘蛛禁止录入的问题</title>
-    <url>//posts/201610/</url>
-    <content><![CDATA[<p>先来看看这篇文章<a href="http://jerryzou.com/posts/feasibility-of-allowing-baiduSpider-for-Github-Pages/">解决 Github Pages 禁止百度爬虫的方法与可行性分析</a>，该文章说明了为什么 Github Pages 禁用了百度爬虫，以及CDN的相关知识，这里我来引用一下CDN的原理</p>
-<span id="more"></span>
-<h3 id="CDN-的原理"><a href="#CDN-的原理" class="headerlink" title="CDN 的原理"></a>CDN 的原理</h3><p>CDN 的全称是 <a href="https://en.wikipedia.org/wiki/Content_delivery_network">Content Delivery Network</a>，即内容分发网络，一般用于分发静态内容，比如图片、视频、CSS、JS文件。<br><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/C/CDN/cdn2.webp"><br>&emsp;&emsp;如果不使用 CDN，那所有用户的请求都会直接导向单一的源服务器(Origin Server)。而如果启用了 CDN 服务，那么 CDN 服务提供商会分配给你若干个节点，这里以上图为例，比如分配给你的服务器 3 个东海岸的节点和 3 个西海岸的节点。</p>
-<p>&emsp;&emsp;此时用户就不会直接向源服务器发送请求，而是向边缘服务器(Edge Server)发送请求。再看下面这张示意图，当你第一次访问资源 foo.webp 时，边缘服务器没有 foo.webp 的缓存。所以会由它向源服务器发送请求，并获取到 foo.webp。下一次所有经过这个节点的请求，因为存在缓存的缘故，都不用再次向源服务器发送请求，而是由边缘服务器直接返回该文件的缓存即可。这样一来就可以大大降低时延，也减小了源服务器的压力。<br><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/C/CDN/cdn3.webp"></p>
-<p>Github 可能是封了百度的 IP，也有可能是封了百度爬虫的 User-Agent， 反正就是Github博客无法被百度收录啦，<br>可以通过下面命令查看，如果被Forbidden了，那就证明被禁了</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -A &quot;Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)&quot; www.example.com</span><br></pre></td></tr></table></figure>
-<p>后面的<a href="http://www.example.com替换为你要查看的域名/">www.example.com替换为你要查看的域名</a>, <strong>使用 CDN 来解决这个问题的关键就在于，让百度爬虫不要直接向 Github 的服务器发送请求，而是通过 CDN 边缘服务器的缓存来抓取网站的内容。边缘服务器本身是不会关心 UA 的，所以问题就迎刃而解了。</strong></p>
-<p><a href="https://www.freehao123.com/2014-cdn/">国外比较出名的CDN</a></p>
-<blockquote>
-<p>CloudFlare -IPv6免费CDN加速和免费SSL<br>Incapsula -日本、香港、美国、欧洲CDN加速<br>Google PageSpeed Service 谷歌出品的免费CDN</p>
-</blockquote>
-<p><a href="http://www.dozer.cc/2015/06/github-pages-and-cdn.html">国内比较出名的CDN</a>，不外乎三种</p>
-<blockquote>
-<p>七牛<br>又拍云<br>百度加速乐</p>
-</blockquote>
-<p>自己动手搭建专属CDN服务</p>
-<blockquote>
-<p>LuManager CDN 一键安装快速部署全站CDN<br>Layer –多平台快速生成镜像实现CDN加速<br>网站使用CDN后获取真实IP地址</p>
-</blockquote>
-<p>如果域名没有备案的话，可以使用国外的，域名有备案的，可以选择使用国内的，当然你也可以自己动手搭建CDN</p>
-<p>我在这里说说我的使用经历，我注册过<a href="https://www.cloudflare.com/">CloudFlare</a>, <a href="https://www.incapsula.com/">Incapsula</a>, <a href="https://www.upyun.com/index.html">又拍云</a>, 前两个我试过直接添加github博客的.io子域名去进行分发, 给出的结果是</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">We were unable to identify username.github.io as a registered domain. Please ensure you are providing the root domain and not any subdomains (e.g., example.com, not subdomain.example.com) (Code: 1099)</span><br></pre></td></tr></table></figure>
-<p>幸好我还有个域名，于是就用上了，又拍云我只是注册了，还没试过，觉得过程比较麻烦，2016年之后，又拍云还需要上传手持身份证照片进行实名认证(实名认证也就算了，还手持身份证，我还是默默的用国外的CDN算了吧)，我直接注册后，有客服过了一两个小时，直接给我打电话，号召我尽快注册，CloudFlare的话，它和Incapsula的区别可以参考<a href="http://www.zhihu.com/question/20038632/answer/15952364">Incapsula与Cloudflare那一个会更加优秀？</a>, 免费的CloudFlare不提供CNAME方式</p>
-<p>注册完Incapsula后，添加你要使用CDN的域名，然后就是检测，它会提供两个A Record(一般是两个)以及一个CNAME Record给你更改，你可以在你自己的域名管理处，更改就行了，依照它的说明重新指向，将你原来指向github的两个A Record替换为它给定的，一个CNAME Record替换为它给定的，等一会儿就行了，github博客里的CNAME仍然是你的域名<br><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/C/CDN/cdn4.webp"><br>这是我在CDN里的DNS转换，下面是我的namecheap的Host Record<br><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/C/CDN/cdn5.webp"><br>Incapsula给我的IP指向是美国那边的，听说香港和日本那边的节点，也是要经过美国那边，不过对大天朝来说，香港和日本这边的访问速度还是快些，如果换节点，可以查看Incapsula的节点，Incapsula所有的CDN节点IP地址可以在<a href="http://bgp.he.net/AS19551#_prefixes">这里</a>找到</p>
-<p>如果使用国内的CDN，推荐看看这篇文章<a href="http://www.dozer.cc/2015/06/github-pages-and-cdn.html">利用 CDN 解决百度爬虫被 Github Pages 拒绝的问题</a>，对比了国内的CDN的优劣势，以及使用体验</p>
-<p>最后，做个参考链接汇总<br><a href="http://bgp.he.net/AS19551#_prefixes">Incapsula各地CDN节点</a><br><a href="https://www.freehao123.com/2014-cdn/">2014年十个优秀的免费CDN加速服务-国内和国外免费CDN</a><br><a href="http://jerryzou.com/posts/feasibility-of-allowing-baiduSpider-for-Github-Pages/">解决 Github Pages 禁止百度爬虫的方法与可行性分析</a><br><a href="http://www.dozer.cc/2015/06/github-pages-and-cdn.html">利用 CDN 解决百度爬虫被 Github Pages 拒绝的问题</a><br><a href="http://www.chinaz.com/web/2015/0126/380724_3.shtml">Incapsula免费CDN服务申请使用及加速效果测评</a><br><a href="http://www.zhihu.com/question/30898326">如何解决百度爬虫无法爬取搭建在Github上的个人博客的问题？</a><br><a href="http://www.zhihu.com/question/20038632/answer/15952364">Incapsula与Cloudflare那一个会更加优秀？</a></p>
-]]></content>
-      <categories>
-        <category>开发</category>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>GitHub</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu常用软件包deb的安装与卸载命令</title>
     <url>//posts/201609/</url>
     <content><![CDATA[<p>主要用到<code>apt-get</code>, <code>dpkg</code>两个命令</p>
@@ -614,6 +576,44 @@
       </categories>
       <tags>
         <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CDN加速，解决Github博客被百度蜘蛛禁止录入的问题</title>
+    <url>//posts/201610/</url>
+    <content><![CDATA[<p>先来看看这篇文章<a href="http://jerryzou.com/posts/feasibility-of-allowing-baiduSpider-for-Github-Pages/">解决 Github Pages 禁止百度爬虫的方法与可行性分析</a>，该文章说明了为什么 Github Pages 禁用了百度爬虫，以及CDN的相关知识，这里我来引用一下CDN的原理</p>
+<span id="more"></span>
+<h3 id="CDN-的原理"><a href="#CDN-的原理" class="headerlink" title="CDN 的原理"></a>CDN 的原理</h3><p>CDN 的全称是 <a href="https://en.wikipedia.org/wiki/Content_delivery_network">Content Delivery Network</a>，即内容分发网络，一般用于分发静态内容，比如图片、视频、CSS、JS文件。<br><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/C/CDN/cdn2.webp"><br>&emsp;&emsp;如果不使用 CDN，那所有用户的请求都会直接导向单一的源服务器(Origin Server)。而如果启用了 CDN 服务，那么 CDN 服务提供商会分配给你若干个节点，这里以上图为例，比如分配给你的服务器 3 个东海岸的节点和 3 个西海岸的节点。</p>
+<p>&emsp;&emsp;此时用户就不会直接向源服务器发送请求，而是向边缘服务器(Edge Server)发送请求。再看下面这张示意图，当你第一次访问资源 foo.webp 时，边缘服务器没有 foo.webp 的缓存。所以会由它向源服务器发送请求，并获取到 foo.webp。下一次所有经过这个节点的请求，因为存在缓存的缘故，都不用再次向源服务器发送请求，而是由边缘服务器直接返回该文件的缓存即可。这样一来就可以大大降低时延，也减小了源服务器的压力。<br><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/C/CDN/cdn3.webp"></p>
+<p>Github 可能是封了百度的 IP，也有可能是封了百度爬虫的 User-Agent， 反正就是Github博客无法被百度收录啦，<br>可以通过下面命令查看，如果被Forbidden了，那就证明被禁了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -A &quot;Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)&quot; www.example.com</span><br></pre></td></tr></table></figure>
+<p>后面的<a href="http://www.example.com替换为你要查看的域名/">www.example.com替换为你要查看的域名</a>, <strong>使用 CDN 来解决这个问题的关键就在于，让百度爬虫不要直接向 Github 的服务器发送请求，而是通过 CDN 边缘服务器的缓存来抓取网站的内容。边缘服务器本身是不会关心 UA 的，所以问题就迎刃而解了。</strong></p>
+<p><a href="https://www.freehao123.com/2014-cdn/">国外比较出名的CDN</a></p>
+<blockquote>
+<p>CloudFlare -IPv6免费CDN加速和免费SSL<br>Incapsula -日本、香港、美国、欧洲CDN加速<br>Google PageSpeed Service 谷歌出品的免费CDN</p>
+</blockquote>
+<p><a href="http://www.dozer.cc/2015/06/github-pages-and-cdn.html">国内比较出名的CDN</a>，不外乎三种</p>
+<blockquote>
+<p>七牛<br>又拍云<br>百度加速乐</p>
+</blockquote>
+<p>自己动手搭建专属CDN服务</p>
+<blockquote>
+<p>LuManager CDN 一键安装快速部署全站CDN<br>Layer –多平台快速生成镜像实现CDN加速<br>网站使用CDN后获取真实IP地址</p>
+</blockquote>
+<p>如果域名没有备案的话，可以使用国外的，域名有备案的，可以选择使用国内的，当然你也可以自己动手搭建CDN</p>
+<p>我在这里说说我的使用经历，我注册过<a href="https://www.cloudflare.com/">CloudFlare</a>, <a href="https://www.incapsula.com/">Incapsula</a>, <a href="https://www.upyun.com/index.html">又拍云</a>, 前两个我试过直接添加github博客的.io子域名去进行分发, 给出的结果是</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">We were unable to identify username.github.io as a registered domain. Please ensure you are providing the root domain and not any subdomains (e.g., example.com, not subdomain.example.com) (Code: 1099)</span><br></pre></td></tr></table></figure>
+<p>幸好我还有个域名，于是就用上了，又拍云我只是注册了，还没试过，觉得过程比较麻烦，2016年之后，又拍云还需要上传手持身份证照片进行实名认证(实名认证也就算了，还手持身份证，我还是默默的用国外的CDN算了吧)，我直接注册后，有客服过了一两个小时，直接给我打电话，号召我尽快注册，CloudFlare的话，它和Incapsula的区别可以参考<a href="http://www.zhihu.com/question/20038632/answer/15952364">Incapsula与Cloudflare那一个会更加优秀？</a>, 免费的CloudFlare不提供CNAME方式</p>
+<p>注册完Incapsula后，添加你要使用CDN的域名，然后就是检测，它会提供两个A Record(一般是两个)以及一个CNAME Record给你更改，你可以在你自己的域名管理处，更改就行了，依照它的说明重新指向，将你原来指向github的两个A Record替换为它给定的，一个CNAME Record替换为它给定的，等一会儿就行了，github博客里的CNAME仍然是你的域名<br><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/C/CDN/cdn4.webp"><br>这是我在CDN里的DNS转换，下面是我的namecheap的Host Record<br><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/C/CDN/cdn5.webp"><br>Incapsula给我的IP指向是美国那边的，听说香港和日本那边的节点，也是要经过美国那边，不过对大天朝来说，香港和日本这边的访问速度还是快些，如果换节点，可以查看Incapsula的节点，Incapsula所有的CDN节点IP地址可以在<a href="http://bgp.he.net/AS19551#_prefixes">这里</a>找到</p>
+<p>如果使用国内的CDN，推荐看看这篇文章<a href="http://www.dozer.cc/2015/06/github-pages-and-cdn.html">利用 CDN 解决百度爬虫被 Github Pages 拒绝的问题</a>，对比了国内的CDN的优劣势，以及使用体验</p>
+<p>最后，做个参考链接汇总<br><a href="http://bgp.he.net/AS19551#_prefixes">Incapsula各地CDN节点</a><br><a href="https://www.freehao123.com/2014-cdn/">2014年十个优秀的免费CDN加速服务-国内和国外免费CDN</a><br><a href="http://jerryzou.com/posts/feasibility-of-allowing-baiduSpider-for-Github-Pages/">解决 Github Pages 禁止百度爬虫的方法与可行性分析</a><br><a href="http://www.dozer.cc/2015/06/github-pages-and-cdn.html">利用 CDN 解决百度爬虫被 Github Pages 拒绝的问题</a><br><a href="http://www.chinaz.com/web/2015/0126/380724_3.shtml">Incapsula免费CDN服务申请使用及加速效果测评</a><br><a href="http://www.zhihu.com/question/30898326">如何解决百度爬虫无法爬取搭建在Github上的个人博客的问题？</a><br><a href="http://www.zhihu.com/question/20038632/answer/15952364">Incapsula与Cloudflare那一个会更加优秀？</a></p>
+]]></content>
+      <categories>
+        <category>开发</category>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>GitHub</tag>
       </tags>
   </entry>
   <entry>
@@ -1517,6 +1517,24 @@ packge.json
       </tags>
   </entry>
   <entry>
+    <title>且行且学习</title>
+    <url>//posts/202102/</url>
+    <content><![CDATA[<h2 id="图形学"><a href="#图形学" class="headerlink" title="图形学"></a>图形学</h2><h3 id="教学"><a href="#教学" class="headerlink" title="教学"></a>教学</h3><p>【闫令琪】<a href="https://www.bilibili.com/video/BV1X7411F744/">GAMES101–现代计算机图形学入门</a><br>【闫令琪】<a href="https://www.bilibili.com/video/BV1YK4y1T7yY">GAMES202–高质量实时渲染</a>  </p>
+<span id="more"></span>
+
+<h3 id="课程"><a href="#课程" class="headerlink" title="课程"></a>课程</h3><p>【闫令琪】<a href="https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html">GAMES101–现代计算机图形学入门</a><br>【闫令琪】<a href="https://sites.cs.ucsb.edu/~lingqi/teaching/games202.html">GAMES202–高质量实时渲染</a><br>【刘利刚】<a href="https://www.bilibili.com/video/BV1iT4y1o7oM">2020年中国科学技术大学《计算机图形学》本科课程</a><br>【OpenGL入门教程】<a href="https://learnopengl-cn.github.io/">LearnOpenGL中文版</a>  </p>
+<h3 id="会议或期刊"><a href="#会议或期刊" class="headerlink" title="会议或期刊"></a>会议或期刊</h3><p><a href="https://www.siggraph.org/">SIGGRAPH &#x2F; SIGGRAPH ASIA</a><br><a href="https://www.eg.org/wp/">Eurographics (EG)</a><br><a href="https://pg2022.org/">Pacific Graphics（PG）</a><br><a href="http://i3dsymposium.github.io/">Symposium on Interactive 3D Graphics and Games (I3D)</a><br><a href="https://mig2021.inria.fr/submission/">The ACM SIGGRAPH Conference on Motion, Interaction and Games (MIG)</a><br><a href="https://ieeevr.org/">IEEE Conference on Virtual Reality and 3D User Interfaces (IEEE VR)</a><br><a href="https://dl.acm.org/journal/tog">ACM Transactions on Graphics (TOG)</a><br><a href="https://www.computer.org/csdl/journal/tg">IEEE Transactions on Visualization and Computer Graphics (TVCG)</a><br><a href="https://onlinelibrary.wiley.com/journal/14678659">Computer Graphics Forum (CGF)</a><br><a href="https://www.journals.elsevier.com/computers-and-graphics">Computers &amp; Graphics</a><br><a href="https://www.springer.com/journal/371">The Visual Computer</a><br><a href="https://onlinelibrary.wiley.com/journal/1546427x">Computer Animation and Virtual Worlds</a><br><a href="https://www.computer.org/csdl/magazine/cg">IEEE Computer Applications and Graphics</a><br><a href="https://www.springer.com/journal/41095/">Computational Visual Media</a> (CVMJ)  </p>
+<h3 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h3><p><a href="https://github.com/Housz/awesome-simulation">图形、仿真</a><br><a href="https://github.com/miloyip/game-programmer">游戏编程学习路径</a><br><a href="https://github.com/Asuka109/GameProgramBooks">游戏编程书籍</a>  </p>
+]]></content>
+      <categories>
+        <category>随记</category>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>随记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>免费的苹果开发者账号申请iOS证书</title>
     <url>//posts/202201/</url>
     <content><![CDATA[<p>本文介绍使用未付费688的苹果账号（apple id）申请ios证书打包ipa安装到未越狱苹果手机真机测试调试。</p>
@@ -1690,24 +1708,6 @@ packge.json
       </categories>
       <tags>
         <tag>小杂箱</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>且行且学习</title>
-    <url>//posts/202102/</url>
-    <content><![CDATA[<h2 id="图形学"><a href="#图形学" class="headerlink" title="图形学"></a>图形学</h2><h3 id="教学"><a href="#教学" class="headerlink" title="教学"></a>教学</h3><p>【闫令琪】<a href="https://www.bilibili.com/video/BV1X7411F744/">GAMES101–现代计算机图形学入门</a><br>【闫令琪】<a href="https://www.bilibili.com/video/BV1YK4y1T7yY">GAMES202–高质量实时渲染</a>  </p>
-<span id="more"></span>
-
-<h3 id="课程"><a href="#课程" class="headerlink" title="课程"></a>课程</h3><p>【闫令琪】<a href="https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html">GAMES101–现代计算机图形学入门</a><br>【闫令琪】<a href="https://sites.cs.ucsb.edu/~lingqi/teaching/games202.html">GAMES202–高质量实时渲染</a><br>【刘利刚】<a href="https://www.bilibili.com/video/BV1iT4y1o7oM">2020年中国科学技术大学《计算机图形学》本科课程</a><br>【OpenGL入门教程】<a href="https://learnopengl-cn.github.io/">LearnOpenGL中文版</a>  </p>
-<h3 id="会议或期刊"><a href="#会议或期刊" class="headerlink" title="会议或期刊"></a>会议或期刊</h3><p><a href="https://www.siggraph.org/">SIGGRAPH &#x2F; SIGGRAPH ASIA</a><br><a href="https://www.eg.org/wp/">Eurographics (EG)</a><br><a href="https://pg2022.org/">Pacific Graphics（PG）</a><br><a href="http://i3dsymposium.github.io/">Symposium on Interactive 3D Graphics and Games (I3D)</a><br><a href="https://mig2021.inria.fr/submission/">The ACM SIGGRAPH Conference on Motion, Interaction and Games (MIG)</a><br><a href="https://ieeevr.org/">IEEE Conference on Virtual Reality and 3D User Interfaces (IEEE VR)</a><br><a href="https://dl.acm.org/journal/tog">ACM Transactions on Graphics (TOG)</a><br><a href="https://www.computer.org/csdl/journal/tg">IEEE Transactions on Visualization and Computer Graphics (TVCG)</a><br><a href="https://onlinelibrary.wiley.com/journal/14678659">Computer Graphics Forum (CGF)</a><br><a href="https://www.journals.elsevier.com/computers-and-graphics">Computers &amp; Graphics</a><br><a href="https://www.springer.com/journal/371">The Visual Computer</a><br><a href="https://onlinelibrary.wiley.com/journal/1546427x">Computer Animation and Virtual Worlds</a><br><a href="https://www.computer.org/csdl/magazine/cg">IEEE Computer Applications and Graphics</a><br><a href="https://www.springer.com/journal/41095/">Computational Visual Media</a> (CVMJ)  </p>
-<h3 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h3><p><a href="https://github.com/Housz/awesome-simulation">图形、仿真</a><br><a href="https://github.com/miloyip/game-programmer">游戏编程学习路径</a><br><a href="https://github.com/Asuka109/GameProgramBooks">游戏编程书籍</a>  </p>
-]]></content>
-      <categories>
-        <category>随记</category>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>随记</tag>
       </tags>
   </entry>
   <entry>
@@ -2164,6 +2164,30 @@ packge.json
         <tag>服务器</tag>
         <tag>GitHub</tag>
         <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Unity sRGB格式支持</title>
+    <url>//posts/202304/</url>
+    <content><![CDATA[<p>测试的Unity版本 2021.03.32f1</p>
+<h3 id="RenderTexture"><a href="#RenderTexture" class="headerlink" title="RenderTexture"></a>RenderTexture</h3><p>sRGB为函数式属性, 在该版本中get&#x2F;set官方做了定义 </p>
+<p>测试调用时, 调用了<code>GetCompatibleDescriptor()</code>方法, 且<code>QualitySettings</code>里ColorSpace为<code>Linear</code>  </p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">R16G16B16A16_SFloat = <span class="number">48</span>, <span class="comment">// 0x00000030, 该格式枚举索引值为48</span></span><br><span class="line">GetCompatibleDescriptor(<span class="number">512</span>, <span class="number">512</span>, RenderTextureFormat.ARGBHalf，<span class="number">0</span>)；</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function">RenderTextureDescriptor <span class="title">GetCompatibleDescriptor</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="built_in">int</span> width,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="built_in">int</span> height,</span></span></span><br><span class="line"><span class="params"><span class="function">    RenderTextureFormat format = RenderTextureFormat.Default,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="built_in">int</span> depthBufferBits = <span class="number">0</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    RenderTextureReadWrite readWrite = RenderTextureReadWrite.Default,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="built_in">bool</span> enableRandomWrite = <span class="literal">false</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> desc = cameraData.cameraTargetDescriptor;</span><br><span class="line">        desc.depthBufferBits = depthBufferBits;</span><br><span class="line">        desc.msaaSamples = <span class="number">1</span>;</span><br><span class="line">        desc.width = width;</span><br><span class="line">        desc.height = height;</span><br><span class="line">        desc.colorFormat = format;</span><br><span class="line">        desc.enableRandomWrite = enableRandomWrite;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (readWrite == RenderTextureReadWrite.sRGB)</span><br><span class="line">            desc.sRGB = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (readWrite == RenderTextureReadWrite.Linear)</span><br><span class="line">            desc.sRGB = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (readWrite == RenderTextureReadWrite.Default)</span><br><span class="line">            desc.sRGB = QualitySettings.activeColorSpace == ColorSpace.Linear;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> desc;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="comment">// his flag causes the render texture uses sRGB read/write conversions.</span></span><br><span class="line"><span class="built_in">bool</span> sRGB</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">get</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> GraphicsFormatUtility.IsSRGBFormat(graphicsFormat);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">set</span></span><br><span class="line">    &#123;</span><br><span class="line">        graphicsFormat = (</span><br><span class="line">            (<span class="keyword">value</span> &amp;&amp; QualitySettings.activeColorSpace == ColorSpace.Linear &amp;&amp; colorFormat != RenderTextureFormat.R8 &amp;&amp; colorFormat != RenderTextureFormat.RG16) ? </span><br><span class="line">            GraphicsFormatUtility.GetSRGBFormat(graphicsFormat) : </span><br><span class="line">            GraphicsFormatUtility.GetLinearFormat(graphicsFormat));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">IsSRGBFormat</span><span class="params">(GraphicsFormat format)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">GetDesc</span>(format).flags &amp; kFormatPropertySRGBBit) != <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">GraphicsFormat <span class="title">GetSRGBFormat</span><span class="params">(GraphicsFormat format)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">GetDesc</span>(format).srgbFormat;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">GraphicsFormat <span class="title">GetLinearFormat</span><span class="params">(GraphicsFormat format)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">GetDesc</span>(format).linearFormat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>设置sRGB为false（linear纹理），可直接根据<code>GetLinearFormat()</code>设置<code>graphicsFormat</code>，获取线性纹理格式<br>设置sRGB为true（sRGB纹理），则需优先判定Quality里设置是否为Linear空间且不属于R8、RG16格式，为Linear且不属于则根据<code>GetSRGBFormat</code>设置<code>graphicsFormat</code><br>Unity代码里，<code>IsSRGBFormat</code>格式<code>R16G16B16A16_SFloat</code>是否为sRGB，未找到<code>kFormatPropertySRGBBit</code>标志，故而该格式不支持sRGB</p>
+]]></content>
+      <categories>
+        <category>开发</category>
+        <category>图形</category>
+        <category>引擎</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
