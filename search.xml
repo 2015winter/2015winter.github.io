@@ -1654,8 +1654,6 @@ packge.json
 <!-- http://cache.baiducontent.com/c?m=Ly2VEfuyC9-bB5UOFFDRtZGqCBL_nxeQAkkZFPeQxkVh3eklNEgwzX_Z__5T4VUfBzUf8z5QG1F0RH8dBYa3md8SAoZqF4wQUHjVZdKBTea0N90Znvpu6VO9iU9iwnLqCbtn6VnuCSp-J5nE8WkBnG61lMT3VO3mFkbHxvqfX-p2AmRHXQjTAQ8wkkWYrfDxcG21C3I3yS6EX15CWu1IFyIibtcW1VKBG4A5V5mLKkTETPmvFZWpbQrBS97mL9v-2S6ykda663F9jzhPLDrguq&p=9f759a46d39f12a05afbd1265040&newp=9b769a47889b07c308e2977b5b5c92695d0fc20e3bd0d701298ffe0cc4241a1a1a3aecbe25271202d2c5796406af4f57edf63d723d0034f1f689df08d2ecce7e71d06158&s=cfcd208495d565ef&user=baidu&fm=sc&query=%B8%F6%C8%CB%C3%E2%B7%D1%C9%EA%C7%EB%C6%BB%B9%FB%BF%AA%B7%A2%D5%DF%D5%CB%BA%C5&qid=e3b167fa000024a9&p1=10 -->]]></content>
       <categories>
         <category>工业</category>
-        <category>开发</category>
-        <category>引擎</category>
       </categories>
       <tags>
         <tag>小杂箱</tag>
@@ -2374,6 +2372,14 @@ GraphicsFormat GetLinearFormat(GraphicsFormat format)
 </li>
 </ul>
 <h3 id="扩展功能"><a href="#扩展功能" class="headerlink" title="扩展功能"></a>扩展功能</h3><h4 id="UI镜像"><a href="#UI镜像" class="headerlink" title="UI镜像"></a>UI镜像</h4><p>语言切换后, UI显示也同步从右往左<br>1.给游戏UI使用时, 可设置白名单过滤, 比如特效不需镜像等等<br>2.动态加载的组件, 可能影响文本或图片UI的, UI镜像同样需考虑    </p>
+<table>
+<thead>
+<tr>
+<th><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/R/RTLTMPro/8-uicn.png"></th>
+<th><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/R/RTLTMPro/9-uiar.png"></th>
+</tr>
+</thead>
+</table>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="https://zh.wikipedia.org/wiki/%E9%98%BF%E6%8B%89%E4%BC%AF%E6%95%B0%E5%AD%97">阿拉伯数字</a><br>2.<a href="https://zh.wikipedia.org/wiki/%E9%98%BF%E6%8B%89%E4%BC%AF%E6%96%87%E6%95%B0%E5%AD%97">阿拉伯文数字</a><br>3.<a href="https://zh.chped.com/wiki/%E9%98%BF%E6%8B%89%E4%BC%AF%E5%AD%97%E6%AF%8D">阿拉伯字母</a><br>4.<a href="https://zhuanlan.zhihu.com/p/443971128">阿拉伯字母变形表</a><br>5.<a href="https://github.com/pnarimani/RTLTMPro">RTLTMPro</a>  </p>
 <!-- 阿拉伯语中的长音包括：阿拉伯字母 Alif（ا）、Waw（و）和Ya（ي）。当这些字母出现在一个单词中时，它们的发音时间比短元音要长。叠音是指一个音素在连续的音节中重复出现，例如在英语中的“butter”这个词里的“t”发音。在阿拉伯语中，叠音通常由一个带有Shaddahxx符号的字母表示。当长音后面跟随叠音时，应保持长音的发音，并在其后加上叠音的发音。例如，阿拉伯语中的“مُؤَمِّل”（mu'ammil），发音时应保持长音Waw（و）的发音，并在其后加上叠音的发音。 -->]]></content>
       <categories>
