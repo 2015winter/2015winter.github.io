@@ -1333,12 +1333,26 @@ packge.json
 <li>安装iterm2 + Anaconda会出现<code>base</code>显示, <a href="https://stackoverflow.com/questions/54990385/iterm2-shell-prompt-now-shows-base)">conda config –set auto_activate_base false</a></li>
 </ul>
 <ol start="16">
-<li><a href="https://www.macenjoy.net/">MacEnjoy</a>, 软件分享平台</li>
-<li><a href="https://www.macz.com/">MacZ</a>, 软件分享平台</li>
-<li><a href="https://macwk.com/">MacWK</a>, 软件分享平台</li>
+<li><a href="https://github.com/iina/iina">IINA</a>, 视频播放器  </li>
+<li><a href="https://cleanmymac.com/">CleanMyMac</a>, Mac清理工具, 类似电脑管家</li>
+</ol>
+<p>软件分享平台  </p>
+<ol>
+<li><a href="https://www.macenjoy.net/">MacEnjoy</a>  </li>
+<li><a href="https://www.macz.com/">MacZ</a>  </li>
+<li><a href="https://maczz.net/">元婴Mac软件站</a>  </li>
+<li><a href="https://www.zhiniw.com/">知您网</a>  </li>
+<li><a href="https://haxmac.cc/">HaxMac</a>  </li>
+<li><a href="https://xclient.info/">Xclient</a>  </li>
+<li><a href="https://www.inpandora.com/">潘多拉盒子</a>  </li>
+<li><a href="https://www.imacapp.cn/">iMacApp</a>  </li>
+<li><a href="https://www.digit77.com/">Digit77</a>  </li>
+<li><a href="https://www.torrentmac.net/">MacTorrents</a>, 可能需借用梯子  </li>
+<li><a href="https://macbang.net/">Mac帮</a>  </li>
+<li><a href="https://appstorrent.ru/">AppsTorrent</a></li>
 </ol>
 <h2 id="跨平台"><a href="#跨平台" class="headerlink" title="跨平台"></a>跨平台</h2><ol>
-<li><a href="https://obsidian.md/">Obsidian</a>, 带思维图的MarkDown软件</li>
+<li><a href="https://obsidian.md/">Obsidian</a>, 带思维图的MarkDown软件  </li>
 <li><a href="https://www.wenshushu.cn/">Wenshushu</a>, 跨平台文件传输</li>
 </ol>
 <p>Mac设置指南<br><a href="https://www.kancloud.cn/kancloud/ocds-guide-to-setting-up-mac/71034">常用工具</a></p>
@@ -3149,6 +3163,7 @@ packge.json
 <li><a href="https://github.com/Molunerfinn/PicGo">PicGo</a>, 用于快速上传图片并获取图片 URL 链接的工具</li>
 </ul>
 <h3 id="插件注意事项"><a href="#插件注意事项" class="headerlink" title="插件注意事项"></a>插件注意事项</h3><p><code>hexo-filter-mathjax</code><br>使用的是<code>LaTeX</code>, 用VSCode等预览渲染时, 注意插件是否是用的<code>LaTeX</code>, 安装插件<a href="https://github.com/James-Yu/LaTeX-Workshop/wiki/Install#installation">LaTeX-Workshop</a>  </p>
+<h2 id="域名备案"><a href="#域名备案" class="headerlink" title="域名备案"></a>域名备案</h2><p><a href="https://ping.gaomeluo.com/huawei/">各区域节点的延迟查询</a>  </p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>1.<a href="https://west.cn/web/mi">域名查找</a><br>2.<a href="https://zhuanlan.zhihu.com/p/678493393">注册域名邮箱教程</a><br>3.<a href="https://blog.csdn.net/qq_41356250/article/details/126155707">配置Twikoo评论功能</a>  </p>
 ]]></content>
       <categories>
