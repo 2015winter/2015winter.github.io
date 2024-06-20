@@ -1280,9 +1280,10 @@ packge.json
     <title>平台工具总结篇</title>
     <url>//posts/202001/</url>
     <content><![CDATA[<h2 id="IOS"><a href="#IOS" class="headerlink" title="IOS"></a>IOS</h2><p>1.<a href="https://iemulators.com/airshou">AirShou</a>，ios &lt; 11的屏幕录制工具</p>
-<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><p><a href="https://canvas.apps.chrome/">在线画布工具</a></p>
-<span id="more"></span>
-
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><ol>
+<li><a href="https://canvas.apps.chrome/">在线画布工具</a>  </li>
+<li><a href="https://www.speedtest.net/">带宽测速平台</a><span id="more"></span></li>
+</ol>
 <h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><ol>
 <li>Listary, Everything： 本地搜索神器， 两者都很强大  </li>
 <li><a href="http://www.neoimaging.cn/">光影魔术手</a>： 图片格式转换，处理等，功能丰富</li>
@@ -1319,7 +1320,7 @@ packge.json
 <li>Dr.Cleaner.清理工具</li>
 <li>Bartender 3</li>
 <li>Alfred <a href="https://www.jianshu.com/p/e9f3352c785f">常用操作</a>, <a href="http://alfredworkflow.com/">插件</a></li>
-<li><a href="http://www.mind168.com/2017/12/16/folx-pro-for-mac5-2/">Folx</a><br><a href="https://bbs.feng.com/forum.php?mod=viewthread&tid=11709856&mobile=no">Folx</a></li>
+<li><a href="https://bbs.feng.com/forum.php?mod=viewthread&tid=11709856&mobile=no">Folx</a></li>
 <li><a href="">Kaleidoscope</a></li>
 <li><a href="https://www.52pojie.cn/thread-796355-1-1.html">StarUML</a></li>
 <li><a href="https://www.coconut-flavour.com/coconutbattery/">coconutbattery</a></li>
@@ -3163,7 +3164,7 @@ packge.json
 <li><a href="https://github.com/Molunerfinn/PicGo">PicGo</a>, 用于快速上传图片并获取图片 URL 链接的工具</li>
 </ul>
 <h3 id="插件注意事项"><a href="#插件注意事项" class="headerlink" title="插件注意事项"></a>插件注意事项</h3><p><code>hexo-filter-mathjax</code><br>使用的是<code>LaTeX</code>, 用VSCode等预览渲染时, 注意插件是否是用的<code>LaTeX</code>, 安装插件<a href="https://github.com/James-Yu/LaTeX-Workshop/wiki/Install#installation">LaTeX-Workshop</a>  </p>
-<h2 id="域名备案"><a href="#域名备案" class="headerlink" title="域名备案"></a>域名备案</h2><p><a href="https://ping.gaomeluo.com/huawei/">各区域节点的延迟查询</a>  </p>
+<h2 id="域名备案"><a href="#域名备案" class="headerlink" title="域名备案"></a>域名备案</h2><p><a href="https://ping.gaomeluo.com/huawei/">各区域节点的延迟查询</a><br><a href="https://ping.chinaz.com/">站长工具</a>  </p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>1.<a href="https://west.cn/web/mi">域名查找</a><br>2.<a href="https://zhuanlan.zhihu.com/p/678493393">注册域名邮箱教程</a><br>3.<a href="https://blog.csdn.net/qq_41356250/article/details/126155707">配置Twikoo评论功能</a>  </p>
 ]]></content>
       <categories>
@@ -3177,7 +3178,34 @@ packge.json
   <entry>
     <title>Docker的那些事</title>
     <url>//posts/202303/</url>
-    <content><![CDATA[<h2 id="Docker的那些容器"><a href="#Docker的那些容器" class="headerlink" title="Docker的那些容器"></a>Docker的那些容器</h2><p>Docker当前运行版本 19.03.9  </p>
+    <content><![CDATA[<h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>Ubuntu 22.04版本</p>
+<ol>
+<li>更新软件包  <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get upgrade</span><br></pre></td></tr></table></figure></li>
+<li>安装  <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install docker.io</span><br></pre></td></tr></table></figure></li>
+<li>启动服务  <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure></li>
+<li>验证安装  <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker --version</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Docker镜像加速"><a href="#Docker镜像加速" class="headerlink" title="Docker镜像加速"></a>Docker镜像加速</h2><p>提高Docker拉取镜像速度，可配置国内镜像源.<br>环境  </p>
+<ul>
+<li>Ubuntu 22.04  </li>
+<li>Docker 24.0.7</li>
+</ul>
+<p>1.修改Docker配置<br>Docker的配置文件位于&#x2F;etc&#x2F;docker&#x2F;daemon.json. 若该文件不存在，需手动创建一个,</p>
+<p>打开终端，使用以下命令编辑Docker配置文件  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vim /etc/docker/daemon.json</span><br></pre></td></tr></table></figure>
+<p>加入以下配置项  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;registry-mirrors&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;https://registry.docker-cn.com&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://dockerproxy.com&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://hub-mirror.c.163.com&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://mirror.baidubce.com&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://ccr.ccs.tencentyun.com&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://docker.m.daocloud.io&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://huecker.io&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://dockerhub.timeweb.cloud&quot;</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.重启服务<br>修改配置文件后，需重启Docker服务以使更改生效。<br>方法一</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<p>方法二  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">service docker restart</span><br></pre></td></tr></table></figure>
+<p>3.验证配置是否成功<br>查看Docker信息</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<p>检查镜像源列表信息  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Registry Mirrors:</span><br><span class="line">  https://registry.docker-cn.com/</span><br><span class="line">  https://dockerproxy.com/</span><br><span class="line">  https://hub-mirror.c.163.com/</span><br><span class="line">  https://mirror.baidubce.com/</span><br><span class="line">  https://ccr.ccs.tencentyun.com/</span><br><span class="line">  https://docker.m.daocloud.io/</span><br><span class="line">  https://huecker.io/</span><br><span class="line">  https://dockerhub.timeweb.clou/</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker的那些容器"><a href="#Docker的那些容器" class="headerlink" title="Docker的那些容器"></a>Docker的那些容器</h2><p>Docker当前运行版本 19.03.9  </p>
 <h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>1.先拉取Nginx镜像  </p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker pull nginx</span><br></pre></td></tr></table></figure>
 
@@ -3258,6 +3286,16 @@ packge.json
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker run -d --name=netdata \</span><br><span class="line">--security-opt=seccomp=/etc/docker/seccomp.json \</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
 <h4 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="https://www.51cto.com/article/601353.html">NetData搭建</a><br>2.<a href="https://learn.netdata.cloud/docs/netdata-cloud/connect-agent-to-cloud#known-issues-on-older-hosts-with-seccomp-enabled">Seccomp已知问题</a><br>3.<a href="https://learn.netdata.cloud/docs/netdata-agent/configuration/running-the-netdata-agent-behind-a-reverse-proxy/nginx">NetData反向代理</a>  </p>
+<h3 id="网心云"><a href="#网心云" class="headerlink" title="网心云"></a>网心云</h3><p>带宽太低不大适合跑, 比如4兆, 最好30兆以上  </p>
+<h4 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h4><p>从指定的地址拉取网心云的Docker镜像  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker pull onething1/wxedge</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置和启动网心云容器"><a href="#配置和启动网心云容器" class="headerlink" title="配置和启动网心云容器"></a>配置和启动网心云容器</h4><p>第一个容器    </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d --name=wxedge1 --restart=always --privileged --net=bridge --tmpfs /run --tmpfs /tmp -p 18888:18888 -v 磁盘路径1:/storage:rw onething1/wxedge</span><br></pre></td></tr></table></figure>
+<p>其中, –net参数选择桥接模式（bridge）, 管理端口设置为18888, 且需要挂载磁盘到容器内的&#x2F;storage目录.<br>第二个及以上容器, 同样使用<code>docker run</code>命令, 但需更改容器名称、端口映射和挂载的磁盘路径. 例如，使用-p 18889:18888来映射第二个容器的端口为18889  </p>
+<h4 id="访问和管理网心云"><a href="#访问和管理网心云" class="headerlink" title="访问和管理网心云"></a>访问和管理网心云</h4><p>通过浏览器访问宿主机IP:管理端口来访问网心云的管理界面. 例如, 如果宿主机IP是192.168.31.2，第一个容器的管理端口设置为18888, 则通过浏览器访问192.168.31.2:18888来管理第一个网心云容器  </p>
+<h4 id="手机APP绑定"><a href="#手机APP绑定" class="headerlink" title="手机APP绑定"></a>手机APP绑定</h4><p>使用网心云的手机APP扫描管理界面上的二维码进行设备绑定  </p>
+<h4 id="参考-3"><a href="#参考-3" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="https://tieba.baidu.com/p/8354641436">https://tieba.baidu.com/p/8354641436</a>  </p>
 ]]></content>
       <categories>
         <category>随记</category>
