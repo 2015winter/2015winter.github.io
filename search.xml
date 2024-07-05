@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Cocos2dx Phong光照总结</title>
+    <url>//posts/201601/</url>
+    <content><![CDATA[<p>最近几天查看了Cocos2dx Sample源码，看到Cocos2dx光照和Shader部分，先说说光照部分，Cocos2dx光照部分我个人在网上调研的最好的参照要属这位大神 <a href="http://blog.csdn.net/bill_man/article/details/51668897">bill_man</a>，不过看后感觉收获不大，<br>之前接触过OpenGL，看的是Android3D游戏开发宝典，OpenGL光照部分讲的也挺详细</p>
+<h2 id="OpenGL光照"><a href="#OpenGL光照" class="headerlink" title="OpenGL光照"></a>OpenGL光照</h2><p>&ensp;&ensp;OpenGL ES 2.0中采用的光照模型对比现实世界场景中还是做了相应的简化。OpenGL中的光照分为三种元素，也称为3个通道，包括环境光（Ambient）、散射光（Diffuse）以及镜面光（Specular），本文介绍三种光照通道的数学模型计算。</p>
+<span id="more"></span> 
+<h3 id="环境光（Ambient）"><a href="#环境光（Ambient）" class="headerlink" title="环境光（Ambient）"></a>环境光（Ambient）</h3><p>&ensp;&ensp;环境光（Ambient）指的是环境中均匀、物体各顶点亮度统一的光，也就是现实场景中的光源发出，而后经过多次反射，各个方向都大致均匀的光。<br><img data-src="https://cdn.laxdu.com/ImageHosting/P/Phong/0.webp"></p>
+<p>&ensp;&ensp;环境光与光源位置无关，故而物体各顶点处亮度统一，其入射和反射的光照都大致均匀，计算公式如下：<br>&emsp;&emsp;&emsp;&emsp;环境光照射结果 &#x3D; 材质的反射系数 * 环境光强度<br>&ensp;&ensp;其中，材质的反射系数指的是物体被照射处的颜色四通道RGBA值，环境光强度指的是被反射后的光的颜色三通道的值，在计算时必须要对环境光强度作齐次坐标变换。<br>PS：现实世界场景中，环境光是比较偏暗的.</p>
+<h3 id="散射光（Diffuse）"><a href="#散射光（Diffuse）" class="headerlink" title="散射光（Diffuse）"></a>散射光（Diffuse）</h3><p>&ensp;&ensp;仅仅有环境光的场景效果没有层次感，相对现实生活中的场景，还是比较差，本节介绍另一种光照通道——散射光，指的是从物体表面向全方位360度均匀反射的光.<br><img data-src="https://cdn.laxdu.com/ImageHosting/P/Phong/1.webp"><br>&ensp;&ensp;散射光在现实场景中表现为漫反射，反射光在各个方向基本均匀，反射的强度与入射光的强度以及入射的角度密切相关。具体计算公式如下：<br>&emsp;&emsp;&emsp;&emsp;散射光照射结果 &#x3D;材质的反射系数 * 散射光强度 * max（cos（入射角），0）<br>&ensp;&ensp;其中，材质的反射系数为物体被照射处的颜色四通道RGBA值，散射光强度指的是散射光中颜色三通道的强度值，和环境光一致，在计算时也需要对散射光强度作齐次坐标变换。当入射角大于90度时，cos（入射角）的值会小于零，可用max函数处理为0，这是因为入射角的范围在实际中不会大于90度，必须做相应的处理。入射角越大，散射光强度越小，要得到余弦值，只需分别将法向量和入射光向量归一化，而后再求叉积.</p>
+<h3 id="镜面光（Specular）"><a href="#镜面光（Specular）" class="headerlink" title="镜面光（Specular）"></a>镜面光（Specular）</h3><p>&ensp;&ensp;介绍完以上两种光通道，绘制的场景效果应该得到了改善，接下来介绍第三种光通道，这就是镜面光（Specular），代表的是表面较为光滑时的反射光，在物理学上也称之为“反射光”。镜面光最终强度不仅依赖于入射光与被照射点法向量的夹角，而且也依赖于观察者的位置，即摄像机的位置。如下图所示:<br><img data-src="https://cdn.laxdu.com/ImageHosting/P/Phong/2.webp"><br>公式如下所示：<br>&ensp;&ensp;&ensp;&ensp;镜面光最终强度 &#x3D; 材质的反射系数 * 镜面光强度 * max（0，pow（cos（半向量与法向量的夹角），粗糙度））<br>&ensp;&ensp;镜面光照射结果 &#x3D; 材质的反射系数 * 镜面光最终强度<br>&ensp;&ensp;其中，半向量指的是从被照射点到光源的向量与从被照射点到观察点向量的平均向量，另外，等式右边式子也加了粗糙度因子，使渲染的图形更贴近现实场景，达到粗糙度越小，镜面光面积越大的效果。<br>&ensp;&ensp;关于上面三种光通道的计算如何产生，请参考其他相关资料，本文只介绍计算公式和如何使用这些公式。<br>&ensp;&ensp;从上面三个公式也可以看出，环境光与光源位置无关，散射光和镜面光与光源位置有关。</p>
+<h2 id="Cocos2dx光照"><a href="#Cocos2dx光照" class="headerlink" title="Cocos2dx光照"></a>Cocos2dx光照</h2><p>类似于OpenGL光照，只是Cocos2dx光照中没有镜面光，有四种光源，Ambient Light, Directional Light, Spot Light, Point Light,可以使用下面源码做光照测试.<br>可以看看大神<a href="http://blog.csdn.net/bill_man/article/details/51668897">bill_man</a>如何说.</p>
+<p>源码链接: <a href="http://pan.baidu.com/s/1nvMYgYX">http://pan.baidu.com/s/1nvMYgYX</a> 密码: ujvj</p>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu常用工具</title>
     <url>//posts/201602/</url>
     <content><![CDATA[<h3 id="鼠标右键打开终端"><a href="#鼠标右键打开终端" class="headerlink" title="鼠标右键打开终端"></a>鼠标右键打开终端</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get install nautilus-open-terminal</span><br></pre></td></tr></table></figure>
@@ -28,26 +48,6 @@
       </categories>
       <tags>
         <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Cocos2dx Phong光照总结</title>
-    <url>//posts/201601/</url>
-    <content><![CDATA[<p>最近几天查看了Cocos2dx Sample源码，看到Cocos2dx光照和Shader部分，先说说光照部分，Cocos2dx光照部分我个人在网上调研的最好的参照要属这位大神 <a href="http://blog.csdn.net/bill_man/article/details/51668897">bill_man</a>，不过看后感觉收获不大，<br>之前接触过OpenGL，看的是Android3D游戏开发宝典，OpenGL光照部分讲的也挺详细</p>
-<h2 id="OpenGL光照"><a href="#OpenGL光照" class="headerlink" title="OpenGL光照"></a>OpenGL光照</h2><p>&ensp;&ensp;OpenGL ES 2.0中采用的光照模型对比现实世界场景中还是做了相应的简化。OpenGL中的光照分为三种元素，也称为3个通道，包括环境光（Ambient）、散射光（Diffuse）以及镜面光（Specular），本文介绍三种光照通道的数学模型计算。</p>
-<span id="more"></span> 
-<h3 id="环境光（Ambient）"><a href="#环境光（Ambient）" class="headerlink" title="环境光（Ambient）"></a>环境光（Ambient）</h3><p>&ensp;&ensp;环境光（Ambient）指的是环境中均匀、物体各顶点亮度统一的光，也就是现实场景中的光源发出，而后经过多次反射，各个方向都大致均匀的光。<br><img data-src="https://cdn.laxdu.com/ImageHosting/P/Phong/0.webp"></p>
-<p>&ensp;&ensp;环境光与光源位置无关，故而物体各顶点处亮度统一，其入射和反射的光照都大致均匀，计算公式如下：<br>&emsp;&emsp;&emsp;&emsp;环境光照射结果 &#x3D; 材质的反射系数 * 环境光强度<br>&ensp;&ensp;其中，材质的反射系数指的是物体被照射处的颜色四通道RGBA值，环境光强度指的是被反射后的光的颜色三通道的值，在计算时必须要对环境光强度作齐次坐标变换。<br>PS：现实世界场景中，环境光是比较偏暗的.</p>
-<h3 id="散射光（Diffuse）"><a href="#散射光（Diffuse）" class="headerlink" title="散射光（Diffuse）"></a>散射光（Diffuse）</h3><p>&ensp;&ensp;仅仅有环境光的场景效果没有层次感，相对现实生活中的场景，还是比较差，本节介绍另一种光照通道——散射光，指的是从物体表面向全方位360度均匀反射的光.<br><img data-src="https://cdn.laxdu.com/ImageHosting/P/Phong/1.webp"><br>&ensp;&ensp;散射光在现实场景中表现为漫反射，反射光在各个方向基本均匀，反射的强度与入射光的强度以及入射的角度密切相关。具体计算公式如下：<br>&emsp;&emsp;&emsp;&emsp;散射光照射结果 &#x3D;材质的反射系数 * 散射光强度 * max（cos（入射角），0）<br>&ensp;&ensp;其中，材质的反射系数为物体被照射处的颜色四通道RGBA值，散射光强度指的是散射光中颜色三通道的强度值，和环境光一致，在计算时也需要对散射光强度作齐次坐标变换。当入射角大于90度时，cos（入射角）的值会小于零，可用max函数处理为0，这是因为入射角的范围在实际中不会大于90度，必须做相应的处理。入射角越大，散射光强度越小，要得到余弦值，只需分别将法向量和入射光向量归一化，而后再求叉积.</p>
-<h3 id="镜面光（Specular）"><a href="#镜面光（Specular）" class="headerlink" title="镜面光（Specular）"></a>镜面光（Specular）</h3><p>&ensp;&ensp;介绍完以上两种光通道，绘制的场景效果应该得到了改善，接下来介绍第三种光通道，这就是镜面光（Specular），代表的是表面较为光滑时的反射光，在物理学上也称之为“反射光”。镜面光最终强度不仅依赖于入射光与被照射点法向量的夹角，而且也依赖于观察者的位置，即摄像机的位置。如下图所示:<br><img data-src="https://cdn.laxdu.com/ImageHosting/P/Phong/2.webp"><br>公式如下所示：<br>&ensp;&ensp;&ensp;&ensp;镜面光最终强度 &#x3D; 材质的反射系数 * 镜面光强度 * max（0，pow（cos（半向量与法向量的夹角），粗糙度））<br>&ensp;&ensp;镜面光照射结果 &#x3D; 材质的反射系数 * 镜面光最终强度<br>&ensp;&ensp;其中，半向量指的是从被照射点到光源的向量与从被照射点到观察点向量的平均向量，另外，等式右边式子也加了粗糙度因子，使渲染的图形更贴近现实场景，达到粗糙度越小，镜面光面积越大的效果。<br>&ensp;&ensp;关于上面三种光通道的计算如何产生，请参考其他相关资料，本文只介绍计算公式和如何使用这些公式。<br>&ensp;&ensp;从上面三个公式也可以看出，环境光与光源位置无关，散射光和镜面光与光源位置有关。</p>
-<h2 id="Cocos2dx光照"><a href="#Cocos2dx光照" class="headerlink" title="Cocos2dx光照"></a>Cocos2dx光照</h2><p>类似于OpenGL光照，只是Cocos2dx光照中没有镜面光，有四种光源，Ambient Light, Directional Light, Spot Light, Point Light,可以使用下面源码做光照测试.<br>可以看看大神<a href="http://blog.csdn.net/bill_man/article/details/51668897">bill_man</a>如何说.</p>
-<p>源码链接: <a href="http://pan.baidu.com/s/1nvMYgYX">http://pan.baidu.com/s/1nvMYgYX</a> 密码: ujvj</p>
-]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -1281,8 +1281,8 @@ packge.json
     <url>//posts/202001/</url>
     <content><![CDATA[<h2 id="IOS"><a href="#IOS" class="headerlink" title="IOS"></a>IOS</h2><p>1.<a href="https://iemulators.com/airshou">AirShou</a>，ios &lt; 11的屏幕录制工具</p>
 <h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><ol>
-<li><a href="https://canvas.apps.chrome/">在线画布工具</a>  </li>
-<li><a href="https://www.speedtest.net/">带宽测速平台</a><span id="more"></span></li>
+<li>在线画布工具<br>  a. <a href="https://canvas.apps.chrome/">canvas</a><br>  b. <a href="https://www.autodraw.com/">autodraw</a>  </li>
+<li><a href="https://www.speedtest.net/">带宽测速平台</a>  <span id="more"></span></li>
 </ol>
 <h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><ol>
 <li>Listary, Everything： 本地搜索神器， 两者都很强大  </li>
