@@ -360,6 +360,30 @@
       </tags>
   </entry>
   <entry>
+    <title>C++纯虚函数，非纯虚函数，非虚函数</title>
+    <url>//posts/201608/</url>
+    <content><![CDATA[<p>先定义一个类</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Shape</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="title">draw</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;   <span class="comment">//纯虚函数</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="title">color</span><span class="params">()</span></span>;    <span class="comment">//非纯虚函数</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">objectID</span><span class="params">()</span></span>;   <span class="comment">//非虚函数</span></span><br><span class="line">    、、、</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Rectangle</span>: <span class="keyword">public</span> Shape&#123;&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Ellipse</span>: <span class="keyword">public</span> Shape&#123;&#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="纯虚函数-pure-virtual-function"><a href="#纯虚函数-pure-virtual-function" class="headerlink" title="纯虚函数(pure virtual function)"></a>纯虚函数(pure virtual function)</h2><p><strong>纯虚函数的目的是让派生类只继承函数接口，具体的实现留给派生类</strong><br>纯虚函数最突出的特性：</p>
+<blockquote>
+<p>它的派生类必须继承它的声明，有纯虚函数的类为抽象类<br>一般在抽象类它不会提供自身的定义</p>
+</blockquote>
+<p>注意：它可以提供但是一般不提供，也就是说Shape::draw可以提供一份实现代码，但调用它只能显示指明类名称</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Shape* p1 = <span class="keyword">new</span> Shape; <span class="comment">//Error, Shape是抽象的</span></span><br><span class="line">Shape* p2 = <span class="keyword">new</span> Rectangle; <span class="comment">//Right</span></span><br><span class="line">p2-&gt;<span class="built_in">draw</span>();             <span class="comment">//调用Rectangle::draw</span></span><br><span class="line">p2-&gt;Shape::<span class="built_in">draw</span>();      <span class="comment">//调用Shape::draw</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="非纯虚函数-impure-virtual-function"><a href="#非纯虚函数-impure-virtual-function" class="headerlink" title="非纯虚函数(impure virtual function)"></a>非纯虚函数(impure virtual function)</h2><p><strong>非纯虚函数的目的是让派生类继承函数接口和缺省实现</strong><br>拿上面的Shape类来说，派生类必须支持一个color()函数，如果派生类并未给定，可以直接使用基类缺省的color()函数，上面的例子就是Shape::color()函数，这种表示也会造成一定的问题，如果派生类未实现继承来的虚函数，而执行了基类的缺省行为，会与实际所需目的违背而并未报错，问题不在于基类的缺省行为，而在于派生类没有表达自己所需要的执行行为</p>
+<h2 id="非虚函数"><a href="#非虚函数" class="headerlink" title="非虚函数"></a>非虚函数</h2><p><strong>非虚函数的目的是让派生类继承函数接口和强制性实现</strong><br>这种情况所代表的意义是不变性凌驾于特异性之上，派生类不需要添加函数的特异行为，与基类行为一致，派生类都不应该尝试改变其行为</p>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>语言</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu常用软件包deb的安装与卸载命令</title>
     <url>//posts/201609/</url>
     <content><![CDATA[<p>主要用到<code>apt-get</code>, <code>dpkg</code>两个命令</p>
@@ -535,30 +559,6 @@
       </categories>
       <tags>
         <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++纯虚函数，非纯虚函数，非虚函数</title>
-    <url>//posts/201608/</url>
-    <content><![CDATA[<p>先定义一个类</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Shape</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="title">draw</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;   <span class="comment">//纯虚函数</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="title">color</span><span class="params">()</span></span>;    <span class="comment">//非纯虚函数</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">objectID</span><span class="params">()</span></span>;   <span class="comment">//非虚函数</span></span><br><span class="line">    、、、</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Rectangle</span>: <span class="keyword">public</span> Shape&#123;&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Ellipse</span>: <span class="keyword">public</span> Shape&#123;&#125;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h2 id="纯虚函数-pure-virtual-function"><a href="#纯虚函数-pure-virtual-function" class="headerlink" title="纯虚函数(pure virtual function)"></a>纯虚函数(pure virtual function)</h2><p><strong>纯虚函数的目的是让派生类只继承函数接口，具体的实现留给派生类</strong><br>纯虚函数最突出的特性：</p>
-<blockquote>
-<p>它的派生类必须继承它的声明，有纯虚函数的类为抽象类<br>一般在抽象类它不会提供自身的定义</p>
-</blockquote>
-<p>注意：它可以提供但是一般不提供，也就是说Shape::draw可以提供一份实现代码，但调用它只能显示指明类名称</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Shape* p1 = <span class="keyword">new</span> Shape; <span class="comment">//Error, Shape是抽象的</span></span><br><span class="line">Shape* p2 = <span class="keyword">new</span> Rectangle; <span class="comment">//Right</span></span><br><span class="line">p2-&gt;<span class="built_in">draw</span>();             <span class="comment">//调用Rectangle::draw</span></span><br><span class="line">p2-&gt;Shape::<span class="built_in">draw</span>();      <span class="comment">//调用Shape::draw</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="非纯虚函数-impure-virtual-function"><a href="#非纯虚函数-impure-virtual-function" class="headerlink" title="非纯虚函数(impure virtual function)"></a>非纯虚函数(impure virtual function)</h2><p><strong>非纯虚函数的目的是让派生类继承函数接口和缺省实现</strong><br>拿上面的Shape类来说，派生类必须支持一个color()函数，如果派生类并未给定，可以直接使用基类缺省的color()函数，上面的例子就是Shape::color()函数，这种表示也会造成一定的问题，如果派生类未实现继承来的虚函数，而执行了基类的缺省行为，会与实际所需目的违背而并未报错，问题不在于基类的缺省行为，而在于派生类没有表达自己所需要的执行行为</p>
-<h2 id="非虚函数"><a href="#非虚函数" class="headerlink" title="非虚函数"></a>非虚函数</h2><p><strong>非虚函数的目的是让派生类继承函数接口和强制性实现</strong><br>这种情况所代表的意义是不变性凌驾于特异性之上，派生类不需要添加函数的特异行为，与基类行为一致，派生类都不应该尝试改变其行为</p>
-]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>语言</tag>
       </tags>
   </entry>
   <entry>
@@ -3298,7 +3298,25 @@ packge.json
 <h4 id="访问和管理网心云"><a href="#访问和管理网心云" class="headerlink" title="访问和管理网心云"></a>访问和管理网心云</h4><p>通过浏览器访问宿主机IP:管理端口来访问网心云的管理界面. 例如, 如果宿主机IP是192.168.31.2，第一个容器的管理端口设置为18888, 则通过浏览器访问192.168.31.2:18888来管理第一个网心云容器  </p>
 <h4 id="手机APP绑定"><a href="#手机APP绑定" class="headerlink" title="手机APP绑定"></a>手机APP绑定</h4><p>使用网心云的手机APP扫描管理界面上的二维码进行设备绑定  </p>
 <h4 id="参考-3"><a href="#参考-3" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="https://tieba.baidu.com/p/8354641436">https://tieba.baidu.com/p/8354641436</a>  </p>
-<h3 id="参考-4"><a href="#参考-4" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="https://www.cnblogs.com/hahaha111122222/p/13180692.html">自定义镜像</a>  </p>
+<h3 id="国内拉取镜像失败"><a href="#国内拉取镜像失败" class="headerlink" title="国内拉取镜像失败"></a>国内拉取镜像失败</h3><p>因各种原因国内镜像拉取失败时  </p>
+<h4 id="优先改源"><a href="#优先改源" class="headerlink" title="优先改源"></a>优先改源</h4><p>1.编辑<code>daemon.json</code>文件</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vim /etc/docker/daemon.json</span><br></pre></td></tr></table></figure>
+<p>仍在使用的镜像地址, 说不准哪天不可用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;registry-mirrors&quot;: [</span><br><span class="line">        &quot;https://registry.docker-cn.com&quot;,</span><br><span class="line">        &quot;https://dockerproxy.com&quot;,</span><br><span class="line">        &quot;https://hub-mirror.c.163.com&quot;,</span><br><span class="line">        &quot;https://mirror.baidubce.com&quot;,</span><br><span class="line">        &quot;https://mirror.ccs.tencentyun.com&quot;,</span><br><span class="line">        &quot;https://docker.mirrors.ustc.edu.cn&quot;,</span><br><span class="line">        &quot;https://docker.m.daocloud.io&quot;,</span><br><span class="line">        &quot;https://huecker.io&quot;,</span><br><span class="line">        &quot;https://dockerhub.timeweb.cloud&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">2.重启Docker  </span><br></pre></td></tr></table></figure>
+<p>systemctl restart docker</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 镜像仓库不含应用源时  </span><br><span class="line">举例如acme.sh   </span><br><span class="line">1.克隆含Dockerfile文件的源仓库到本地  </span><br></pre></td></tr></table></figure>
+<p>git clone <a href="https://github.com/acmesh-official/acme.sh.git">https://github.com/acmesh-official/acme.sh.git</a></p>
+<pre><code>![](https://cdn.laxdu.com/ImageHosting/D/Docker/0.webp)  
+
+2.借助Portainer工具  
+上传Dockerfile至portainer, 编译第一步的仓库  
+
+![](https://cdn.laxdu.com/ImageHosting/D/Docker/1.webp)  
+
+注: 若没Portainer, 这类常用的应用可找国内镜像地址, 一般可直接拉取到    
+### 参考  
+1.[自定义镜像](https://www.cnblogs.com/hahaha111122222/p/13180692.html)  
+</code></pre>
 ]]></content>
       <categories>
         <category>随记</category>
@@ -3619,6 +3637,64 @@ GraphicsFormat GetLinearFormat(GraphicsFormat format)
 </table>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="https://zh.wikipedia.org/wiki/%E9%98%BF%E6%8B%89%E4%BC%AF%E6%95%B0%E5%AD%97">阿拉伯数字</a><br>2.<a href="https://zh.wikipedia.org/wiki/%E9%98%BF%E6%8B%89%E4%BC%AF%E6%96%87%E6%95%B0%E5%AD%97">阿拉伯文数字</a><br>3.<a href="https://zh.chped.com/wiki/%E9%98%BF%E6%8B%89%E4%BC%AF%E5%AD%97%E6%AF%8D">阿拉伯字母</a><br>4.<a href="https://zhuanlan.zhihu.com/p/443971128">阿拉伯字母变形表</a><br>5.<a href="https://github.com/pnarimani/RTLTMPro">RTLTMPro</a>  </p>
 <!-- 阿拉伯语中的长音包括：阿拉伯字母 Alif（ا）、Waw（و）和Ya（ي）。当这些字母出现在一个单词中时，它们的发音时间比短元音要长。叠音是指一个音素在连续的音节中重复出现，例如在英语中的“butter”这个词里的“t”发音。在阿拉伯语中，叠音通常由一个带有Shaddahxx符号的字母表示。当长音后面跟随叠音时，应保持长音的发音，并在其后加上叠音的发音。例如，阿拉伯语中的“مُؤَمِّل”（mu'ammil），发音时应保持长音Waw（و）的发音，并在其后加上叠音的发音。 -->]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>半透明混合</title>
+    <url>//posts/202407/</url>
+    <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/O/OIT/0.png"></p>
+<span id="more"></span>
+
+<h3 id="OVER"><a href="#OVER" class="headerlink" title="OVER"></a>OVER</h3><h4 id="Porter-Duff-OVER"><a href="#Porter-Duff-OVER" class="headerlink" title="Porter &amp; Duff OVER"></a>Porter &amp; Duff OVER</h4><p>一个表面覆盖背景<br>$$C_f&#x3D;C_1+(1-α_1)C_0$$</p>
+<p>$n$个表面覆盖背景<br>$$C_f&#x3D;[C_n+\colorbox{cyan}{((1-α_n))}\cdots[C_2+\colorbox{cyan}{((1-α_2))}[\colorbox{pink}{(C_1)}+\colorbox{cyan}{((1-α_1))}\colorbox{pink}{(C_0)}]]\cdots]$$<br>其中,<br>$C_i$的贡献为<br>$\colorbox{pink}{(C_i)}\prod_{j&#x3D;i+1}^n\colorbox{cyan}{((1-α_j))}$<br>背景的贡献为<br>$\colorbox{pink}{(C_0)}\prod_{i&#x3D;1}^n\colorbox{cyan}{((1-α_i))}$  </p>
+<p>备注: $C_f$为预乘$α$后的颜色值, 非预乘的颜色值应为$C_f&#x3D;α_1U_1+(1−α_1)C_0 &#x3D; C_0+α_1(U_1−C_0).$  </p>
+<h3 id="Blended-OIT"><a href="#Blended-OIT" class="headerlink" title="Blended OIT"></a>Blended OIT</h3><h4 id="Meshkin’s-Method"><a href="#Meshkin’s-Method" class="headerlink" title="Meshkin’s Method"></a>Meshkin’s Method</h4><p>Meshkin首次引入<code>blended OIT</code>, 支持交换操作,<br>$$C_f&#x3D;(\sum^n_{i&#x3D;1}C_i)+C_0(1-\sum^n_{i&#x3D;1}α_i)$$</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// OpenGL伪代码 - 浮点RenderTarget</span></span><br><span class="line">drawOpaqueSurfaces();</span><br><span class="line">copyColorBufferToTexture(C0Texture);</span><br><span class="line">glDepthMask(GL_FALSE);</span><br><span class="line">glEnable(GL_BLEND);</span><br><span class="line">glBlendFunc(GL_ONE, GL_ONE);</span><br><span class="line">bindFragmentShader(<span class="string">&quot;</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">uniform sampler2D C0Texture;</span></span><br><span class="line"><span class="string">void main() &#123;</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">vec3 C0 = texelFetch(C0Texture, ivec2(gl_FragCoord.xy), 0).rgb;</span></span><br><span class="line"><span class="string">gl_FragColor = vec4(Ci - ai * C0, 1.0);</span></span><br><span class="line"><span class="string">&#125;&quot;</span>, C0Texture);</span><br><span class="line">drawTransparentSurfaces();</span><br></pre></td></tr></table></figure>
+<p>当α很小且所有颜色很接近时, 结果接近back-to-front排序OVER操作.<br>当α较大时, 背景强度和净覆盖率可能与OVER操作有较大偏差.  </p>
+<h4 id="Bavoil-and-Myers’-Method"><a href="#Bavoil-and-Myers’-Method" class="headerlink" title="Bavoil and Myers’ Method"></a>Bavoil and Myers’ Method</h4><p>Bavoil and Myers用一个更好的颜色及覆盖率近似, 改进了Meshkin的操作, 权重平均如下<br>$$C_f&#x3D;\frac{\sum^n_{i&#x3D;1}C_i}{\sum_{i&#x3D;1}^nα_i}\cdot(1-[1-\frac{1}{n}\sum^n_{i&#x3D;1}α_i]^n)+C_0[1-\frac{1}{n}\sum^n_{i&#x3D;1}α_i]^n$$  </p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// OpenGL伪代码 </span></span><br><span class="line">drawOpaqueSurfaces();</span><br><span class="line">bindFramebuffer(accumTexture, countTexture);</span><br><span class="line">glDepthMask(GL_FALSE);</span><br><span class="line">glEnable(GL_BLEND);</span><br><span class="line">glBlendFunc(GL_ONE, GL_ONE);</span><br><span class="line">bindFragmentShader(<span class="string">&quot;...</span></span><br><span class="line"><span class="string">gl_FragData[0] = vec4(Ci, ai);</span></span><br><span class="line"><span class="string">gl_FragData[1] = vec4(1);</span></span><br><span class="line"><span class="string">...&#125;&quot;</span>);</span><br><span class="line">drawTransparentSurfaces();</span><br><span class="line">unbindFramebuffer();</span><br><span class="line">glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);</span><br><span class="line">bindFragmentShader(<span class="string">&quot;...</span></span><br><span class="line"><span class="string">vec4 accum = texelFetch(accumTexture, ivec2(gl_FragCoord.xy), 0);</span></span><br><span class="line"><span class="string">float n = max(1.0, texelFetch(countTexture, ivec2(gl_FragCoord.xy), 0).r);</span></span><br><span class="line"><span class="string">gl_FragColor = vec4(accum.rgb / max(accum.a, 0.0001),</span></span><br><span class="line"><span class="string">pow(max(0.0, 1.0 - accum.a / n), n));</span></span><br><span class="line"><span class="string">...&#125;&quot;</span>, accumTexture, countTexture);</span><br></pre></td></tr></table></figure>
+<p>平均了所有组合的表面, 改善了$α$很小或很大情况<br>但引入一个问题, 当引入$C&#x3D;0，α&#x3D;0$的一些表面（这些表面应该是完全不可见的）时, 将通过覆盖率更高的表面颜色来改变生成的图像  </p>
+<h4 id="A-New-Blended-OIT-Method"><a href="#A-New-Blended-OIT-Method" class="headerlink" title="A New Blended OIT Method"></a>A New Blended OIT Method</h4><p>改善了$C&#x3D;0，α&#x3D;0$情况<br>$$C_f&#x3D;\frac{\sum_{i&#x3D;1}^nC_i}{\sum_{i&#x3D;1}^nα_i}(1-\prod_{i&#x3D;1}^n(1-α_i))+C_0\prod_{i&#x3D;1}^n(1-α_i)$$  </p>
+<p>组合的部分覆盖表面的颜色始终由覆盖率最高的表面主导，无论它们出现在深度排序中的哪个位置  </p>
+<h4 id="Depth-Weights-Improve-Occlusion-Weighted-Blended"><a href="#Depth-Weights-Improve-Occlusion-Weighted-Blended" class="headerlink" title="Depth Weights Improve Occlusion (Weighted Blended)"></a>Depth Weights Improve Occlusion (Weighted Blended)</h4><p>引入了深度权重, 颜色权重离相机越远越小  </p>
+<p>$$C_f&#x3D;\frac{\sum_{i&#x3D;1}^nC_i\cdot\omega(z_i, α_i)}{\sum_{i&#x3D;1}^nα_i\cdot\omega(z_i,α_i)}(1-\prod_{i&#x3D;1}^n(1-α_i))+C_0\prod_{i&#x3D;1}^n(1-α_i)$$<br>其中,<br>$\omega(z_i, α_i)$是距离权重，<br>$|z|$是相机空间的距离数值，值域为$[0,-\infty)$<br>所以$\omega(z_i, α_i)$是$|z|$在$[0,-\infty)$区间单调递减的函数<br>文章推荐了几个通用的权重函数，在任意场景大深度下表现都不错，$|z|$在$[0.1, 500]$的区间基本能映射到16位浮点数精度<br>$$\omega(z, α)&#x3D;α\cdot max[10^{-2}, min[3\cdot10^3, \frac{10}{10^{-5}+(|z|&#x2F;5)^2+(|z|&#x2F;200)^6}]]\tag{7}$$<br>$$\omega(z, α)&#x3D;α\cdot max[10^{-2}, min[3\cdot10^3, \frac{10}{10^{-5}+(|z|&#x2F;10)^3+(|z|&#x2F;200)^6}]]\tag{8}$$<br>$$\omega(z, α)&#x3D;α\cdot max[10^{-2}, min[3\cdot10^3, \frac{0.03}{10^{-5}+(|z|&#x2F;200)^4}]]\tag{9}$$<br>$$\omega(z, α)&#x3D;α\cdot max[10^{-2}, 3\cdot10^3\cdot(1-d(z))^3]\tag{10}$$<br>其中,<br>$d(z)$是OpenGL中gl_FragCoord.z值，即<br>$$d(z)&#x3D;\frac{z_{near}z_{far}&#x2F;z-z_{far}}{z_{near}-z_{far}}$$</p>
+<p>每个公式都进行了值域裁剪，原因是在$|z|$很小$α$很大或者$|z|$很大$α$很小的情况下，会产生16位float值域溢出，导致效果错误。即便有了值域限制，在20多层半透明叠加后可能放大值域问题，仍然有可能溢出<br><img data-src="https://cdn.laxdu.com/ImageHosting/O/OIT/1.png"></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// OpenGL伪代码 </span></span><br><span class="line">drawOpaqueSurfaces();</span><br><span class="line">clear accumTexture to <span class="title function_">vec4</span><span class="params">(<span class="number">0</span>)</span>, revealageTexture to <span class="title function_">float</span><span class="params">(<span class="number">1</span>)</span></span><br><span class="line"><span class="title function_">bindFramebuffer</span><span class="params">(accumTexture, revealageTexture)</span>;</span><br><span class="line">glDepthMask(GL_FALSE);</span><br><span class="line">glEnable(GL_BLEND);</span><br><span class="line">glBlendFunci(<span class="number">0</span>, GL_ONE, GL_ONE);</span><br><span class="line">glBlendFunci(<span class="number">1</span>, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA);</span><br><span class="line">bindFragmentShader(<span class="string">&quot;...</span></span><br><span class="line"><span class="string">gl_FragData[0] = vec4(Ci, ai) * w(zi, ai);</span></span><br><span class="line"><span class="string">gl_FragData[1] = vec4(ai);</span></span><br><span class="line"><span class="string">...&#125;&quot;</span>);</span><br><span class="line">drawTransparentSurfaces();</span><br><span class="line">unbindFramebuffer();</span><br><span class="line">glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);</span><br><span class="line">bindFragmentShader(<span class="string">&quot;...</span></span><br><span class="line"><span class="string">vec4 accum = texelFetch(accumTexture, ivec2(gl_FragCoord.xy), 0);</span></span><br><span class="line"><span class="string">float r = texelFetch(revealageTexture, ivec2(gl_FragCoord.xy), 0).r;</span></span><br><span class="line"><span class="string">gl_FragColor = vec4(accum.rgb / clamp(accum.a, 1e-4, 5e4), r);</span></span><br><span class="line"><span class="string">...&#125;&quot;</span>, accumTexture, revealageTexture);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// OpenGL伪代码 - Without Per-Render Target Blending</span></span><br><span class="line">drawOpaqueSurfaces();</span><br><span class="line">bindFramebuffer(A, B);</span><br><span class="line">glColorClearValue(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">glClear();</span><br><span class="line">glDepthMask(GL_FALSE);</span><br><span class="line">glEnable(GL_BLEND);</span><br><span class="line">glBlendFuncSeparate(GL_ONE, GL_ONE, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA);</span><br><span class="line">bindFragmentShader(<span class="string">&quot;...</span></span><br><span class="line"><span class="string">gl_FragData[0] = vec4(Ci * w(zi, ai), ai);</span></span><br><span class="line"><span class="string">gl_FragData[1].r = ai * w(zi, ai);</span></span><br><span class="line"><span class="string">...&#125;&quot;</span>);</span><br><span class="line">drawTransparentSurfaces();</span><br><span class="line">unbindFramebuffer();</span><br><span class="line">glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);</span><br><span class="line">bindFragmentShader(<span class="string">&quot;...</span></span><br><span class="line"><span class="string">vec4 accum = texelFetch(ATexture, ivec2(gl_FragCoord.xy), 0);</span></span><br><span class="line"><span class="string">float r = accum.a;</span></span><br><span class="line"><span class="string">accum.a = texelFetch(BTexture, ivec2(gl_FragCoord.xy), 0).r;</span></span><br><span class="line"><span class="string">gl_FragColor = vec4(accum.rgb / clamp(accum.a, 1e-4, 5e4), r);</span></span><br><span class="line"><span class="string">...&#125;&quot;</span>, A, B);</span><br></pre></td></tr></table></figure>
+<p><strong>一些限制</strong><br>在下列情况下Blended OIT方法表现质量会受到影响<br>1.场景中深度范围很大，在单个pass中提交多个半透明紧密结合的群体；在这种情况下, 很难选择既能够区分单个集合，还能够在集合中区分半透明层的深度函数<br>2.方法和深度相关，也就是半透明的mesh放在相机近处和远处颜色会有所差异，例如将整个场景移动到不同的深度范围可以改变其颜色，但这种差异一般是可以接受的, 因为随着对象在z轴上移动，颜色过渡会缓慢发生  </p>
+<p><strong>前提假设</strong><br>1.部分覆盖的位置在层级间不相关, 类似自遮挡、互相遮挡情况（Porter And Duff上假设）<br>2.表面要么具有相似的颜色, 要么深度相对分布均匀<br>3.颜色精度对于靠近的表面最重要，但在整个深度范围内精度都很重要  </p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="https://zhuanlan.zhihu.com/p/487577680">半透明顺序无关渲染 OIT</a><br>2.<a href="https://jcgt.org/published/0002/02/09/paper.pdf">Weighted Blended Order-Independent Transparency</a><br>3.<a href="https://zhuanlan.zhihu.com/p/353940259">顺序无关的半透明混合（OIT）相关方法</a><br>4.<a href="http://www.klayge.org/2013/02/05/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%BE%83%E6%96%B0%E7%9A%84oit%E6%96%B9%E6%B3%95%ef%bc%9aper-pixel-linked-lists/">实现一个较新的OIT方法 Per-Pixel Linked Lists</a><br>5.<a href="https://docs.nvidia.com/gameworks/content/gameworkslibrary/graphicssamples/d3d_samples/antialiaseddeferredrendering.htm">Antialiased Deferred Rendering</a>  </p>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>延迟渲染的MSAA</title>
+    <url>//posts/202408/</url>
+    <content><![CDATA[<h2 id="主要分三步骤"><a href="#主要分三步骤" class="headerlink" title="主要分三步骤"></a>主要分三步骤</h2><ol>
+<li>首先将场景几何图形渲染到multisample-enabled g-buffer，而后确定哪些像素是复杂的. (使用<em>SV_Coverage</em>或检查像素内样本之间的不连续性来确定像素是否具有多个不同的fragments)  </li>
+<li>为复杂像素分离Pass，以获得更好的线程一致性  </li>
+<li>对复杂像素及常规像素分别着色.  (确定复杂像素中独立fragment的数量，并根据独立fragment加权求和自适应着色)  <span id="more"></span></li>
+</ol>
+<p>具体可参考Nvidia实现的Deferred Rendering 4x MSAA Demo<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/Deferred/msaa_deferred_thumb_360_0.jpg">  </p>
+<p>延迟渲染中, 会先计算非光照部分, 写入G-Buffer, 而后统一进行光照计算, 即场景几何同光照计算分离, 光照计算阶段的几何基本是Quad. MSAA主要用于解决几何锯齿, 更适用于前向渲染能直接获取边缘信息.<br>延迟场景中, 需优先确定哪些像素复杂，且仅以每个样本的频率着色，以最少的计算和尽可能最小的发散方式.  </p>
+<h3 id="复杂像素检测"><a href="#复杂像素检测" class="headerlink" title="复杂像素检测"></a>复杂像素检测</h3><p>延迟着色中, MSAA首先需检测复杂像素，即包含多个独立fragment的这些像素. 有俩种方法可实现.</p>
+<p>一种是使用<em>SV_Coverage</em>, 计算当前fragment覆盖的像素样本. 如下图所示<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/Deferred/msaa_coverage_thumb_360_0.jpg">    </p>
+<p>若某个像素中有一个样本的coverage mask不是1111，则将该像素标记为复杂, 将每个样本覆盖掩码是否为1111存储到multisampled buffer中, 然后显式resolve buffer，这样不必循环遍历每个样本来判断像素是否复杂<br>这种方法可非常有效地检测复杂像素，但存在将一些非边缘像素标记为复杂的缺点，起因是依赖于潜在的几何结构而并非是屏幕空间不连续性.  </p>
+<p>另一种是搜索像素中样本之间的法线、颜色和深度的不连续性，如果不连续性大于某个阈值，将该像素标记为复杂. 这种方法的优点是仅在边缘产生复杂像素, 这意味着需在检测过程中循环遍历像素中的样本.<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/Deferred/complex_pixels_thumb_360_0.jpg">  </p>
+<h3 id="为复杂像素分离Pass"><a href="#为复杂像素分离Pass" class="headerlink" title="为复杂像素分离Pass"></a>为复杂像素分离Pass</h3><p>Light Pass阶段，我们使用复杂像素Mask来区分常规像素和复杂像素. 若像素很复杂，执行超采样，并输出每个样本的平均颜色. 这样做会存在线程一致性问题, 对于打包进一个warp的多个像素，执行一次着色的常规像素必须等待复杂像素完成，因为它们正进行超级采样. 或者可使用stencil masks将常规像素和复杂像素分成2个pass. 分离Pass的缺点是引入了生成stencil masks的开销以及每帧的额外drawcall.  </p>
+<h3 id="复杂像素的自适应着色"><a href="#复杂像素的自适应着色" class="headerlink" title="复杂像素的自适应着色"></a>复杂像素的自适应着色</h3><p>大多数复杂像素仅有2个独立fragments，这意味着可在复杂像素上执行更少着色，但仍能实现相同的视觉质量<br>同样可使用stencil masks来计算每个复杂像素中独立fragments的数量. 计算每个像素独立coverage masks的数量, 并根据覆盖的样本数量对像素中的每个独立fragment进行加权. 例如下图中有3个独立fragments. 红色fragment的权重为2&#x2F;4, 而蓝色和灰色fragment的权重均为1&#x2F;4.<br>降低了着色成本，但引入了对复杂像素中独立fragments加权求和的额外开销.<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/Deferred/adaptive_shading_thumb_360_0.jpg">  </p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="https://docs.nvidia.com/gameworks/content/gameworkslibrary/graphicssamples/d3d_samples/antialiaseddeferredrendering.htm">Antialiased Deferred Rendering</a><br>2.<a href="https://cloud.tencent.com/developer/article/2016951">GPU 渲染管线和硬件架构浅谈</a><br>3.<a href="https://zhuanlan.zhihu.com/p/653918968">CUDA编程warp</a></p>
+]]></content>
       <categories>
         <category>工业</category>
       </categories>
