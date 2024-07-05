@@ -3680,11 +3680,9 @@ GraphicsFormat GetLinearFormat(GraphicsFormat format)
   <entry>
     <title>延迟渲染的MSAA</title>
     <url>//posts/202408/</url>
-    <content><![CDATA[<h2 id="主要分三步骤"><a href="#主要分三步骤" class="headerlink" title="主要分三步骤"></a>主要分三步骤</h2><ol>
-<li>首先将场景几何图形渲染到multisample-enabled g-buffer，而后确定哪些像素是复杂的. (使用<em>SV_Coverage</em>或检查像素内样本之间的不连续性来确定像素是否具有多个不同的fragments)  </li>
-<li>为复杂像素分离Pass，以获得更好的线程一致性  </li>
-<li>对复杂像素及常规像素分别着色.  (确定复杂像素中独立fragment的数量，并根据独立fragment加权求和自适应着色)  <span id="more"></span></li>
-</ol>
+    <content><![CDATA[<h2 id="主要分三步骤"><a href="#主要分三步骤" class="headerlink" title="主要分三步骤"></a>主要分三步骤</h2><p>1.首先将场景几何图形渲染到multisample-enabled g-buffer，而后确定哪些像素是复杂的. (使用<em>SV_Coverage</em>或检查像素内样本之间的不连续性来确定像素是否具有多个不同的fragments)<br>2.为复杂像素分离Pass，以获得更好的线程一致性<br>3.对复杂像素及常规像素分别着色.  (确定复杂像素中独立fragment的数量，并根据独立fragment加权求和自适应着色)  </p>
+<span id="more"></span>
+
 <p>具体可参考Nvidia实现的Deferred Rendering 4x MSAA Demo<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/Deferred/msaa_deferred_thumb_360_0.jpg">  </p>
 <p>延迟渲染中, 会先计算非光照部分, 写入G-Buffer, 而后统一进行光照计算, 即场景几何同光照计算分离, 光照计算阶段的几何基本是Quad. MSAA主要用于解决几何锯齿, 更适用于前向渲染能直接获取边缘信息.<br>延迟场景中, 需优先确定哪些像素复杂，且仅以每个样本的频率着色，以最少的计算和尽可能最小的发散方式.  </p>
 <h3 id="复杂像素检测"><a href="#复杂像素检测" class="headerlink" title="复杂像素检测"></a>复杂像素检测</h3><p>延迟着色中, MSAA首先需检测复杂像素，即包含多个独立fragment的这些像素. 有俩种方法可实现.</p>
