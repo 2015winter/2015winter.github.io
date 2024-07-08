@@ -38,8 +38,8 @@ https://blog.laxdu.com/posts/202203/
 https://blog.laxdu.com/posts/202204/
 https://blog.laxdu.com/posts/202301/
 https://blog.laxdu.com/posts/202302/
-https://blog.laxdu.com/posts/202304/
 https://blog.laxdu.com/posts/202303/
+https://blog.laxdu.com/posts/202304/
 https://blog.laxdu.com/posts/202305/
 https://blog.laxdu.com/posts/202306/
 https://blog.laxdu.com/posts/202401/
@@ -48,6 +48,7 @@ https://blog.laxdu.com/posts/202403/
 https://blog.laxdu.com/posts/202404/
 https://blog.laxdu.com/posts/202407/
 https://blog.laxdu.com/posts/202408/
+https://blog.laxdu.com/posts/202409/
 https://blog.laxdu.com/donation/index.html
 https://blog.laxdu.com/guestbook/index.html
 https://blog.laxdu.com/leisure/index.html
