@@ -3405,7 +3405,7 @@ GraphicsFormat GetLinearFormat(GraphicsFormat format)
   <entry>
     <title>实时环境光小结</title>
     <url>//posts/202306/</url>
-    <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/E/EnvironmentLight/8_ibl.gif">   </p>
+    <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/E/EnvironmentLight/8_ibl.webp">   </p>
 <span id="more"></span>  
 
 <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>1.Diffuse表面<br>2.远距离照明<br>3.无阴影、相互反射  </p>
