@@ -1291,7 +1291,8 @@ packge.json
 <li>在线画布工具<br>  a. <a href="https://canvas.apps.chrome/">canvas</a><br>  b. <a href="https://www.autodraw.com/">autodraw</a>  </li>
 <li><a href="https://www.speedtest.net/">带宽测速平台</a>  </li>
 <li><a href="https://www.desmos.com/calculator">曲线生成平台</a>  </li>
-<li><a href="https://ezgif.com/">ezgif</a></li>
+<li><a href="https://ezgif.com/">ezgif</a>  </li>
+<li><a href="https://dewatermark.ai/upload">在线去水印</a></li>
 </ol>
 <span id="more"></span>
 
@@ -3263,6 +3264,17 @@ packge.json
 <p>nginx.conf文件追加</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen 80;</span><br><span class="line">  server_name xxx.laxdu.com; <span class="comment"># 待匹配的域名</span></span><br><span class="line">  location /</span><br><span class="line">  &#123;</span><br><span class="line">    auth_basic <span class="string">&quot;Please enter your username and password&quot;</span>;</span><br><span class="line">    auth_basic_user_file htpasswd文件路径; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>3.转发至localhost  </p>
+<p>若服务器本机想通过Docker Nginx转发其他容器  </p>
+<p>a.Docker创建Nginx容器时, 直接指定为Host网络, 该方式存在安全风险, 不推荐  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run --network host -xxx -xxxxx -d nginx</span><br></pre></td></tr></table></figure>
+
+<p>b.直接使用公网IP转发  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Nginx代理转发</span><br><span class="line">proxy_pass http://公网IP:转发端口</span><br></pre></td></tr></table></figure>
+
+<p>c.直接使用私网IP转发  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 通过命令查看IP</span><br><span class="line">ip route show</span><br><span class="line"># Nginx代理转发</span><br><span class="line">proxy_pass http://私网IP:转发端口</span><br></pre></td></tr></table></figure>
+
 <h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>1.配置<code>auth_basic</code>出现403 forbidden<br><code>auth_basic</code>指令用于在请求时验证用户名和密码, 若请求时未包含正确凭据，则会返回403 Forbidden错误  </p>
 <p>检查以下几点  </p>
 <ul>
@@ -3308,7 +3320,7 @@ packge.json
 <p>2.显示指定新政策  </p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker run -d --name=netdata \</span><br><span class="line">--security-opt=seccomp=/etc/docker/seccomp.json \</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
-<h4 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="https://www.51cto.com/article/601353.html">NetData搭建</a><br>2.<a href="https://learn.netdata.cloud/docs/netdata-cloud/connect-agent-to-cloud#known-issues-on-older-hosts-with-seccomp-enabled">Seccomp已知问题</a><br>3.<a href="https://learn.netdata.cloud/docs/netdata-agent/configuration/running-the-netdata-agent-behind-a-reverse-proxy/nginx">NetData反向代理</a>  </p>
+<h4 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="https://www.51cto.com/article/601353.html">NetData搭建</a><br>2.<a href="https://learn.netdata.cloud/docs/netdata-cloud/connect-agent-to-cloud#known-issues-on-older-hosts-with-seccomp-enabled">Seccomp已知问题</a><br>3.<a href="https://learn.netdata.cloud/docs/netdata-agent/configuration/running-the-netdata-agent-behind-a-reverse-proxy/nginx">NetData反向代理</a><br>4.<a href="https://github.com/netdata/netdata/pkgs/container/netdata">NetData命令行安装</a><br>5.<a href="https://gitee.com/DXLinux/Netdata-chinese-patch">NetData中文补丁</a>  </p>
 <h3 id="网心云"><a href="#网心云" class="headerlink" title="网心云"></a>网心云</h3><p>带宽太低不大适合跑, 比如4兆, 最好30兆以上  </p>
 <h4 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h4><p>从指定的地址拉取网心云的Docker镜像  </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker pull onething1/wxedge</span><br></pre></td></tr></table></figure>
@@ -3319,6 +3331,14 @@ packge.json
 <h4 id="访问和管理网心云"><a href="#访问和管理网心云" class="headerlink" title="访问和管理网心云"></a>访问和管理网心云</h4><p>通过浏览器访问宿主机IP:管理端口来访问网心云的管理界面. 例如, 如果宿主机IP是192.168.31.2，第一个容器的管理端口设置为18888, 则通过浏览器访问192.168.31.2:18888来管理第一个网心云容器  </p>
 <h4 id="手机APP绑定"><a href="#手机APP绑定" class="headerlink" title="手机APP绑定"></a>手机APP绑定</h4><p>使用网心云的手机APP扫描管理界面上的二维码进行设备绑定  </p>
 <h4 id="参考-3"><a href="#参考-3" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="https://tieba.baidu.com/p/8354641436">https://tieba.baidu.com/p/8354641436</a>  </p>
+<h3 id="Jellyfin"><a href="#Jellyfin" class="headerlink" title="Jellyfin"></a>Jellyfin</h3><p>1.拉取镜像  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker pull jellyfin/jellyfin</span><br></pre></td></tr></table></figure>
+<p>2.建立映射目录  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir /path/to/config</span><br><span class="line">mkdir /path/to/cache</span><br></pre></td></tr></table></figure>
+<p>3.创建容器  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line"> --name jellyfin \</span><br><span class="line"> --user uid:gid \</span><br><span class="line"> --net=host \</span><br><span class="line"> --volume /path/to/config:/config \ # Alternatively --volume jellyfin-config:/config</span><br><span class="line"> --volume /path/to/cache:/cache \ # Alternatively --volume jellyfin-cache:/cache</span><br><span class="line"> --mount type=bind,source=/path/to/media,target=/media \</span><br><span class="line"> --restart=unless-stopped \</span><br><span class="line"> jellyfin/jellyfin</span><br></pre></td></tr></table></figure>
+
+<h4 id="参考-4"><a href="#参考-4" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="https://jellyfin.org/docs/general/installation/container/">Jellyfin安装指南</a>  </p>
 <h3 id="国内拉取镜像失败"><a href="#国内拉取镜像失败" class="headerlink" title="国内拉取镜像失败"></a>国内拉取镜像失败</h3><p>因各种原因国内镜像拉取失败时  </p>
 <h4 id="优先改源"><a href="#优先改源" class="headerlink" title="优先改源"></a>优先改源</h4><p>1.编辑<code>daemon.json</code>文件  </p>
 <p>步骤如上Docker镜像加速  </p>
@@ -3332,7 +3352,7 @@ packge.json
 <p>2.借助Portainer工具<br>上传Dockerfile至portainer, 编译第一步的仓库  </p>
 <p><img data-src="https://cdn.laxdu.com/ImageHosting/D/Docker/1.webp">  </p>
 <p>注: 若没Portainer, 这类常用的应用可参照<a href="#Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F">Docker镜像加速</a>尝试拉取, 一般可直接拉取到    </p>
-<h3 id="参考-4"><a href="#参考-4" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="https://www.cnblogs.com/hahaha111122222/p/13180692.html">自定义镜像</a><br>2.<a href="https://cr.console.aliyun.com/cn-hangzhou/instance/new">阿里云个人镜像服务</a><br>3.<a href="https://zhuanlan.zhihu.com/p/704258769">Docker镜像国内拉取方法</a>  </p>
+<h3 id="参考-5"><a href="#参考-5" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="https://www.cnblogs.com/hahaha111122222/p/13180692.html">自定义镜像</a><br>2.<a href="https://cr.console.aliyun.com/cn-hangzhou/instance/new">阿里云个人镜像服务</a><br>3.<a href="https://zhuanlan.zhihu.com/p/704258769">Docker镜像国内拉取方法</a>  </p>
 ]]></content>
       <categories>
         <category>随记</category>
