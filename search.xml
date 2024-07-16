@@ -1344,12 +1344,7 @@ packge.json
 <li>SourceTree, git管理工具</li>
 <li>GiF Brewery3, 视频转GiF工具</li>
 <li>MindMaster, 思维导图工具</li>
-<li><a href="https://docs.anaconda.com/anaconda/install/index.html">Anaconda</a>, 包管理器, 支持多平台, 精简版<a href="https://docs.anaconda.com/miniconda/">Miniconda</a></li>
-</ol>
-<ul>
-<li>安装iterm2 + Anaconda会出现<code>base</code>显示, <a href="https://stackoverflow.com/questions/54990385/iterm2-shell-prompt-now-shows-base)">conda config –set auto_activate_base false</a></li>
-</ul>
-<ol start="16">
+<li><a href="https://docs.anaconda.com/anaconda/install/index.html">Anaconda</a>, 包管理器, 支持多平台, 精简版<a href="https://docs.anaconda.com/miniconda/">Miniconda</a>.  安装iterm2 + Anaconda会出现<code>base</code>显示, <a href="https://stackoverflow.com/questions/54990385/iterm2-shell-prompt-now-shows-base">conda config –set auto_activate_base false</a></li>
 <li><a href="https://github.com/iina/iina">IINA</a>, 视频播放器  </li>
 <li><a href="https://cleanmymac.com/">CleanMyMac</a>, Mac清理工具, 类似电脑管家</li>
 </ol>
@@ -3188,7 +3183,7 @@ packge.json
 
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="https://docs.jeremyjone.com/document/git/github_workflow/#">GitHub Pages action 配置</a><br>2.<a href="https://sspai.com/post/60103">如何让你的静态网站极速打开</a><br>3.<a href="https://juejin.cn/post/7041563888495624200">使用GitHub Action、阿里云效和Cloudbase自动发布博客</a><br>4.<a href="https://blog.csdn.net/weixin_50367873/article/details/133863142">GitHub Action 通过SSH 自动部署到云服务器上</a></p>
 <h2 id="域名备案"><a href="#域名备案" class="headerlink" title="域名备案"></a>域名备案</h2><p><a href="https://ping.gaomeluo.com/huawei/">各区域节点的延迟查询</a><br><a href="https://ping.chinaz.com/">站长工具</a>  </p>
-<h2 id="站点图标"><a href="#站点图标" class="headerlink" title="站点图标"></a>站点图标</h2><p>1.favicon生成<br><a href="https://www.logosc.cn/favicon-generator">图标在线生成器</a>, 给定图片生成一系列图  </p>
+<h2 id="站点图标"><a href="#站点图标" class="headerlink" title="站点图标"></a>站点图标</h2><p>1.favicon生成<br><a href="https://www.logosc.cn/favicon-generator">图标在线生成器</a>, 给定图片生成一系列图<br><a href="https://favicon.io/emoji-favicons/"></a></p>
 <h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><p>1.<a href="https://west.cn/web/mi">域名查找</a><br>2.<a href="https://zhuanlan.zhihu.com/p/678493393">注册域名邮箱教程</a><br>3.<a href="https://blog.csdn.net/qq_41356250/article/details/126155707">配置Twikoo评论功能</a><br>4.<a href="https://cloud.tencent.com/document/product/436/13319">对象存储设置防盗链</a></p>
 ]]></content>
       <categories>
