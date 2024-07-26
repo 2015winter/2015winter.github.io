@@ -21,6 +21,36 @@
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu常用工具</title>
+    <url>//posts/201602/</url>
+    <content><![CDATA[<h3 id="鼠标右键打开终端"><a href="#鼠标右键打开终端" class="headerlink" title="鼠标右键打开终端"></a>鼠标右键打开终端</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nautilus-open-terminal</code></pre>
+<p>重新加载文件管理器</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ nautilus <span class="token parameter variable">-q</span></code></pre>
+<p>或注销再登陆  </p>
+<span id="more"></span>
+
+<h3 id="Oh-My-Zsh"><a href="#Oh-My-Zsh" class="headerlink" title="Oh My Zsh"></a><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JvYmJ5cnVzc2VsbC9vaC1teS16c2g=">Oh My Zsh<i class="fa fa-external-link-alt"></i></span></h3><p>首先安装zsh</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">zsh</span></code></pre>
+<p>安装完成后，通过<code>zsh --version</code>查看是否安装成功，然后通过wget安装oh my zsh</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sh</span> <span class="token parameter variable">-c</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">wget</span> https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh <span class="token parameter variable">-O</span> -<span class="token variable">)</span></span>"</span></code></pre>
+<p>到这就结束了，要想应用到全局，还得</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ chsh <span class="token parameter variable">-s</span> /bin/zsh</code></pre>
+<p>设置完后重启.<br>如果想移除oh my zsh，　运行</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ uninstall_oh_my_zsh</code></pre>
+
+<h3 id="Catfish"><a href="#Catfish" class="headerlink" title="Catfish"></a><span class="exturl" data-url="aHR0cHM6Ly9sYXVuY2hwYWQubmV0L2NhdGZpc2gtc2VhcmNoLytkb3dubG9hZA==">Catfish<i class="fa fa-external-link-alt"></i></span></h3><p>一款Ubuntu下的文件搜索工具<br>命令行安裝方法</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> catfish</code></pre>
+<p>然後運行命令</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ catfish</code></pre>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Cocos2dx透明背景 + 植入广告</title>
     <url>//posts/201603/</url>
     <content><![CDATA[<blockquote>
@@ -190,98 +220,6 @@ this.mGLSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu常用工具</title>
-    <url>//posts/201602/</url>
-    <content><![CDATA[<h3 id="鼠标右键打开终端"><a href="#鼠标右键打开终端" class="headerlink" title="鼠标右键打开终端"></a>鼠标右键打开终端</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nautilus-open-terminal</code></pre>
-<p>重新加载文件管理器</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ nautilus <span class="token parameter variable">-q</span></code></pre>
-<p>或注销再登陆  </p>
-<span id="more"></span>
-
-<h3 id="Oh-My-Zsh"><a href="#Oh-My-Zsh" class="headerlink" title="Oh My Zsh"></a><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JvYmJ5cnVzc2VsbC9vaC1teS16c2g=">Oh My Zsh<i class="fa fa-external-link-alt"></i></span></h3><p>首先安装zsh</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">zsh</span></code></pre>
-<p>安装完成后，通过<code>zsh --version</code>查看是否安装成功，然后通过wget安装oh my zsh</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sh</span> <span class="token parameter variable">-c</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">wget</span> https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh <span class="token parameter variable">-O</span> -<span class="token variable">)</span></span>"</span></code></pre>
-<p>到这就结束了，要想应用到全局，还得</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ chsh <span class="token parameter variable">-s</span> /bin/zsh</code></pre>
-<p>设置完后重启.<br>如果想移除oh my zsh，　运行</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ uninstall_oh_my_zsh</code></pre>
-
-<h3 id="Catfish"><a href="#Catfish" class="headerlink" title="Catfish"></a><span class="exturl" data-url="aHR0cHM6Ly9sYXVuY2hwYWQubmV0L2NhdGZpc2gtc2VhcmNoLytkb3dubG9hZA==">Catfish<i class="fa fa-external-link-alt"></i></span></h3><p>一款Ubuntu下的文件搜索工具<br>命令行安裝方法</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> catfish</code></pre>
-<p>然後運行命令</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ catfish</code></pre>
-]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android Studio学习</title>
-    <url>//posts/201605/</url>
-    <content><![CDATA[<p>&emsp;&emsp;这个系列教程在Android Studio Beta版本的时候就开始着手编写，感觉作者的教程对Gradle的说明及在Android Studio的常用方法介绍的很详细，做个链接总结吧，以便经常学习，相信作者的教程稳定可以帮助从未接触过AS和Gradle的初学者很快上手。</p>
-<blockquote>
-<ul>
-<li><span class="exturl" data-url="aHR0cDovL2dlZWsuY3Nkbi5uZXQvbmV3cy9kZXRhaWwvODYxNDQ=">给 Android 初学者的 Gradle 知识普及<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-</blockquote>
-<span id="more"></span>
-<h2 id="Android-Studio系列教程"><a href="#Android-Studio系列教程" class="headerlink" title="Android Studio系列教程"></a>Android Studio系列教程</h2><blockquote>
-<ul>
-<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTQvMTEvMjUvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWwxLw==">Android Studio系列教程一–下载与安装<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTQvMTEvMjgvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWwyLw==">Android Studio系列教程二–基本设置与运行<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTQvMTIvMDkvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWwzLw==">Android Studio系列教程三–快捷键<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTQvMTIvMTgvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWw0Lw==">Android Studio系列教程四–Gradle基础<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTUvMDEvMDUvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWw1Lw==">Android Studio系列教程五–Gradle命令详解与导入第三方包<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTUvMDEvMTUvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWw2Lw==">Android Studio系列教程六–Gradle多渠道打包<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-</blockquote>
-<h2 id="Android-Studio技巧合集"><a href="#Android-Studio技巧合集" class="headerlink" title="Android Studio技巧合集"></a>Android Studio技巧合集</h2><blockquote>
-<ul>
-<li><span class="exturl" data-url="aHR0cDovL21wLndlaXhpbi5xcS5jb20vcz9fX2Jpej1NekE0TlRRd05EY3lNQT09Jm1pZD00MDI0MTY5NzQmaWR4PTEmc249YThmZDcwYTY1ZmYzOTczNzU4ZTRhNzk3NWMzNjExMzkmc2NlbmU9MjEjd2VjaGF0X3JlZGlyZWN0">AS技巧合集「常用技巧篇」<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cDovL21wLndlaXhpbi5xcS5jb20vcz9fX2Jpej1NekE0TlRRd05EY3lNQT09Jm1pZD00MDI0MTY5NzQmaWR4PTImc249MTM2ZTJhNzdjOWJkZDJjZjk3MTE0M2Q3ZjM1ZTU3ZDImc2NlbmU9MjEjd2VjaGF0X3JlZGlyZWN0">AS技巧合集「编码技巧篇」<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cDovL21wLndlaXhpbi5xcS5jb20vcz9fX2Jpej1NekE0TlRRd05EY3lNQT09Jm1pZD00MDI0MTY5NzQmaWR4PTMmc249M2EwZjk5YTc1M2U3ZTgzNzJjYjk4YjY5NjU0MmQyY2Imc2NlbmU9MjEjd2VjaGF0X3JlZGlyZWN0">AS技巧合集「调试技巧篇」<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-</blockquote>
-<h2 id="认识下几个Gradle命令"><a href="#认识下几个Gradle命令" class="headerlink" title="认识下几个Gradle命令"></a>认识下几个Gradle命令</h2><blockquote>
-<ul>
-<li>.&#x2F;gradlew -v 版本号</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>.&#x2F;gradlew clean 清除9GAG&#x2F;app目录下的build文件夹</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>.&#x2F;gradlew build 检查依赖并编译打包</li>
-</ul>
-</blockquote>
-<p>这里注意的是 .&#x2F;gradlew build 命令把 debug、release 环境的包都打出来，如果正式发布只需要打 Release 的包，该怎么办呢，下面介绍一个很有用的命令 assemble , 如</p>
-<blockquote>
-<ul>
-<li>.&#x2F;gradlew assembleDebug 编译并打Debug包</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>.&#x2F;gradlew assembleRelease 编译并打Release的包</li>
-</ul>
-</blockquote>
-<p>值得注意的是，以上所有命令都是在终端里执行，并且必须要切换到所在项目的根目录下执行，win系统直接执行 gradlew 。</p>
-]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows平台Cmd工具Cmder</title>
     <url>//posts/201604/</url>
     <content><![CDATA[<h2 id="1-Cmder-Sublime-实现多Window共存"><a href="#1-Cmder-Sublime-实现多Window共存" class="headerlink" title="1. Cmder + Sublime 实现多Window共存"></a>1. Cmder + Sublime 实现多Window共存</h2><p>配置过程比较简单。</p>
@@ -384,6 +322,68 @@ Plugin <span class="token string">'ascenator/L9'</span><span class="token punctu
 <pre class="language-vim" data-language="vim"><code class="language-vim"><span class="token punctuation">:</span>PluginInstall</code></pre>
 <p>也可以通过命令行安装： </p>
 <pre class="language-vim" data-language="vim"><code class="language-vim"><span class="token keyword">vim</span> <span class="token operator">+</span>PluginInstall <span class="token operator">+</span><span class="token keyword">qall</span></code></pre>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android Studio学习</title>
+    <url>//posts/201605/</url>
+    <content><![CDATA[<p>&emsp;&emsp;这个系列教程在Android Studio Beta版本的时候就开始着手编写，感觉作者的教程对Gradle的说明及在Android Studio的常用方法介绍的很详细，做个链接总结吧，以便经常学习，相信作者的教程稳定可以帮助从未接触过AS和Gradle的初学者很快上手。</p>
+<blockquote>
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL2dlZWsuY3Nkbi5uZXQvbmV3cy9kZXRhaWwvODYxNDQ=">给 Android 初学者的 Gradle 知识普及<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</blockquote>
+<span id="more"></span>
+<h2 id="Android-Studio系列教程"><a href="#Android-Studio系列教程" class="headerlink" title="Android Studio系列教程"></a>Android Studio系列教程</h2><blockquote>
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTQvMTEvMjUvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWwxLw==">Android Studio系列教程一–下载与安装<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTQvMTEvMjgvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWwyLw==">Android Studio系列教程二–基本设置与运行<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTQvMTIvMDkvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWwzLw==">Android Studio系列教程三–快捷键<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTQvMTIvMTgvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWw0Lw==">Android Studio系列教程四–Gradle基础<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTUvMDEvMDUvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWw1Lw==">Android Studio系列教程五–Gradle命令详解与导入第三方包<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3N0b3JtemhhbmcuY29tL2RldnRvb2xzLzIwMTUvMDEvMTUvYW5kcm9pZC1zdHVkaW8tdHV0b3JpYWw2Lw==">Android Studio系列教程六–Gradle多渠道打包<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</blockquote>
+<h2 id="Android-Studio技巧合集"><a href="#Android-Studio技巧合集" class="headerlink" title="Android Studio技巧合集"></a>Android Studio技巧合集</h2><blockquote>
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL21wLndlaXhpbi5xcS5jb20vcz9fX2Jpej1NekE0TlRRd05EY3lNQT09Jm1pZD00MDI0MTY5NzQmaWR4PTEmc249YThmZDcwYTY1ZmYzOTczNzU4ZTRhNzk3NWMzNjExMzkmc2NlbmU9MjEjd2VjaGF0X3JlZGlyZWN0">AS技巧合集「常用技巧篇」<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL21wLndlaXhpbi5xcS5jb20vcz9fX2Jpej1NekE0TlRRd05EY3lNQT09Jm1pZD00MDI0MTY5NzQmaWR4PTImc249MTM2ZTJhNzdjOWJkZDJjZjk3MTE0M2Q3ZjM1ZTU3ZDImc2NlbmU9MjEjd2VjaGF0X3JlZGlyZWN0">AS技巧合集「编码技巧篇」<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL21wLndlaXhpbi5xcS5jb20vcz9fX2Jpej1NekE0TlRRd05EY3lNQT09Jm1pZD00MDI0MTY5NzQmaWR4PTMmc249M2EwZjk5YTc1M2U3ZTgzNzJjYjk4YjY5NjU0MmQyY2Imc2NlbmU9MjEjd2VjaGF0X3JlZGlyZWN0">AS技巧合集「调试技巧篇」<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</blockquote>
+<h2 id="认识下几个Gradle命令"><a href="#认识下几个Gradle命令" class="headerlink" title="认识下几个Gradle命令"></a>认识下几个Gradle命令</h2><blockquote>
+<ul>
+<li>.&#x2F;gradlew -v 版本号</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>.&#x2F;gradlew clean 清除9GAG&#x2F;app目录下的build文件夹</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>.&#x2F;gradlew build 检查依赖并编译打包</li>
+</ul>
+</blockquote>
+<p>这里注意的是 .&#x2F;gradlew build 命令把 debug、release 环境的包都打出来，如果正式发布只需要打 Release 的包，该怎么办呢，下面介绍一个很有用的命令 assemble , 如</p>
+<blockquote>
+<ul>
+<li>.&#x2F;gradlew assembleDebug 编译并打Debug包</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>.&#x2F;gradlew assembleRelease 编译并打Release的包</li>
+</ul>
+</blockquote>
+<p>值得注意的是，以上所有命令都是在终端里执行，并且必须要切换到所在项目的根目录下执行，win系统直接执行 gradlew 。</p>
 ]]></content>
       <categories>
         <category>工业</category>
@@ -626,6 +626,40 @@ Modulus&#x3D;D6E23C2E6140707EA63F3250...</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>C++纯虚函数，非纯虚函数，非虚函数</title>
+    <url>//posts/201608/</url>
+    <content><![CDATA[<p>先定义一个类</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">class Shape&#123;
+public:
+    virtual draw() const &#x3D; 0;   &#x2F;&#x2F;纯虚函数
+    virtual color();    &#x2F;&#x2F;非纯虚函数
+    int objectID();   &#x2F;&#x2F;非虚函数
+    、、、
+&#125;</code></pre>
+<span id="more"></span>
+<pre class="language-C++" data-language="C++"><code class="language-C++">class Rectangle: public Shape&#123;&#125;
+class Ellipse: public Shape&#123;&#125;</code></pre>
+<h2 id="纯虚函数-pure-virtual-function"><a href="#纯虚函数-pure-virtual-function" class="headerlink" title="纯虚函数(pure virtual function)"></a>纯虚函数(pure virtual function)</h2><p><strong>纯虚函数的目的是让派生类只继承函数接口，具体的实现留给派生类</strong><br>纯虚函数最突出的特性：</p>
+<blockquote>
+<p>它的派生类必须继承它的声明，有纯虚函数的类为抽象类<br>一般在抽象类它不会提供自身的定义</p>
+</blockquote>
+<p>注意：它可以提供但是一般不提供，也就是说Shape::draw可以提供一份实现代码，但调用它只能显示指明类名称</p>
+<pre class="language-C++" data-language="C++"><code class="language-C++">Shape* p1 &#x3D; new Shape; &#x2F;&#x2F;Error, Shape是抽象的
+Shape* p2 &#x3D; new Rectangle; &#x2F;&#x2F;Right
+p2-&gt;draw();             &#x2F;&#x2F;调用Rectangle::draw
+p2-&gt;Shape::draw();      &#x2F;&#x2F;调用Shape::draw</code></pre>
+
+<h2 id="非纯虚函数-impure-virtual-function"><a href="#非纯虚函数-impure-virtual-function" class="headerlink" title="非纯虚函数(impure virtual function)"></a>非纯虚函数(impure virtual function)</h2><p><strong>非纯虚函数的目的是让派生类继承函数接口和缺省实现</strong><br>拿上面的Shape类来说，派生类必须支持一个color()函数，如果派生类并未给定，可以直接使用基类缺省的color()函数，上面的例子就是Shape::color()函数，这种表示也会造成一定的问题，如果派生类未实现继承来的虚函数，而执行了基类的缺省行为，会与实际所需目的违背而并未报错，问题不在于基类的缺省行为，而在于派生类没有表达自己所需要的执行行为</p>
+<h2 id="非虚函数"><a href="#非虚函数" class="headerlink" title="非虚函数"></a>非虚函数</h2><p><strong>非虚函数的目的是让派生类继承函数接口和强制性实现</strong><br>这种情况所代表的意义是不变性凌驾于特异性之上，派生类不需要添加函数的特异行为，与基类行为一致，派生类都不应该尝试改变其行为</p>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>语言</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu常用软件包deb的安装与卸载命令</title>
     <url>//posts/201609/</url>
     <content><![CDATA[<p>主要用到<code>apt-get</code>, <code>dpkg</code>两个命令</p>
@@ -843,40 +877,6 @@ alien –-patch<span class="token operator">=</span>patch 设置patch</code></pr
       </categories>
       <tags>
         <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++纯虚函数，非纯虚函数，非虚函数</title>
-    <url>//posts/201608/</url>
-    <content><![CDATA[<p>先定义一个类</p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">class Shape&#123;
-public:
-    virtual draw() const &#x3D; 0;   &#x2F;&#x2F;纯虚函数
-    virtual color();    &#x2F;&#x2F;非纯虚函数
-    int objectID();   &#x2F;&#x2F;非虚函数
-    、、、
-&#125;</code></pre>
-<span id="more"></span>
-<pre class="language-C++" data-language="C++"><code class="language-C++">class Rectangle: public Shape&#123;&#125;
-class Ellipse: public Shape&#123;&#125;</code></pre>
-<h2 id="纯虚函数-pure-virtual-function"><a href="#纯虚函数-pure-virtual-function" class="headerlink" title="纯虚函数(pure virtual function)"></a>纯虚函数(pure virtual function)</h2><p><strong>纯虚函数的目的是让派生类只继承函数接口，具体的实现留给派生类</strong><br>纯虚函数最突出的特性：</p>
-<blockquote>
-<p>它的派生类必须继承它的声明，有纯虚函数的类为抽象类<br>一般在抽象类它不会提供自身的定义</p>
-</blockquote>
-<p>注意：它可以提供但是一般不提供，也就是说Shape::draw可以提供一份实现代码，但调用它只能显示指明类名称</p>
-<pre class="language-C++" data-language="C++"><code class="language-C++">Shape* p1 &#x3D; new Shape; &#x2F;&#x2F;Error, Shape是抽象的
-Shape* p2 &#x3D; new Rectangle; &#x2F;&#x2F;Right
-p2-&gt;draw();             &#x2F;&#x2F;调用Rectangle::draw
-p2-&gt;Shape::draw();      &#x2F;&#x2F;调用Shape::draw</code></pre>
-
-<h2 id="非纯虚函数-impure-virtual-function"><a href="#非纯虚函数-impure-virtual-function" class="headerlink" title="非纯虚函数(impure virtual function)"></a>非纯虚函数(impure virtual function)</h2><p><strong>非纯虚函数的目的是让派生类继承函数接口和缺省实现</strong><br>拿上面的Shape类来说，派生类必须支持一个color()函数，如果派生类并未给定，可以直接使用基类缺省的color()函数，上面的例子就是Shape::color()函数，这种表示也会造成一定的问题，如果派生类未实现继承来的虚函数，而执行了基类的缺省行为，会与实际所需目的违背而并未报错，问题不在于基类的缺省行为，而在于派生类没有表达自己所需要的执行行为</p>
-<h2 id="非虚函数"><a href="#非虚函数" class="headerlink" title="非虚函数"></a>非虚函数</h2><p><strong>非虚函数的目的是让派生类继承函数接口和强制性实现</strong><br>这种情况所代表的意义是不变性凌驾于特异性之上，派生类不需要添加函数的特异行为，与基类行为一致，派生类都不应该尝试改变其行为</p>
-]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>语言</tag>
       </tags>
   </entry>
   <entry>
@@ -2929,6 +2929,179 @@ ffmpeg <span class="token parameter variable">-i</span> <span class="token strin
       </tags>
   </entry>
   <entry>
+    <title>免费的苹果开发者账号申请iOS证书</title>
+    <url>//posts/202201/</url>
+    <content><![CDATA[<p>本文介绍使用未付费688的苹果账号（apple id）申请ios证书打包ipa安装到未越狱苹果手机真机测试调试。</p>
+<p>适用暂时未注册付费苹果开发者，需要进行打包iOS真机测试的需求，HBuilder、apicloud等平台适用，完全<strong>免费</strong>进行！</p>
+<span id="more"></span>
+
+<h4 id="苹果开发者账号类型"><a href="#苹果开发者账号类型" class="headerlink" title="苹果开发者账号类型"></a>苹果开发者账号类型</h4><table>
+<thead>
+<tr>
+<th align="center">账号类型</th>
+<th align="center">用途</th>
+<th align="center">功能</th>
+<th align="center">邓白氏码</th>
+<th align="center">年费(人民币)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">个人账号(免费)</td>
+<td align="center">无需付年费688, 但只能用于真机测试APP, 无法上架App Store</td>
+<td align="center">最多只能添加3台苹果设备(udid)真机测试</td>
+<td align="center">不需要</td>
+<td align="center">免费</td>
+</tr>
+<tr>
+<td align="center">个人账号</td>
+<td align="center">可测试和上架App Store, 苹果商店显示个人开发者名称</td>
+<td align="center">没上架App Store前, 最多可添加100台苹果设备(udid)进行真机测试. 上架后无限制</td>
+<td align="center">不需要</td>
+<td align="center">688</td>
+</tr>
+<tr>
+<td align="center">公司账号</td>
+<td align="center">可测试和上架App Store, 苹果商店显示公司名称, 有些类型app只能通过公司账号上架</td>
+<td align="center">没上架App Store前, 最多可添加100台苹果设备(udid)进行真机测试. 上架后无限制</td>
+<td align="center">需要</td>
+<td align="center">688</td>
+</tr>
+<tr>
+<td align="center">政府账号</td>
+<td align="center">可测试和上架App Store, 苹果商店显示政府事业单位名称</td>
+<td align="center">没上架App Store前, 最多可添加100台苹果设备(udid)进行真机测试. 上架后无限制</td>
+<td align="center">需要</td>
+<td align="center">688</td>
+</tr>
+<tr>
+<td align="center">企业账号</td>
+<td align="center">不能用于上架App Store</td>
+<td align="center">无需添加设备udid, 无安装数量限制, 适用无法上架App Store的app</td>
+<td align="center">需要</td>
+<td align="center">1988</td>
+</tr>
+</tbody></table>
+<h4 id="免费的苹果开发者账号"><a href="#免费的苹果开发者账号" class="headerlink" title="免费的苹果开发者账号"></a>免费的苹果开发者账号</h4><p>再说下什么是<strong>免费</strong>的<strong>苹果开发者账号</strong>, 就是你没交688年费的就是<strong>免费</strong>账号, 如果你想变成付费开发者账号, 提交申请付费就行, 账号都是一样的账号</p>
+<h4 id="苹果免费开发者账号的功能限制"><a href="#苹果免费开发者账号的功能限制" class="headerlink" title="苹果免费开发者账号的功能限制"></a>苹果免费开发者账号的功能限制</h4><blockquote>
+<p>1、证书描述文件有效期只有7天，7天后要重新申请iOS证书打包（付费的一年）<br>2、最多只能添加3个udid测试设备（最多可以让3个手机安装，付费的100个）<br>3、只能通过手机助手安装如爱思助手安装（不能上传分发平台扫码下载安装,付费开发者可以扫码安装）</p>
+</blockquote>
+<h4 id="免费个人开发者账号申请ios证书打包ipa测试分五步进行"><a href="#免费个人开发者账号申请ios证书打包ipa测试分五步进行" class="headerlink" title="免费个人开发者账号申请ios证书打包ipa测试分五步进行"></a>免费个人开发者账号申请ios证书打包ipa测试分五步进行</h4><blockquote>
+<p>1.申请一个苹果账号<br>2.申请ios测试证书（p12）<br>3.申请ios描述文件（mobileprovision）<br>4.打包ipa<br>5.安装ipa</p>
+</blockquote>
+<h5 id="1、申请苹果账号"><a href="#1、申请苹果账号" class="headerlink" title="1、申请苹果账号"></a>1、申请苹果账号</h5><p>如果还没注册过苹果账号，先注册一个，<strong>如果有苹果账号了请直接看第二步证书申请</strong>！</p>
+<p>首先打开<span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYXBwbGUuY29tL2FjY291bnQ=">苹果开发者中心<i class="fa fa-external-link-alt"></i></span><br>如果已经申请过apple id，跳过注册，直接看后面步骤申请iOS证书</p>
+<ul>
+<li>点击立即创建您的apple id</li>
+</ul>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/0.webp"></p>
+<ul>
+<li>跳转到apple id申请页面填写相关信息<ul>
+<li>名字用汉字或者拼音写上去（注意写真实姓名，苹果审核可能会核查信息）</li>
+<li>地区选中国大陆</li>
+<li>日期随便写一个</li>
+<li>安全提示问题设置一定要记住保存好，可以截图保存</li>
+</ul>
+</li>
+</ul>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/1.webp"></p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/2.webp"></p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/3.webp"></p>
+<p>点继续将会发送一份验证码邮件到邮箱，登录查看输入点继续</p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/4.webp"></p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/5.webp"></p>
+<ul>
+<li>点继续注册会跳转到这个下面这个协议页面，勾选同意！（如果网络不好可能会加载一段时间，耐心等待）</li>
+</ul>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/6.webp"></p>
+<p>同意协议后出现下面这个页面，说明apple id注册好了！</p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/7.webp"></p>
+<p>如果是这种界面则是已经提交申请付费开发者，但没通过审核，也算是免费开发者账号！</p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/8.webp"></p>
+<p>只要是登录界面是上图其中一个的，说明已同意协议但未付费的个人开发者！现在就可以直接登录软件申请ios证书了</p>
+<h5 id="2、申请ios测试证书（p12）"><a href="#2、申请ios测试证书（p12）" class="headerlink" title="2、申请ios测试证书（p12）"></a>2、申请ios测试证书（p12）</h5><p><em>iOS证书申请辅助工具Appuploader</em><br>可以帮助在Windows电脑直接申请iOS证书，如果是使用HBuilder、APICloud等工具跨平台开发，没有Mac的开发者，可以非常方便的申请iOS证书去打包苹果APP真机测试</p>
+<h6 id="2-1-Appuploader安装教程"><a href="#2-1-Appuploader安装教程" class="headerlink" title="2.1 Appuploader安装教程"></a>2.1 <span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC83Mi5odG1s">Appuploader安装教程<i class="fa fa-external-link-alt"></i></span></h6><h6 id="2-2-打开Appuploader-用苹果开发者账号登录"><a href="#2-2-打开Appuploader-用苹果开发者账号登录" class="headerlink" title="2.2 打开Appuploader, 用苹果开发者账号登录"></a>2.2 打开Appuploader, 用<strong>苹果开发者账号</strong>登录</h6><!-- ![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/9.webp) -->
+
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/9_.webp"></p>
+<p>如果登录报错，先登录下<span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYXBwbGUuY29tL2FjY291bnQ=">苹果开发者账号<i class="fa fa-external-link-alt"></i></span>，同意下协议再登录Appuploader软件申请证书</p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/10.webp"></p>
+<!-- 正常登录会出现这个下图提示！
+意思是只能申请iOS开发证书用于测试，不能上传ipa不能上架，上架需要付费688的开发账号。
+
+![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/11.webp) -->
+
+<h6 id="2-3-选择证书选项"><a href="#2-3-选择证书选项" class="headerlink" title="2.3 选择证书选项"></a>2.3 选择证书选项</h6><!-- ![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/12.webp) -->
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/12_.webp"></p>
+<h6 id="2-4-选择iOS开发证书"><a href="#2-4-选择iOS开发证书" class="headerlink" title="2.4 选择iOS开发证书"></a>2.4 选择iOS开发证书</h6><ul>
+<li>点击右下角+ADD选择, 下拉选择iOS开发证书<ul>
+<li>输入证书名称：不要中文、随意设置</li>
+<li>邮箱：（随意）</li>
+<li>密码：证书的密码，不是开发者账号密码，如123这样不用很复杂，记好、打包时要用、很重要</li>
+<li>应用id：这里不用选</li>
+<li>点击ok创建。</li>
+</ul>
+</li>
+</ul>
+<!-- ![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/13.webp) -->
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/13_.webp"></p>
+<p>如果账号已经有一个iOS开发证书了，将申请报错（如下图）免费开发者账号只能申请一个开发证书p12，可以删除掉再申请，或者直接用这个已经申请的</p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/14.webp"></p>
+<h6 id="2-5-P12文件下载"><a href="#2-5-P12文件下载" class="headerlink" title="2.5 P12文件下载"></a>2.5 P12文件下载</h6><p>申请到了，点击p12文件下载保存.p12 证书文件到电脑<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/14_.webp"></p>
+<!-- ![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/15.webp) -->
+
+<h5 id="3、申请ios描述文件（mobileprovision）"><a href="#3、申请ios描述文件（mobileprovision）" class="headerlink" title="3、申请ios描述文件（mobileprovision）"></a>3、申请ios描述文件（mobileprovision）</h5><h6 id="3-1、返回软件，选择描述文件"><a href="#3-1、返回软件，选择描述文件" class="headerlink" title="3.1、返回软件，选择描述文件"></a>3.1、返回软件，选择描述文件</h6><!-- ![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/16.webp) -->
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/16_.webp"></p>
+<h6 id="3-2、添加应用id"><a href="#3-2、添加应用id" class="headerlink" title="3.2、添加应用id"></a>3.2、添加应用id</h6><ul>
+<li>点击右下角+ADD，先选择添加应用id<ul>
+<li>应用id：三段式格式、如app名称是淘宝，可以编写为com.app.taobao，自由编写！不能重复！具有唯一性@</li>
+<li>名称：数字或者字母，自由编写，不要中文，不能重复。</li>
+</ul>
+</li>
+</ul>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/17.webp"></p>
+<p>如果添加报错（重复添加或者别人已用这个应用id），解决办法就是修改下应用id，重新编下<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/18.webp"></p>
+<p>点击ok只要没弹出报错就是添加成功了，注意先关掉窗口，重新点右下角+ADD进入下拉应用id可查看刚添加的应用id是否存在。<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/19.webp"></p>
+<p>添加好应用id下步添加设置udid</p>
+<h6 id="3-3、添加测试机"><a href="#3-3、添加测试机" class="headerlink" title="3.3、添加测试机"></a>3.3、添加测试机</h6><p>加好了应用id下一步添加用来测试的苹果手机，先获取UUID。<br><strong>苹果手机助手获取UDID</strong>, 如爱思助手，电脑下载爱思助手，连上苹果手机，设备信息里面那个设备标识就是udid。<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/20.webp"></p>
+<p>获取到UUID、点击添加测试设备，复制到UDID框，输入设备名称（随意，不要中文），点击ok。<br>免费账号7天内最多只能添加3个手机进行测试.<br>如果报错下图，可能这个udid已经添加过，先关掉申请窗口，重新点右下角+ADD，选择开发版看有没有出现设备。  </p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/21.webp"></p>
+<p>输入刚获取的udid（如果你的苹果手机链接了电脑，Appuploader会自动获取udid）<br>name：这个名称不用要中文，数字或者字母随意编写，不要跟之前添加过的名称一样就行。</p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/22.webp"><br>添加成功后选择开发版profile在设备栏就会出现刚添加的设备！</p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/23.webp"></p>
+<ul>
+<li>重新点击右下角的+ADD进入（才能同步到刚申请的appid和设备），选择开发版profile、</li>
+<li>选择刚创建的appid 应用id 如com.app.taobao，勾选关联第一步创建的ios证书p12，选择刚添加要测试的设备。</li>
+<li>输入名称（随意，123、abc之类的不要中文，因为不要跟之前的重复）</li>
+<li>点击ok创建<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/24.webp"></li>
+</ul>
+<h6 id="3-5、点击下载保存-mobileprovision，描述文件。"><a href="#3-5、点击下载保存-mobileprovision，描述文件。" class="headerlink" title="3.5、点击下载保存.mobileprovision，描述文件。"></a>3.5、点击下载保存.mobileprovision，描述文件。</h6><p>苹果那边规定，没有付费688的苹果账号申请的描述文件只有7天有效期，付费苹果开发者账号的证书是1年有效期，到期可以重新申请打包，当然测试的话几天时间也足够了<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/25.webp"></p>
+<h5 id="4-打包ipa"><a href="#4-打包ipa" class="headerlink" title="4.打包ipa"></a>4.打包ipa</h5><ul>
+<li>各开发者工具打包教程，根据自己使用的平台去打包<br><span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC8xNjQyLmh0bWw=">开心APP打包网站教程<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC80MjMuaHRtbA==">HBuilder打包教程<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC80MjkuaHRtbA==">APICloud打包教程<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC80MTguaHRtbA==">phonegap打包教程<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<p>xcode打包和appcan打包无法使用，xcode需要付费开发者账号才能导出ipa<br>这里以HBuilder平台为例，其它平台不明白的可以加群交流。</p>
+<h6 id="4-1、发行"><a href="#4-1、发行" class="headerlink" title="4.1、发行"></a>4.1、发行</h6><p>打开HBuilder工具，选择开发好的项目，点击发行，选择发行为原生安装包<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/26.webp"></p>
+<h5 id="4-2、选择平台打包"><a href="#4-2、选择平台打包" class="headerlink" title="4.2、选择平台打包"></a>4.2、选择平台打包</h5><ul>
+<li>选择iOS打包，支持的设备类型（可以选择支持iPhone和支持ipad），选择使用苹果证书<ul>
+<li>AppID：跟申请证书描述.mobileprovision时选择的要一致（又称套装id，appid，BundleID，应用id，包名）</li>
+<li>profile文件：选择上传配置文件.mobileprovision</li>
+<li>私钥证书：上传.p12文件</li>
+<li>私钥密码：输入创建p12设置的密码</li>
+</ul>
+</li>
+</ul>
+<p>然后点击打包  </p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/27.webp"></p>
+<h5 id="4-3、打包成功后，下载保存ipa，这个ipa包就能安装到手机测试了"><a href="#4-3、打包成功后，下载保存ipa，这个ipa包就能安装到手机测试了" class="headerlink" title="4.3、打包成功后，下载保存ipa，这个ipa包就能安装到手机测试了"></a>4.3、打包成功后，下载保存ipa，这个ipa包就能安装到手机测试了</h5><p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/28.webp"></p>
+<h5 id="5、安装ipa"><a href="#5、安装ipa" class="headerlink" title="5、安装ipa"></a>5、安装ipa</h5><p><strong>免费</strong>开发者账号打包的app只能通过爱思助手安装！<br>如果需要上传蒲公英 fir等分发平台扫码安装请看这个教程、需要付费的开发者账号<br><span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC8xNTIuaHRtbA==">iOS APP真机调试图文介绍<i class="fa fa-external-link-alt"></i></span><br>1、普通账号申请的ios证书打包的ipa、经测试，苹果官方的iTunes助手安装不了，不要用这个. 用<span class="exturl" data-url="aHR0cHM6Ly93d3cuaTQuY24v">爱思苹果助手<i class="fa fa-external-link-alt"></i></span>可以成功安装<br>连接上手机、点击应用游戏，点击导入安装，选择刚打包的ipa包，或者直接选择ipa包右键通过爱思助手安装<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/29.webp"><br>2、ipa将自动安装，类型是越狱版，安装成功后显示个人正版，因为是个人ios证书打包，没上架App Store<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/30.webp"><br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/31.webp"><br>3、安装成功了第一次启动应用会出现如下提示，用测试证书或者企业证书打包的ipa都会这样，需要设置一下<br>点击设置、进入通用，下拉选择描述文件和设备管理<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/32.webp"> <img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/33.webp"></p>
+<p>4、点击开发者应用下面出现的账号，信任，然后就能启动应用，不在出现提示<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/34.webp"> <img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/35.webp"></p>
+<!-- http://cache.baiducontent.com/c?m=Ly2VEfuyC9-bB5UOFFDRtZGqCBL_nxeQAkkZFPeQxkVh3eklNEgwzX_Z__5T4VUfBzUf8z5QG1F0RH8dBYa3md8SAoZqF4wQUHjVZdKBTea0N90Znvpu6VO9iU9iwnLqCbtn6VnuCSp-J5nE8WkBnG61lMT3VO3mFkbHxvqfX-p2AmRHXQjTAQ8wkkWYrfDxcG21C3I3yS6EX15CWu1IFyIibtcW1VKBG4A5V5mLKkTETPmvFZWpbQrBS97mL9v-2S6ykda663F9jzhPLDrguq&p=9f759a46d39f12a05afbd1265040&newp=9b769a47889b07c308e2977b5b5c92695d0fc20e3bd0d701298ffe0cc4241a1a1a3aecbe25271202d2c5796406af4f57edf63d723d0034f1f689df08d2ecce7e71d06158&s=cfcd208495d565ef&user=baidu&fm=sc&query=%B8%F6%C8%CB%C3%E2%B7%D1%C9%EA%C7%EB%C6%BB%B9%FB%BF%AA%B7%A2%D5%DF%D5%CB%BA%C5&qid=e3b167fa000024a9&p1=10 -->]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>小杂箱</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LaTeX符号清单</title>
     <url>//posts/202103/</url>
     <content><![CDATA[<h3 id="下标及上标-Subscripts-Superscripts"><a href="#下标及上标-Subscripts-Superscripts" class="headerlink" title="下标及上标 (Subscripts & Superscripts)"></a>下标及上标 (Subscripts &amp; Superscripts)</h3><table>
@@ -4050,179 +4223,6 @@ ffmpeg <span class="token parameter variable">-i</span> <span class="token strin
       </categories>
       <tags>
         <tag>随记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>免费的苹果开发者账号申请iOS证书</title>
-    <url>//posts/202201/</url>
-    <content><![CDATA[<p>本文介绍使用未付费688的苹果账号（apple id）申请ios证书打包ipa安装到未越狱苹果手机真机测试调试。</p>
-<p>适用暂时未注册付费苹果开发者，需要进行打包iOS真机测试的需求，HBuilder、apicloud等平台适用，完全<strong>免费</strong>进行！</p>
-<span id="more"></span>
-
-<h4 id="苹果开发者账号类型"><a href="#苹果开发者账号类型" class="headerlink" title="苹果开发者账号类型"></a>苹果开发者账号类型</h4><table>
-<thead>
-<tr>
-<th align="center">账号类型</th>
-<th align="center">用途</th>
-<th align="center">功能</th>
-<th align="center">邓白氏码</th>
-<th align="center">年费(人民币)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">个人账号(免费)</td>
-<td align="center">无需付年费688, 但只能用于真机测试APP, 无法上架App Store</td>
-<td align="center">最多只能添加3台苹果设备(udid)真机测试</td>
-<td align="center">不需要</td>
-<td align="center">免费</td>
-</tr>
-<tr>
-<td align="center">个人账号</td>
-<td align="center">可测试和上架App Store, 苹果商店显示个人开发者名称</td>
-<td align="center">没上架App Store前, 最多可添加100台苹果设备(udid)进行真机测试. 上架后无限制</td>
-<td align="center">不需要</td>
-<td align="center">688</td>
-</tr>
-<tr>
-<td align="center">公司账号</td>
-<td align="center">可测试和上架App Store, 苹果商店显示公司名称, 有些类型app只能通过公司账号上架</td>
-<td align="center">没上架App Store前, 最多可添加100台苹果设备(udid)进行真机测试. 上架后无限制</td>
-<td align="center">需要</td>
-<td align="center">688</td>
-</tr>
-<tr>
-<td align="center">政府账号</td>
-<td align="center">可测试和上架App Store, 苹果商店显示政府事业单位名称</td>
-<td align="center">没上架App Store前, 最多可添加100台苹果设备(udid)进行真机测试. 上架后无限制</td>
-<td align="center">需要</td>
-<td align="center">688</td>
-</tr>
-<tr>
-<td align="center">企业账号</td>
-<td align="center">不能用于上架App Store</td>
-<td align="center">无需添加设备udid, 无安装数量限制, 适用无法上架App Store的app</td>
-<td align="center">需要</td>
-<td align="center">1988</td>
-</tr>
-</tbody></table>
-<h4 id="免费的苹果开发者账号"><a href="#免费的苹果开发者账号" class="headerlink" title="免费的苹果开发者账号"></a>免费的苹果开发者账号</h4><p>再说下什么是<strong>免费</strong>的<strong>苹果开发者账号</strong>, 就是你没交688年费的就是<strong>免费</strong>账号, 如果你想变成付费开发者账号, 提交申请付费就行, 账号都是一样的账号</p>
-<h4 id="苹果免费开发者账号的功能限制"><a href="#苹果免费开发者账号的功能限制" class="headerlink" title="苹果免费开发者账号的功能限制"></a>苹果免费开发者账号的功能限制</h4><blockquote>
-<p>1、证书描述文件有效期只有7天，7天后要重新申请iOS证书打包（付费的一年）<br>2、最多只能添加3个udid测试设备（最多可以让3个手机安装，付费的100个）<br>3、只能通过手机助手安装如爱思助手安装（不能上传分发平台扫码下载安装,付费开发者可以扫码安装）</p>
-</blockquote>
-<h4 id="免费个人开发者账号申请ios证书打包ipa测试分五步进行"><a href="#免费个人开发者账号申请ios证书打包ipa测试分五步进行" class="headerlink" title="免费个人开发者账号申请ios证书打包ipa测试分五步进行"></a>免费个人开发者账号申请ios证书打包ipa测试分五步进行</h4><blockquote>
-<p>1.申请一个苹果账号<br>2.申请ios测试证书（p12）<br>3.申请ios描述文件（mobileprovision）<br>4.打包ipa<br>5.安装ipa</p>
-</blockquote>
-<h5 id="1、申请苹果账号"><a href="#1、申请苹果账号" class="headerlink" title="1、申请苹果账号"></a>1、申请苹果账号</h5><p>如果还没注册过苹果账号，先注册一个，<strong>如果有苹果账号了请直接看第二步证书申请</strong>！</p>
-<p>首先打开<span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYXBwbGUuY29tL2FjY291bnQ=">苹果开发者中心<i class="fa fa-external-link-alt"></i></span><br>如果已经申请过apple id，跳过注册，直接看后面步骤申请iOS证书</p>
-<ul>
-<li>点击立即创建您的apple id</li>
-</ul>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/0.webp"></p>
-<ul>
-<li>跳转到apple id申请页面填写相关信息<ul>
-<li>名字用汉字或者拼音写上去（注意写真实姓名，苹果审核可能会核查信息）</li>
-<li>地区选中国大陆</li>
-<li>日期随便写一个</li>
-<li>安全提示问题设置一定要记住保存好，可以截图保存</li>
-</ul>
-</li>
-</ul>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/1.webp"></p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/2.webp"></p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/3.webp"></p>
-<p>点继续将会发送一份验证码邮件到邮箱，登录查看输入点继续</p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/4.webp"></p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/5.webp"></p>
-<ul>
-<li>点继续注册会跳转到这个下面这个协议页面，勾选同意！（如果网络不好可能会加载一段时间，耐心等待）</li>
-</ul>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/6.webp"></p>
-<p>同意协议后出现下面这个页面，说明apple id注册好了！</p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/7.webp"></p>
-<p>如果是这种界面则是已经提交申请付费开发者，但没通过审核，也算是免费开发者账号！</p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/8.webp"></p>
-<p>只要是登录界面是上图其中一个的，说明已同意协议但未付费的个人开发者！现在就可以直接登录软件申请ios证书了</p>
-<h5 id="2、申请ios测试证书（p12）"><a href="#2、申请ios测试证书（p12）" class="headerlink" title="2、申请ios测试证书（p12）"></a>2、申请ios测试证书（p12）</h5><p><em>iOS证书申请辅助工具Appuploader</em><br>可以帮助在Windows电脑直接申请iOS证书，如果是使用HBuilder、APICloud等工具跨平台开发，没有Mac的开发者，可以非常方便的申请iOS证书去打包苹果APP真机测试</p>
-<h6 id="2-1-Appuploader安装教程"><a href="#2-1-Appuploader安装教程" class="headerlink" title="2.1 Appuploader安装教程"></a>2.1 <span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC83Mi5odG1s">Appuploader安装教程<i class="fa fa-external-link-alt"></i></span></h6><h6 id="2-2-打开Appuploader-用苹果开发者账号登录"><a href="#2-2-打开Appuploader-用苹果开发者账号登录" class="headerlink" title="2.2 打开Appuploader, 用苹果开发者账号登录"></a>2.2 打开Appuploader, 用<strong>苹果开发者账号</strong>登录</h6><!-- ![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/9.webp) -->
-
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/9_.webp"></p>
-<p>如果登录报错，先登录下<span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYXBwbGUuY29tL2FjY291bnQ=">苹果开发者账号<i class="fa fa-external-link-alt"></i></span>，同意下协议再登录Appuploader软件申请证书</p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/10.webp"></p>
-<!-- 正常登录会出现这个下图提示！
-意思是只能申请iOS开发证书用于测试，不能上传ipa不能上架，上架需要付费688的开发账号。
-
-![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/11.webp) -->
-
-<h6 id="2-3-选择证书选项"><a href="#2-3-选择证书选项" class="headerlink" title="2.3 选择证书选项"></a>2.3 选择证书选项</h6><!-- ![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/12.webp) -->
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/12_.webp"></p>
-<h6 id="2-4-选择iOS开发证书"><a href="#2-4-选择iOS开发证书" class="headerlink" title="2.4 选择iOS开发证书"></a>2.4 选择iOS开发证书</h6><ul>
-<li>点击右下角+ADD选择, 下拉选择iOS开发证书<ul>
-<li>输入证书名称：不要中文、随意设置</li>
-<li>邮箱：（随意）</li>
-<li>密码：证书的密码，不是开发者账号密码，如123这样不用很复杂，记好、打包时要用、很重要</li>
-<li>应用id：这里不用选</li>
-<li>点击ok创建。</li>
-</ul>
-</li>
-</ul>
-<!-- ![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/13.webp) -->
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/13_.webp"></p>
-<p>如果账号已经有一个iOS开发证书了，将申请报错（如下图）免费开发者账号只能申请一个开发证书p12，可以删除掉再申请，或者直接用这个已经申请的</p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/14.webp"></p>
-<h6 id="2-5-P12文件下载"><a href="#2-5-P12文件下载" class="headerlink" title="2.5 P12文件下载"></a>2.5 P12文件下载</h6><p>申请到了，点击p12文件下载保存.p12 证书文件到电脑<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/14_.webp"></p>
-<!-- ![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/15.webp) -->
-
-<h5 id="3、申请ios描述文件（mobileprovision）"><a href="#3、申请ios描述文件（mobileprovision）" class="headerlink" title="3、申请ios描述文件（mobileprovision）"></a>3、申请ios描述文件（mobileprovision）</h5><h6 id="3-1、返回软件，选择描述文件"><a href="#3-1、返回软件，选择描述文件" class="headerlink" title="3.1、返回软件，选择描述文件"></a>3.1、返回软件，选择描述文件</h6><!-- ![](https://cdn.laxdu.com/ImageHosting/D/DevAccount/16.webp) -->
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/16_.webp"></p>
-<h6 id="3-2、添加应用id"><a href="#3-2、添加应用id" class="headerlink" title="3.2、添加应用id"></a>3.2、添加应用id</h6><ul>
-<li>点击右下角+ADD，先选择添加应用id<ul>
-<li>应用id：三段式格式、如app名称是淘宝，可以编写为com.app.taobao，自由编写！不能重复！具有唯一性@</li>
-<li>名称：数字或者字母，自由编写，不要中文，不能重复。</li>
-</ul>
-</li>
-</ul>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/17.webp"></p>
-<p>如果添加报错（重复添加或者别人已用这个应用id），解决办法就是修改下应用id，重新编下<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/18.webp"></p>
-<p>点击ok只要没弹出报错就是添加成功了，注意先关掉窗口，重新点右下角+ADD进入下拉应用id可查看刚添加的应用id是否存在。<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/19.webp"></p>
-<p>添加好应用id下步添加设置udid</p>
-<h6 id="3-3、添加测试机"><a href="#3-3、添加测试机" class="headerlink" title="3.3、添加测试机"></a>3.3、添加测试机</h6><p>加好了应用id下一步添加用来测试的苹果手机，先获取UUID。<br><strong>苹果手机助手获取UDID</strong>, 如爱思助手，电脑下载爱思助手，连上苹果手机，设备信息里面那个设备标识就是udid。<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/20.webp"></p>
-<p>获取到UUID、点击添加测试设备，复制到UDID框，输入设备名称（随意，不要中文），点击ok。<br>免费账号7天内最多只能添加3个手机进行测试.<br>如果报错下图，可能这个udid已经添加过，先关掉申请窗口，重新点右下角+ADD，选择开发版看有没有出现设备。  </p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/21.webp"></p>
-<p>输入刚获取的udid（如果你的苹果手机链接了电脑，Appuploader会自动获取udid）<br>name：这个名称不用要中文，数字或者字母随意编写，不要跟之前添加过的名称一样就行。</p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/22.webp"><br>添加成功后选择开发版profile在设备栏就会出现刚添加的设备！</p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/23.webp"></p>
-<ul>
-<li>重新点击右下角的+ADD进入（才能同步到刚申请的appid和设备），选择开发版profile、</li>
-<li>选择刚创建的appid 应用id 如com.app.taobao，勾选关联第一步创建的ios证书p12，选择刚添加要测试的设备。</li>
-<li>输入名称（随意，123、abc之类的不要中文，因为不要跟之前的重复）</li>
-<li>点击ok创建<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/24.webp"></li>
-</ul>
-<h6 id="3-5、点击下载保存-mobileprovision，描述文件。"><a href="#3-5、点击下载保存-mobileprovision，描述文件。" class="headerlink" title="3.5、点击下载保存.mobileprovision，描述文件。"></a>3.5、点击下载保存.mobileprovision，描述文件。</h6><p>苹果那边规定，没有付费688的苹果账号申请的描述文件只有7天有效期，付费苹果开发者账号的证书是1年有效期，到期可以重新申请打包，当然测试的话几天时间也足够了<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/25.webp"></p>
-<h5 id="4-打包ipa"><a href="#4-打包ipa" class="headerlink" title="4.打包ipa"></a>4.打包ipa</h5><ul>
-<li>各开发者工具打包教程，根据自己使用的平台去打包<br><span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC8xNjQyLmh0bWw=">开心APP打包网站教程<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC80MjMuaHRtbA==">HBuilder打包教程<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC80MjkuaHRtbA==">APICloud打包教程<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC80MTguaHRtbA==">phonegap打包教程<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-<p>xcode打包和appcan打包无法使用，xcode需要付费开发者账号才能导出ipa<br>这里以HBuilder平台为例，其它平台不明白的可以加群交流。</p>
-<h6 id="4-1、发行"><a href="#4-1、发行" class="headerlink" title="4.1、发行"></a>4.1、发行</h6><p>打开HBuilder工具，选择开发好的项目，点击发行，选择发行为原生安装包<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/26.webp"></p>
-<h5 id="4-2、选择平台打包"><a href="#4-2、选择平台打包" class="headerlink" title="4.2、选择平台打包"></a>4.2、选择平台打包</h5><ul>
-<li>选择iOS打包，支持的设备类型（可以选择支持iPhone和支持ipad），选择使用苹果证书<ul>
-<li>AppID：跟申请证书描述.mobileprovision时选择的要一致（又称套装id，appid，BundleID，应用id，包名）</li>
-<li>profile文件：选择上传配置文件.mobileprovision</li>
-<li>私钥证书：上传.p12文件</li>
-<li>私钥密码：输入创建p12设置的密码</li>
-</ul>
-</li>
-</ul>
-<p>然后点击打包  </p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/27.webp"></p>
-<h5 id="4-3、打包成功后，下载保存ipa，这个ipa包就能安装到手机测试了"><a href="#4-3、打包成功后，下载保存ipa，这个ipa包就能安装到手机测试了" class="headerlink" title="4.3、打包成功后，下载保存ipa，这个ipa包就能安装到手机测试了"></a>4.3、打包成功后，下载保存ipa，这个ipa包就能安装到手机测试了</h5><p><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/28.webp"></p>
-<h5 id="5、安装ipa"><a href="#5、安装ipa" class="headerlink" title="5、安装ipa"></a>5、安装ipa</h5><p><strong>免费</strong>开发者账号打包的app只能通过爱思助手安装！<br>如果需要上传蒲公英 fir等分发平台扫码安装请看这个教程、需要付费的开发者账号<br><span class="exturl" data-url="aHR0cDovL3d3dy5hcHBsaWNhdGlvbmxvYWRlci5uZXQvYmxvZy96aC8xNTIuaHRtbA==">iOS APP真机调试图文介绍<i class="fa fa-external-link-alt"></i></span><br>1、普通账号申请的ios证书打包的ipa、经测试，苹果官方的iTunes助手安装不了，不要用这个. 用<span class="exturl" data-url="aHR0cHM6Ly93d3cuaTQuY24v">爱思苹果助手<i class="fa fa-external-link-alt"></i></span>可以成功安装<br>连接上手机、点击应用游戏，点击导入安装，选择刚打包的ipa包，或者直接选择ipa包右键通过爱思助手安装<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/29.webp"><br>2、ipa将自动安装，类型是越狱版，安装成功后显示个人正版，因为是个人ios证书打包，没上架App Store<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/30.webp"><br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/31.webp"><br>3、安装成功了第一次启动应用会出现如下提示，用测试证书或者企业证书打包的ipa都会这样，需要设置一下<br>点击设置、进入通用，下拉选择描述文件和设备管理<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/32.webp"> <img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/33.webp"></p>
-<p>4、点击开发者应用下面出现的账号，信任，然后就能启动应用，不在出现提示<br><img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/34.webp"> <img data-src="https://cdn.laxdu.com/ImageHosting/D/DevAccount/35.webp"></p>
-<!-- http://cache.baiducontent.com/c?m=Ly2VEfuyC9-bB5UOFFDRtZGqCBL_nxeQAkkZFPeQxkVh3eklNEgwzX_Z__5T4VUfBzUf8z5QG1F0RH8dBYa3md8SAoZqF4wQUHjVZdKBTea0N90Znvpu6VO9iU9iwnLqCbtn6VnuCSp-J5nE8WkBnG61lMT3VO3mFkbHxvqfX-p2AmRHXQjTAQ8wkkWYrfDxcG21C3I3yS6EX15CWu1IFyIibtcW1VKBG4A5V5mLKkTETPmvFZWpbQrBS97mL9v-2S6ykda663F9jzhPLDrguq&p=9f759a46d39f12a05afbd1265040&newp=9b769a47889b07c308e2977b5b5c92695d0fc20e3bd0d701298ffe0cc4241a1a1a3aecbe25271202d2c5796406af4f57edf63d723d0034f1f689df08d2ecce7e71d06158&s=cfcd208495d565ef&user=baidu&fm=sc&query=%B8%F6%C8%CB%C3%E2%B7%D1%C9%EA%C7%EB%C6%BB%B9%FB%BF%AA%B7%A2%D5%DF%D5%CB%BA%C5&qid=e3b167fa000024a9&p1=10 -->]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>小杂箱</tag>
       </tags>
   </entry>
   <entry>
@@ -5864,7 +5864,10 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
   <entry>
     <title>平台资源总结篇</title>
     <url>//posts/202420/</url>
-    <content><![CDATA[<p>网盘资源搜索引擎, 不定时更新  </p>
+    <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/A/Altas/82bcb8592d4948b3996d968bae0bb7ff_640.webp">  </p>
+<span id="more"></span>  
+
+<p>网盘资源搜索引擎, 不定时更新  </p>
 <h3 id="盘搜"><a href="#盘搜" class="headerlink" title="盘搜"></a>盘搜</h3><p>1.<span class="exturl" data-url="aHR0cHM6Ly9hbGlwYW5zb3UuY29tLw==">猫狸盘搜<i class="fa fa-external-link-alt"></i></span><br>2.<span class="exturl" data-url="aHR0cHM6Ly9qdWp1c28uY29tLw==">优聚搜<i class="fa fa-external-link-alt"></i></span><br>3.<span class="exturl" data-url="aHR0cHM6Ly9zaGFyZXJ3LmxhbnpvdWkuY29tL2IwYWdpcXp5Zg==">阿里网盘TV版<i class="fa fa-external-link-alt"></i></span><br>4.<span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW5zby5jb20v">Up云搜1<i class="fa fa-external-link-alt"></i></span>, <span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW5zbzMuY29tLw==">Up云搜3<i class="fa fa-external-link-alt"></i></span>  </p>
 <h3 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h3><p>6.<span class="exturl" data-url="aHR0cHM6Ly9waW96LmNuLw==">夸克短剧<i class="fa fa-external-link-alt"></i></span>  </p>
 ]]></content>
