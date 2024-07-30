@@ -6135,7 +6135,7 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
 <p>•缺乏对图像内容的理解, 对于人眼能轻易识别的阴影, 透明或半透明物体, 具备特定线条和形状的物体处理难度很高<br>•超分、插帧算法和游戏渲染任务同时跑在GPU上, 对GPU性能和功耗压力较大  </p>
 <p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1NuYXBkcmFnb25TdHVkaW9zL3NuYXBkcmFnb24tZ3Np">https://github.com/SnapdragonStudios/snapdragon-gsi<i class="fa fa-external-link-alt"></i></span>  </p>
 <h4 id="8-2-NPU"><a href="#8-2-NPU" class="headerlink" title="8.2. NPU"></a>8.2. NPU</h4><p><em>优点</em> </p>
-<p>a.算法兼容性和稳定性更好, 能处理很多传统算法不好处理的corner case. 同时处理多种复杂case的复杂度并不像传统算法那样叠加关系<br>b.把超分和插帧算法移到NPU上去跑, 不会对GPU造成性能和功耗力  </p>
+<p>a.算法兼容性和稳定性更好, 能处理很多传统算法不好处理的corner case. 同时处理多种复杂case的复杂度并不像传统算法那样叠加关系<br>b.把超分和插帧算法移到NPU上去跑, 不会对GPU造成性能和功耗压力  </p>
 <p><em>缺点</em></p>
 <p>a.依赖GPU和NPU数据共享和硬件同步支持, 否则会有明显的延迟. 目前移动端在这一块进展缓慢<br>b.AI算法在速度上通常不如基于GPU的算法, 很难做到零延迟. 特别是Temporal的算法<br>c.NPU&#x2F;AI算法通常不是跨平台的, 需要为不同的平台单独适配  </p>
 <p><span class="exturl" data-url="aHR0cHM6Ly9haWh1Yi5xdWFsY29tbS5jb20vbW9kZWxzL3F1aWNrc3JuZXRsYXJnZQ==">https://aihub.qualcomm.com/models/quicksrnetlarge<i class="fa fa-external-link-alt"></i></span>  </p>
