@@ -5863,7 +5863,7 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
 <span id="more"></span>  
 
 <p>忘记从哪摘录的了, 源自《繁花》爷叔语录,<br>同时也想对自己说  </p>
-<p>工作是手段，生活才是目的，<br>工作的本质是交易。<br>我们付出自己的时间、经验和精力，<br>去换取一部分我们想要的生存自由，<br>大部分人能有一份安稳的工作作为谋生手段，<br>已经很走运了，<br>但是，不要在谋生的地方找意义，<br>生活才是实现意义的地方。<br>～～<br>先去做你应该做的事，<br>再去做你喜欢的事。<br>前半句让你有饭吃，<br>后半句让你有念想。<br>～～<br>该工作时努力工作，<br>该生活时热爱生活。<br>长时间的枯燥工作<br>让我更加向往自由的人生，<br>可是诗和远方都是明码标价的，<br>我需要一些简单的兴趣爱好<br>和有趣的人来养一下我的灵魂。<br>生在这乏味的世间，<br>应该做些喜爱之事，<br>欢度岁月才是。<br>当你开始热爱生活的时候，<br>生活也会无条件热爱你  </p>
+<p>工作是手段，生活才是目的，<br>工作的本质是交易。<br>我们付出自己的时间、经验和精力，<br>去换取一部分我们想要的生存自由，<br>大部分人能有一份安稳的工作作为谋生手段，<br>已经很走运了，<br>但是，不要在谋生的地方找意义，<br>生活才是实现意义的地方。<br>～～<br>先去做你应该做的事，<br>再去做你喜欢的事。<br>前半句让你有饭吃，<br>后半句让你有念想。<br>～～<br>该工作时努力工作，<br>该生活时热爱生活。<br>长时间的枯燥工作，<br>让我更加向往自由的人生，<br>可是诗和远方都是明码标价的，<br>我需要一些简单的兴趣爱好，<br>和有趣的人来养一下我的灵魂。<br>生在这乏味的世间，<br>应该做些喜爱之事，<br>欢度岁月才是。<br>当你开始热爱生活的时候，<br>生活也会无条件热爱你  </p>
 ]]></content>
       <categories>
         <category>生活</category>
@@ -6140,7 +6140,8 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
 <p><em>缺点</em></p>
 <p>a.依赖GPU和NPU数据共享和硬件同步支持, 否则会有明显的延迟. 目前移动端在这一块进展缓慢<br>b.AI算法在速度上通常不如基于GPU的算法, 很难做到零延迟. 特别是Temporal的算法<br>c.NPU&#x2F;AI算法通常不是跨平台的, 需要为不同的平台单独适配  </p>
 <p><span class="exturl" data-url="aHR0cHM6Ly9haWh1Yi5xdWFsY29tbS5jb20vbW9kZWxzL3F1aWNrc3JuZXRsYXJnZQ==">https://aihub.qualcomm.com/models/quicksrnetlarge<i class="fa fa-external-link-alt"></i></span>  </p>
-<h3 id="9-延迟-性能-功耗"><a href="#9-延迟-性能-功耗" class="headerlink" title="9. 延迟, 性能&amp;功耗"></a>9. 延迟, 性能&amp;功耗</h3><h4 id="9-2-性能"><a href="#9-2-性能" class="headerlink" title="9.2. 性能"></a>9.2. 性能</h4><table style="text-align: center; vertical-align: middle;">
+<h3 id="9-延迟-性能-功耗"><a href="#9-延迟-性能-功耗" class="headerlink" title="9. 延迟, 性能&amp;功耗"></a>9. 延迟, 性能&amp;功耗</h3><h4 id="9-1-延迟"><a href="#9-1-延迟" class="headerlink" title="9.1. 延迟"></a>9.1. 延迟</h4><p><img data-src="https://cdn.laxdu.com/ImageHosting/G/Graphics/delay_512.webp">  </p>
+<h4 id="9-2-性能"><a href="#9-2-性能" class="headerlink" title="9.2. 性能"></a>9.2. 性能</h4><table style="text-align: center; vertical-align: middle;">
     <tr style="background-color: #5268a1;">
         <th>Tech</th>
         <th>Latency</th>
