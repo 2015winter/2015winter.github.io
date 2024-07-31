@@ -5892,7 +5892,8 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
   <entry>
     <title>高通分享总结篇（2024）</title>
     <url>//posts/202422/</url>
-    <content><![CDATA[<span id="more"></span>  
+    <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/G/Graphics/qualcomm_512.webp">  </p>
+<span id="more"></span>  
 
 <h3 id="1-热门手游线程分布情况"><a href="#1-热门手游线程分布情况" class="headerlink" title="1. 热门手游线程分布情况"></a>1. 热门手游线程分布情况</h3><!-- |Game|MainThread|RenderThread|Game engine worker threads|
 |:--:|:--:|:--:|:--:|
