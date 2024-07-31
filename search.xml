@@ -6159,7 +6159,7 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
     <tr style="color:black; background-color: #d7d4dd;">
         <th>AFME 1.0</th>
         <td>0~0.5 frame</td>
-        <td>< 1ms </td>
+        <td>&lt;1ms</td>
     </tr>
     <tr style="color:black; background-color: #c2c2d2;">
         <th>AFME 2.0</th>
