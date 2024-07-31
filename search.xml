@@ -5892,11 +5892,9 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
   <entry>
     <title>高通分享总结篇（2024）</title>
     <url>//posts/202422/</url>
-    <content><![CDATA[<h3 id="1-空间上采样-时间上采样"><a href="#1-空间上采样-时间上采样" class="headerlink" title="1. 空间上采样&amp;时间上采样"></a>1. 空间上采样&amp;时间上采样</h3><h4 id="1-1-空间上采样-Spatial-Upscaling"><a href="#1-1-空间上采样-Spatial-Upscaling" class="headerlink" title="1.1. 空间上采样(Spatial Upscaling)"></a>1.1. 空间上采样(Spatial Upscaling)</h4><p>a.定义:空间上采样是指仅使用当前帧的数据来增加图像或帧的分辨率<br>b.代表算法:FSR1.0, GSR1.0<br>c.特点:速度快, 集成简单, 不依赖深度和运动信息<br>d.局限:画质提升有限, 抗锯齿效果不明显  </p>
-<span id="more"></span>  
+    <content><![CDATA[<span id="more"></span>  
 
-<h4 id="1-2-时间上采样-Temporal-Upscaling"><a href="#1-2-时间上采样-Temporal-Upscaling" class="headerlink" title="1.2. 时间上采样(Temporal Upscaling)"></a>1.2. 时间上采样(Temporal Upscaling)</h4><p>a.定义:时间上采样使用当前帧以及先前帧的数据来提高图像质量<br>b.代表算法:DLSS2.0, FSR2.0, GSR2.0<br>c.特点:图像质量更好,良好的抗锯齿效果  </p>
-<h3 id="2-热门手游线程分布情况"><a href="#2-热门手游线程分布情况" class="headerlink" title="2. 热门手游线程分布情况"></a>2. 热门手游线程分布情况</h3><!-- |Game|MainThread|RenderThread|Game engine worker threads|
+<h3 id="1-热门手游线程分布情况"><a href="#1-热门手游线程分布情况" class="headerlink" title="1. 热门手游线程分布情况"></a>1. 热门手游线程分布情况</h3><!-- |Game|MainThread|RenderThread|Game engine worker threads|
 |:--:|:--:|:--:|:--:|
 |Genshin（原神）|1|2|3|
 |Hongkai StarRail（星寫铁道）|1|1|4|
@@ -5916,62 +5914,62 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
         <th>Game engine worker threads</th>
     </tr>
     <tr>
-        <td style="background-color: #5268a1;">Genshin（原神）</td>
+        <th style="background-color: #5268a1;">Genshin（原神）</th>
         <td style="color:black; background-color: #c2c2d2;">1</td>
         <td style="color:black; background-color: #c2c2d2;">2</td>
         <td style="color:black; background-color: #c2c2d2;">3</td>
     </tr>
     <tr>
-        <td style="background-color: #5268a1;">Hongkai StarRail（星寫铁道）</td>
+        <th style="background-color: #5268a1;">Hongkai StarRail（星寫铁道）</th>
         <td style="color:black; background-color: #d7d4dd;">1</td>
         <td style="color:black; background-color: #d7d4dd;">1</td>
         <td style="color:black; background-color: #d7d4dd;">4</td>
     </tr>
     <tr>
-        <td style="background-color: #5268a1;">HOK（王者荣耀）</td>
+        <th style="background-color: #5268a1;">HOK（王者荣耀）</th>
         <td style="color:black; background-color: #c2c2d2;">1</td>
         <td style="color:black; background-color: #c2c2d2;">1</td>
         <td style="color:black; background-color: #c2c2d2;">2</td>
     </tr>
     <tr>
-        <td style="background-color: #5268a1;">Game for Peace（和平精英）</td>
+        <th style="background-color: #5268a1;">Game for Peace（和平精英）</th>
         <td style="color:black; background-color: #d7d4dd;">1</td>
         <td style="color:black; background-color: #d7d4dd;">2</td>
         <td style="color:black; background-color: #d7d4dd;">4</td>
     </tr>
     <tr>
-        <td style="background-color: #5268a1;">Justice Mobile（逆水寒手游）</td>
+        <th style="background-color: #5268a1;">Justice Mobile（逆水寒手游）</th>
         <td style="color:black; background-color: #c2c2d2;">1</td>
         <td style="color:black; background-color: #c2c2d2;">1</td>
         <td style="color:black; background-color: #c2c2d2;">5</td>
     </tr>
     <tr>
-        <td style="background-color: #5268a1;">Condor Heroes（射雕手游）</td>
+        <th style="background-color: #5268a1;">Condor Heroes（射雕手游）</th>
         <td style="color:black; background-color: #d7d4dd;">1</td>
         <td style="color:black; background-color: #d7d4dd;">2</td>
         <td style="color:black; background-color: #d7d4dd;">12</td>
     </tr>
     <tr>
-        <td style="background-color: #5268a1;">Ex Astris（来自星辰）</td>
+        <th style="background-color: #5268a1;">Ex Astris（来自星辰）</th>
         <td style="color:black; background-color: #c2c2d2;">1</td>
         <td style="color:black; background-color: #c2c2d2;">1</td>
         <td style="color:black; background-color: #c2c2d2;">5</td>
     </tr>
     <tr>
-        <td style="background-color: #5268a1;">CODM（使命召唤手游）</td>
+        <th style="background-color: #5268a1;">CODM（使命召唤手游）</th>
         <td style="color:black; background-color: #d7d4dd;">1</td>
         <td style="color:black; background-color: #d7d4dd;">1</td>
         <td style="color:black; background-color: #d7d4dd;">4</td>
     </tr>
     <tr>
-        <td style="background-color: #5268a1;">LOLM（英雄联盟手游）</td>
+        <th style="background-color: #5268a1;">LOLM（英雄联盟手游）</th>
         <td style="color:black; background-color: #c2c2d2;">1</td>
         <td style="color:black; background-color: #c2c2d2;">1</td>
         <td style="color:black; background-color: #c2c2d2;">2</td>
     </tr>
 </table>
 
-<h3 id="3-高通骁龙-8Gen2-8Gen3-CPU配置"><a href="#3-高通骁龙-8Gen2-8Gen3-CPU配置" class="headerlink" title="3. 高通骁龙 8Gen2 &amp; 8Gen3 CPU配置"></a>3. 高通骁龙 8Gen2 &amp; 8Gen3 CPU配置</h3><table style="text-align: center; vertical-align: middle;">
+<h3 id="2-高通骁龙-8Gen2-8Gen3-CPU配置"><a href="#2-高通骁龙-8Gen2-8Gen3-CPU配置" class="headerlink" title="2. 高通骁龙 8Gen2 &amp; 8Gen3 CPU配置"></a>2. 高通骁龙 8Gen2 &amp; 8Gen3 CPU配置</h3><table style="text-align: center; vertical-align: middle;">
     <tr style="background-color: #5268a1;">
         <th rowspan="2">Hardware Parameter</th>
         <th colspan="3">SD8 Gen2</th>
@@ -5982,7 +5980,7 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
         <td colspan="3">Kryo 9xx</td>
     </tr>
     <tr style="color:black; background-color: #d7d4dd;">
-        <td>Core type</td>
+        <th>Core type</th>
         <td>Prime<br>[Based on Cortex -X3]</td>
         <td>Gold<br>[Based on Cortex-A710]</td>
         <td>Silver<br>[Based on A510 refresh]</td>
@@ -5991,7 +5989,7 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
         <td>Silver<br>[Based on A520]</td>
     </tr>
     <tr style="color:black; background-color: #c2c2d2;">
-        <td>FMax</td>
+        <th>FMax</th>
         <td>3.36GHz</td>
         <td>2.8GHz</td>
         <td>2.0GHz</td>
@@ -6000,7 +5998,7 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
         <td>2.3GHz</td>
     </tr>
     <tr style="color:black; background-color: #d7d4dd;">
-        <td>Configuration</td>
+        <th>Configuration</th>
         <td>1</td>
         <td>2+2</td>
         <td>3</td>
@@ -6009,7 +6007,7 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
         <td>2</td>
     </tr>
     <tr style="color:black; background-color: #c2c2d2;">
-        <td>L2$</td>
+        <th>L2$</th>
         <td>Prime: 1MB/core</td>
         <td>512KB/core</td>
         <td>128KB</td>
@@ -6018,13 +6016,13 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
         <td>512KB Shared</td>
     </tr>
     <tr style="color:black; background-color: #d7d4dd;">
-        <td>L3$</td>
+        <th>L3$</th>
         <td colspan="3">8MB</td>
         <td colspan="3">12MB</td>
     </tr>
 </table>
 
-<h3 id="4-高通骁龙888-8Gen1-8Gen2-8Gen3-GPU配置"><a href="#4-高通骁龙888-8Gen1-8Gen2-8Gen3-GPU配置" class="headerlink" title="4. 高通骁龙888, 8Gen1, 8Gen2 &amp; 8Gen3 GPU配置"></a>4. 高通骁龙888, 8Gen1, 8Gen2 &amp; 8Gen3 GPU配置</h3><table style="text-align: center; vertical-align: middle;">
+<h3 id="3-高通骁龙888-8Gen1-8Gen2-8Gen3-GPU配置"><a href="#3-高通骁龙888-8Gen1-8Gen2-8Gen3-GPU配置" class="headerlink" title="3. 高通骁龙888, 8Gen1, 8Gen2 &amp; 8Gen3 GPU配置"></a>3. 高通骁龙888, 8Gen1, 8Gen2 &amp; 8Gen3 GPU配置</h3><table style="text-align: center; vertical-align: middle;">
     <tr style="background-color: #5268a1;">
         <th rowspan="2">Hardware Parameter</th>
         <th>SD888</th>
@@ -6039,35 +6037,35 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
         <td>Adreno 750</td>
     </tr>
     <tr style="color:black; background-color: #d7d4dd;">
-        <td>Num of Shader Processor</td>
+        <th>Num of Shader Processor</th>
         <td>3</td>
         <td>4</td>
         <td>6</td>
         <td>6</td>
     </tr>
     <tr style="color:black; background-color: #c2c2d2;">
-        <td>GMEM Size</td>
+        <th>GMEM Size</th>
         <td>1.5MB</td>
         <td>2MB</td>
         <td>3MB</td>
         <td>3MB</td>
     </tr>
     <tr style="color:black; background-color: #d7d4dd;">
-        <td>FMax</td>
+        <th>FMax</th>
         <td>840MHz</td>
         <td>818MHz</td>
         <td>680MHz</td>
         <td>903MHz</td>
     </tr>
     <tr style="color:black; background-color: #c2c2d2;">
-        <td>GFX5.0 Manhattan 3.1 (1080P Offscreen)</td>
+        <th>GFX5.0 Manhattan 3.1 (1080P Offscreen)</th>
         <td>125</td>
         <td>177</td>
         <td>224</td>
         <td>278</td>    
     </tr>
     <tr style="color:black; background-color: #d7d4dd;">
-        <td>GFX5.0 Aztec Ruins Vulkan (High Tier)</td>
+        <th>GFX5.0 Aztec Ruins Vulkan (High Tier)</th>
         <td>31</td>
         <td>45</td>
         <td>69</td>
@@ -6075,7 +6073,7 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
     </tr>
 </table>
 
-<h3 id="5-高通骁龙888-8Gen1-8Gen2-8Gen3-GPU特性"><a href="#5-高通骁龙888-8Gen1-8Gen2-8Gen3-GPU特性" class="headerlink" title="5. 高通骁龙888, 8Gen1, 8Gen2 &amp; 8Gen3 GPU特性"></a>5. 高通骁龙888, 8Gen1, 8Gen2 &amp; 8Gen3 GPU特性</h3><table style="text-align: center; vertical-align: middle;">
+<h3 id="4-高通骁龙888-8Gen1-8Gen2-8Gen3-GPU特性"><a href="#4-高通骁龙888-8Gen1-8Gen2-8Gen3-GPU特性" class="headerlink" title="4. 高通骁龙888, 8Gen1, 8Gen2 &amp; 8Gen3 GPU特性"></a>4. 高通骁龙888, 8Gen1, 8Gen2 &amp; 8Gen3 GPU特性</h3><table style="text-align: center; vertical-align: middle;">
     <tr style="background-color: #5268a1;">
         <th rowspan="2">Hardware Parameter</th>
         <th>SD888</th>
@@ -6090,35 +6088,35 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
         <td>Adreno 750</td>
     </tr>
     <tr style="color:black; background-color: #d7d4dd;">
-        <td>VRS</td>
+        <th>VRS</th>
         <td>Draw based</td>
         <td>Draw + Image based</td>
         <td>Draw + Image + Primitive based</td>
         <td>Draw + Image + Primitive based</td>
     </tr>
     <tr style="color:black; background-color: #c2c2d2;">
-        <td>Ray Tracing</td>
+        <th>Ray Tracing</th>
         <td>No</td>
         <td>No</td>
         <td>Ray Query</td>
         <td>Ray Pipelines</td>
     </tr>
     <tr style="color:black; background-color: #d7d4dd;">
-        <td>GMIEMaS Goneral Purpose memory</td>
+        <th>GMEM as General Purpose memory</th>
         <td>GMEM read for Compute</td>
         <td>GMEM write for UAV</td>
         <td>Generic GMEM read and write</td>
         <td>Generic GMEM read and write</td>
     </tr>
     <tr style="color:black; background-color: #c2c2d2;">
-        <td>Mesh Shading</td>
+        <th>Mesh Shading</th>
         <td>No</td>
         <td>No</td>
         <td>No</td>
         <td>Yes</td>    
     </tr>
     <tr style="color:black; background-color: #d7d4dd;">
-        <td>Concurrent Binning</td>
+        <th>Concurrent Binning</th>
         <td>No</td>
         <td>Yes</td>
         <td>Yes</td>
@@ -6126,10 +6124,12 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
     </tr>
 </table>
 
-<h3 id="6-手游技术趋势"><a href="#6-手游技术趋势" class="headerlink" title="6. 手游技术趋势"></a>6. 手游技术趋势</h3><p>a. 手游渲染的画质会越来越高, 终端用户敏感的分辨率也会更大. 更多高级的渲染效果会用到手游上, 比如GPU driven, OIT, VRS, Raytracing, etc.<br>b. 随着SOC对Vulkan的支持越来越好, 很多游戏公司都看到了Vulkan在CPU方面的收益, 更多的新游戏会把Vulkan作为默认的API, 也有不少已经上线的热门游戏会推出Vulkan版本<br>c. 越来越多的游戏会支持全平台（手机, PC, console）, 如何合理利用一些高效而实用的渲染特性使手游达到接近端游的体验是很多游戏工作室探索的技术点<br>d. Compute shader在实现高级而创新的渲染效果中被广泛应用, 如何提升compute shader的性能和能效比, 以及最高效的使用compute shader, 是SOC厂家和工作室共同需要研究的领域<br>e. 随着Al技术的发展, 越来越多的游戏用到了AI（AI超分, AI降噪, AI NPC, 等等）. 游戏工作室需要探索如何更高效的在手机上使用AI, SOC厂家也需要进一步提升游戏中使用AI的性能和能效  </p>
-<h3 id="7-移动端插帧技术介绍和分析"><a href="#7-移动端插帧技术介绍和分析" class="headerlink" title="7. 移动端插帧技术介绍和分析"></a>7. 移动端插帧技术介绍和分析</h3><h4 id="7-1-2D"><a href="#7-1-2D" class="headerlink" title="7.1. 2D"></a>7.1. 2D</h4><p>a.基干序列图像, 无3D信息<br>b.传统的視频插帧算法大多属于这一类. 移动端AFME1.0就属于这一类. 优点是接口简单, 速度较快<br>c.算法原理大多是首先计算block的motion, 然后做全图的wrap. 图像质量依赖于motion计算的精确度<br>d.难点是对于重复出现的pattern比如楼梯, 常常会算错motion而发生扭曲. 出于性能的考虑, block的motion在搜紫时道常有一个范围, 这个范围决定了motion的上限, 一旦运动较大或者帧率较低导致motion超出这个上限就会出错  </p>
+<h3 id="5-手游技术趋势"><a href="#5-手游技术趋势" class="headerlink" title="5. 手游技术趋势"></a>5. 手游技术趋势</h3><p>a. 手游渲染的画质会越来越高, 终端用户敏感的分辨率也会更大. 更多高级的渲染效果会用到手游上, 比如GPU driven, OIT, VRS, Raytracing, etc.<br>b. 随着SOC对Vulkan的支持越来越好, 很多游戏公司都看到了Vulkan在CPU方面的收益, 更多的新游戏会把Vulkan作为默认的API, 也有不少已经上线的热门游戏会推出Vulkan版本<br>c. 越来越多的游戏会支持全平台（手机, PC, console）, 如何合理利用一些高效而实用的渲染特性使手游达到接近端游的体验是很多游戏工作室探索的技术点<br>d. Compute shader在实现高级而创新的渲染效果中被广泛应用, 如何提升compute shader的性能和能效比, 以及最高效的使用compute shader, 是SOC厂家和工作室共同需要研究的领域<br>e. 随着Al技术的发展, 越来越多的游戏用到了AI（AI超分, AI降噪, AI NPC, 等等）. 游戏工作室需要探索如何更高效的在手机上使用AI, SOC厂家也需要进一步提升游戏中使用AI的性能和能效  </p>
+<h3 id="6-空间上采样-时间上采样"><a href="#6-空间上采样-时间上采样" class="headerlink" title="6. 空间上采样&amp;时间上采样"></a>6. 空间上采样&amp;时间上采样</h3><h4 id="6-1-空间上采样-Spatial-Upscaling"><a href="#6-1-空间上采样-Spatial-Upscaling" class="headerlink" title="6.1. 空间上采样(Spatial Upscaling)"></a>6.1. 空间上采样(Spatial Upscaling)</h4><p>a.定义:空间上采样是指仅使用当前帧的数据来增加图像或帧的分辨率<br>b.代表算法:FSR1.0, GSR1.0<br>c.特点:速度快, 集成简单, 不依赖深度和运动信息<br>d.局限:画质提升有限, 抗锯齿效果不明显  </p>
+<h4 id="6-2-时间上采样-Temporal-Upscaling"><a href="#6-2-时间上采样-Temporal-Upscaling" class="headerlink" title="6.2. 时间上采样(Temporal Upscaling)"></a>6.2. 时间上采样(Temporal Upscaling)</h4><p>a.定义:时间上采样使用当前帧以及先前帧的数据来提高图像质量<br>b.代表算法:DLSS2.0, FSR2.0, GSR2.0<br>c.特点:图像质量更好,良好的抗锯齿效果  </p>
+<h3 id="7-移动端插帧技术介绍-分析"><a href="#7-移动端插帧技术介绍-分析" class="headerlink" title="7. 移动端插帧技术介绍&amp;分析"></a>7. 移动端插帧技术介绍&amp;分析</h3><h4 id="7-1-2D"><a href="#7-1-2D" class="headerlink" title="7.1. 2D"></a>7.1. 2D</h4><p>a.基干序列图像, 无3D信息<br>b.传统的視频插帧算法大多属于这一类. 移动端AFME1.0就属于这一类. 优点是接口简单, 速度较快<br>c.算法原理大多是首先计算block的motion, 然后做全图的wrap. 图像质量依赖于motion计算的精确度<br>d.难点是对于重复出现的pattern比如楼梯, 常常会算错motion而发生扭曲. 出于性能的考虑, block的motion在搜紫时道常有一个范围, 这个范围决定了motion的上限, 一旦运动较大或者帧率较低导致motion超出这个上限就会出错  </p>
 <h4 id="7-2-3D"><a href="#7-2-3D" class="headerlink" title="7.2. 3D"></a>7.2. 3D</h4><p>a.除了color, 通常还需要depth, velocity和carera信息. AFME2.0属于这一类<br>b.对于静态场景, 这类算法能快速而且高质量地还原. 核心算法是reprojection, 非常适合运行在GPU上<br>c.难点是阴影, 透明或半透物体和in-game UI. 通常需要借助optical flow engine来处理这类物体, 而且需要明显的额外开销. 这些难点问题, 目前我们认为可能更适合用基于AI的算法来处理  </p>
-<h3 id="8-移动端超分和插帧后端对比-GPU-VS-NPU"><a href="#8-移动端超分和插帧后端对比-GPU-VS-NPU" class="headerlink" title="8. 移动端超分和插帧后端对比 GPU VS NPU"></a>8. 移动端超分和插帧后端对比 GPU VS NPU</h3><h4 id="8-1-GPU"><a href="#8-1-GPU" class="headerlink" title="8.1. GPU"></a>8.1. GPU</h4><p><em>优点</em>  </p>
+<h3 id="8-移动端超分和插帧后端对比-GPU-vs-NPU"><a href="#8-移动端超分和插帧后端对比-GPU-vs-NPU" class="headerlink" title="8. 移动端超分和插帧后端对比 GPU vs NPU"></a>8. 移动端超分和插帧后端对比 GPU vs NPU</h3><h4 id="8-1-GPU"><a href="#8-1-GPU" class="headerlink" title="8.1. GPU"></a>8.1. GPU</h4><p><em>优点</em>  </p>
 <p>a.完美融入渲染管线. 无内存, 缓存共享问题, 无同步问题. 目前大部分主流的移动端超分和<br>插帧算法都可以做到零延迟<br>b.对于一些传统的图形学运算比如Lanczos Filtering, Reprojection, Fusion, Warping等, GPU运算速度更快而目更精确<br>c.开源的GPU算法通常是跨平台的  </p>
 <p><em>缺点</em>  </p>
 <p>•缺乏对图像内容的理解, 对于人眼能轻易识别的阴影, 透明或半透明物体, 具备特定线条和形状的物体处理难度很高<br>•超分、插帧算法和游戏渲染任务同时跑在GPU上, 对GPU性能和功耗压力较大  </p>
@@ -6139,7 +6139,33 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
 <p><em>缺点</em></p>
 <p>a.依赖GPU和NPU数据共享和硬件同步支持, 否则会有明显的延迟. 目前移动端在这一块进展缓慢<br>b.AI算法在速度上通常不如基于GPU的算法, 很难做到零延迟. 特别是Temporal的算法<br>c.NPU&#x2F;AI算法通常不是跨平台的, 需要为不同的平台单独适配  </p>
 <p><span class="exturl" data-url="aHR0cHM6Ly9haWh1Yi5xdWFsY29tbS5jb20vbW9kZWxzL3F1aWNrc3JuZXRsYXJnZQ==">https://aihub.qualcomm.com/models/quicksrnetlarge<i class="fa fa-external-link-alt"></i></span>  </p>
-]]></content>
+<h3 id="延迟-性能-功耗"><a href="#延迟-性能-功耗" class="headerlink" title="延迟, 性能&amp;功耗"></a>延迟, 性能&amp;功耗</h3><h4 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h4><table style="text-align: center; vertical-align: middle;">
+    <tr style="background-color: #5268a1;">
+        <th>Tech</th>
+        <th>Latency</th>
+        <th>Performance</th>
+    </tr>
+    <tr style="color:black; background-color: #d7d4dd;">
+        <th>GSR 1.0</th>
+        <td>0</td>
+        <td>0.3ms</td>
+    </tr>
+    <tr style="color:black; background-color: #c2c2d2;">
+        <th>GSR 2.0</th>
+        <td>0</td>
+        <td>1.6ms</td>
+    </tr>
+    <tr style="color:black; background-color: #d7d4dd;">
+        <th>AFME 1.0</th>
+        <td>0~0.5 frame</td>
+        <td>< 1ms </td>
+    </tr>
+    <tr style="color:black; background-color: #c2c2d2;">
+        <th>AFME 2.0</th>
+        <td>0~0.5 frame</td>
+        <td>dynamic</td>
+    </tr>
+</table>]]></content>
       <categories>
         <category>工业</category>
       </categories>
