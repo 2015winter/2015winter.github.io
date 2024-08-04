@@ -52,8 +52,8 @@ https://blog.laxdu.com/posts/202409/
 https://blog.laxdu.com/posts/202420/
 https://blog.laxdu.com/posts/202422/
 https://blog.laxdu.com/donation/index.html
-https://blog.laxdu.com/guestbook/index.html
 https://blog.laxdu.com/leisure/index.html
+https://blog.laxdu.com/guestbook/index.html
 https://blog.laxdu.com/links/index.html
 https://blog.laxdu.com/links/life.json
 https://blog.laxdu.com/links/tech.json
