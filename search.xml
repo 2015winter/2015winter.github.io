@@ -4569,66 +4569,6 @@ ffmpeg <span class="token parameter variable">-i</span> <span class="token strin
       </tags>
   </entry>
   <entry>
-    <title>UE高度雾性能分析</title>
-    <url>//posts/202203/</url>
-    <content><![CDATA[<h4 id="测试条件"><a href="#测试条件" class="headerlink" title="测试条件"></a>测试条件</h4><table>
-<thead>
-<tr>
-<th>机型</th>
-<th>系统</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>iPhone6s</td>
-<td>IOS 14.3</td>
-</tr>
-</tbody></table>
-<h4 id="影响因子"><a href="#影响因子" class="headerlink" title="影响因子"></a>影响因子</h4><p>移动平台的高度雾, 默认是Forward管线, 在BasePass上的<code>Vert</code>阶段计算雾效, 如<a href="../202202">UE指数高度雾</a>中分析, 因计算方法是固定的, 故而影响的因素比较单一. </p>
-<ul>
-<li>场景几何复杂度</li>
-<li>体积雾的开启或关闭</li>
-</ul>
-<p>进而两个处理优化方向</p>
-<ul>
-<li>计算方法优化</li>
-<li>场景几何复杂度优化</li>
-</ul>
-<span id="more"></span>
-
-<p><strong>注意:</strong> 移动平台使用高度雾需关闭 <strong><code>Disable vertex fogging on mobile shaders</code></strong> 开关, 如下图所示.<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/2.webp"></p>
-<h4 id="场景性能图"><a href="#场景性能图" class="headerlink" title="场景性能图"></a>场景性能图</h4><p>无雾效场景性能图<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/3.webp"><br>有雾效场景性能图<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/4.webp"><br>无雾效时BasePass各Pass耗时<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/5.webp"></p>
-<p>有雾效时BasePass各Pass耗时<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/6.webp"></p>
-<p>有雾效场景近似GPUTime(1.96ms)此时相比无雾效场景GPUTime(2.35ms)耗时更低, </p>
-<p>还可考虑对计算方法进行优化<br>诸如<br><strong><code>pow</code>函数优化</strong></p>
-<p>雾效的计算多处使用了<code>pow</code>函数, 可以优化之<br>通用实现</p>
-<pre class="language-C" data-language="C"><code class="language-C">&#x2F;&#x2F; Generalized Power Function
-float pow(float x, float n)
-&#123;
-    return exp(log(x) * n);
-&#125;</code></pre>
-<p>优化后</p>
-<pre class="language-C" data-language="C"><code class="language-C">&#x2F;&#x2F; Spherical Gaussian Power Function
-float pow(float x, float n)
-&#123;
-    n &#x3D; n * 1.4427f + 1.4427f; &#x2F;&#x2F; 1.4427f -&gt; 1&#x2F;ln(2)
-    return exp2(x*n-n); 
-&#125;</code></pre>
-<p><strong><a href="UE%E6%8C%87%E6%95%B0%E9%AB%98%E5%BA%A6%E9%9B%BE.md">UE指数高度雾</a>部分删除部分中间方法</strong></p>
-<ul>
-<li><p>比如雾效的散射部分, 关闭<code>SUPPORT_FOG_DIRECTIONAL_LIGHT_INSCATTERING</code>宏或删除该部分<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/7.webp"></p>
-</li>
-<li><p>保持体积雾开关关闭 (注意: 若是修改组件里体积雾开关配置, 实际使用的可能不是该配置)<br> <img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/8.webp"></p>
-</li>
-</ul>
-<!-- [关于pow的优化](https://blog.csdn.net/weixin_45979158/article/details/104656123) -->]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>图形</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>UE指数高度雾(Exponential Height Fog)</title>
     <url>//posts/202202/</url>
     <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/0.webp"></p>
@@ -4756,6 +4696,66 @@ DirectionalInscattering = DirectionalLightInscattering * (1 - DirectionalInscatt
 #else
 	OutColor.rgb = Color * VertexFog.a + VertexFog.rgb;</code></pre>
 ]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UE高度雾性能分析</title>
+    <url>//posts/202203/</url>
+    <content><![CDATA[<h4 id="测试条件"><a href="#测试条件" class="headerlink" title="测试条件"></a>测试条件</h4><table>
+<thead>
+<tr>
+<th>机型</th>
+<th>系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iPhone6s</td>
+<td>IOS 14.3</td>
+</tr>
+</tbody></table>
+<h4 id="影响因子"><a href="#影响因子" class="headerlink" title="影响因子"></a>影响因子</h4><p>移动平台的高度雾, 默认是Forward管线, 在BasePass上的<code>Vert</code>阶段计算雾效, 如<a href="../202202">UE指数高度雾</a>中分析, 因计算方法是固定的, 故而影响的因素比较单一. </p>
+<ul>
+<li>场景几何复杂度</li>
+<li>体积雾的开启或关闭</li>
+</ul>
+<p>进而两个处理优化方向</p>
+<ul>
+<li>计算方法优化</li>
+<li>场景几何复杂度优化</li>
+</ul>
+<span id="more"></span>
+
+<p><strong>注意:</strong> 移动平台使用高度雾需关闭 <strong><code>Disable vertex fogging on mobile shaders</code></strong> 开关, 如下图所示.<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/2.webp"></p>
+<h4 id="场景性能图"><a href="#场景性能图" class="headerlink" title="场景性能图"></a>场景性能图</h4><p>无雾效场景性能图<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/3.webp"><br>有雾效场景性能图<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/4.webp"><br>无雾效时BasePass各Pass耗时<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/5.webp"></p>
+<p>有雾效时BasePass各Pass耗时<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/6.webp"></p>
+<p>有雾效场景近似GPUTime(1.96ms)此时相比无雾效场景GPUTime(2.35ms)耗时更低, </p>
+<p>还可考虑对计算方法进行优化<br>诸如<br><strong><code>pow</code>函数优化</strong></p>
+<p>雾效的计算多处使用了<code>pow</code>函数, 可以优化之<br>通用实现</p>
+<pre class="language-C" data-language="C"><code class="language-C">&#x2F;&#x2F; Generalized Power Function
+float pow(float x, float n)
+&#123;
+    return exp(log(x) * n);
+&#125;</code></pre>
+<p>优化后</p>
+<pre class="language-C" data-language="C"><code class="language-C">&#x2F;&#x2F; Spherical Gaussian Power Function
+float pow(float x, float n)
+&#123;
+    n &#x3D; n * 1.4427f + 1.4427f; &#x2F;&#x2F; 1.4427f -&gt; 1&#x2F;ln(2)
+    return exp2(x*n-n); 
+&#125;</code></pre>
+<p><strong><a href="UE%E6%8C%87%E6%95%B0%E9%AB%98%E5%BA%A6%E9%9B%BE.md">UE指数高度雾</a>部分删除部分中间方法</strong></p>
+<ul>
+<li><p>比如雾效的散射部分, 关闭<code>SUPPORT_FOG_DIRECTIONAL_LIGHT_INSCATTERING</code>宏或删除该部分<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/7.webp"></p>
+</li>
+<li><p>保持体积雾开关关闭 (注意: 若是修改组件里体积雾开关配置, 实际使用的可能不是该配置)<br> <img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/8.webp"></p>
+</li>
+</ul>
+<!-- [关于pow的优化](https://blog.csdn.net/weixin_45979158/article/details/104656123) -->]]></content>
       <categories>
         <category>工业</category>
       </categories>
@@ -5517,29 +5517,6 @@ hslr&#x2F;sun-panel:latest</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>妹子确诊胶质瘤</title>
-    <url>//posts/202305/</url>
-    <content><![CDATA[<p>作为胶母患者家属角度，来唠叨下情况  </p>
-<p>我们俩一直从大学相处至今，双方家族也没脑瘤史，甚至肿瘤史都没。感情一直挺好，虽然偶尔争吵，结婚时，也未领结婚证（起初考虑双方都能抵扣个税，多点收入）  </p>
-<p>2023年春节媳妇因头疼检查出疑似高级胶质瘤（病理野生胶母），那阵子也相当难受，我们生活都被打乱，手术后，接着放疗化疗等，从陪伴媳妇日子里，我们家属都知道，她一直很心疼我们，一直坚强着，积极配合治疗，乐观的接受这一事实  </p>
-<span id="more"></span>
-
-<p>随后媳妇失业，支撑到我现在，是至今双方的情感（并未灌心灵鸡汤的意思），家属以及各方病友的帮助（非常感谢），不然我一人战斗也很难坚持到现在，因为换做是我得这个病，我会很无奈和绝望，我也想抓一根救命稻草，但又不想拖累对方，我也想如正常人般生活，不忌口，想旅行出发就行，光想到这些得病后就。。。我加过许多病友群，一年期间见过太多病友的退群，深知多像阎王爷索点时间都不易，且行且珍惜  </p>
-<p>不知在哪看到过一句话，在遇到问题时，我不希望面对的是你，而是我们一起面对问题。我不是要做圣人，我只想像结婚时般那样，不负自己不负卿。毕竟谁都会离开这个世界，无非早晚。  </p>
-<p>再借用电影《滚蛋吧肿瘤君》女主熊顿一句话鼓励下媳妇和我（嘻嘻），反正开不开心，都是活一天，那就大摇大摆的活呗。  </p>
-<p>现实点做法无非就是离开对方，这种选择我认为立于生活也没错，毕竟搭上的是彼此的一生，随后的生活里，病情任何一点都会成为矛盾点，各种内耗都有可能，自己的生活工作方方面面都会被影响，诸如陪诊看病，用药监护，工作安排，日常开销等等，有小孩的估计会更难。甚至做好成为半个护理医生的打算。  </p>
-<p>这个病属多学科联合诊治（MDT），涉及神经外科，神经内科，肿瘤科，康复科，放疗科，可能还涉及消化科，肛肠科，皮肤科，泌尿科等等等等。  </p>
-<p>当然低级别的情况可能相对会好很多，至于生小孩方面，男性患该病可能好点，女性患的话遭罪，生孩子期间女性体内各项指标不稳定，用药也不便，该病基因是否遗传没依据，不过据说患病遗传的可能性比不患病概率高（有待考证）  </p>
-<p>时间节点<br>2024.04.30 长化结束<br>2023.06.07 长化开始<br>2023.05.31 放疗结束<br>2023.04.26 广州泰和肿瘤放疗<br>2023.03.02 左额叶手术<br>2023.02.21 广东三九脑科入院<br>2023.02.14 因间歇性头痛, CT诊断脑部可能有肿瘤   </p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>医院</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Unity sRGB格式支持</title>
     <url>//posts/202304/</url>
     <content><![CDATA[<p>测试的Unity版本 2021.03.32f1</p>
@@ -5619,6 +5596,29 @@ GraphicsFormat GetLinearFormat(GraphicsFormat format)
       </categories>
       <tags>
         <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>妹子确诊胶质瘤</title>
+    <url>//posts/202305/</url>
+    <content><![CDATA[<p>作为胶母患者家属角度，来唠叨下情况  </p>
+<p>我们俩一直从大学相处至今，双方家族也没脑瘤史，甚至肿瘤史都没。感情一直挺好，虽然偶尔争吵，结婚时，也未领结婚证（起初考虑双方都能抵扣个税，多点收入）  </p>
+<p>2023年春节媳妇因头疼检查出疑似高级胶质瘤（病理野生胶母），那阵子也相当难受，我们生活都被打乱，手术后，接着放疗化疗等，从陪伴媳妇日子里，我们家属都知道，她一直很心疼我们，一直坚强着，积极配合治疗，乐观的接受这一事实  </p>
+<span id="more"></span>
+
+<p>随后媳妇失业，支撑到我现在，是至今双方的情感（并未灌心灵鸡汤的意思），家属以及各方病友的帮助（非常感谢），不然我一人战斗也很难坚持到现在，因为换做是我得这个病，我会很无奈和绝望，我也想抓一根救命稻草，但又不想拖累对方，我也想如正常人般生活，不忌口，想旅行出发就行，光想到这些得病后就。。。我加过许多病友群，一年期间见过太多病友的退群，深知多像阎王爷索点时间都不易，且行且珍惜  </p>
+<p>不知在哪看到过一句话，在遇到问题时，我不希望面对的是你，而是我们一起面对问题。我不是要做圣人，我只想像结婚时般那样，不负自己不负卿。毕竟谁都会离开这个世界，无非早晚。  </p>
+<p>再借用电影《滚蛋吧肿瘤君》女主熊顿一句话鼓励下媳妇和我（嘻嘻），反正开不开心，都是活一天，那就大摇大摆的活呗。  </p>
+<p>现实点做法无非就是离开对方，这种选择我认为立于生活也没错，毕竟搭上的是彼此的一生，随后的生活里，病情任何一点都会成为矛盾点，各种内耗都有可能，自己的生活工作方方面面都会被影响，诸如陪诊看病，用药监护，工作安排，日常开销等等，有小孩的估计会更难。甚至做好成为半个护理医生的打算。  </p>
+<p>这个病属多学科联合诊治（MDT），涉及神经外科，神经内科，肿瘤科，康复科，放疗科，可能还涉及消化科，肛肠科，皮肤科，泌尿科等等等等。  </p>
+<p>当然低级别的情况可能相对会好很多，至于生小孩方面，男性患该病可能好点，女性患的话遭罪，生孩子期间女性体内各项指标不稳定，用药也不便，该病基因是否遗传没依据，不过据说患病遗传的可能性比不患病概率高（有待考证）  </p>
+<p>时间节点<br>2024.04.30 长化结束<br>2023.06.07 长化开始<br>2023.05.31 放疗结束<br>2023.04.26 广州泰和肿瘤放疗<br>2023.03.02 左额叶手术<br>2023.02.21 广东三九脑科入院<br>2023.02.14 因间歇性头痛, CT诊断脑部可能有肿瘤   </p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>医院</tag>
       </tags>
   </entry>
   <entry>
