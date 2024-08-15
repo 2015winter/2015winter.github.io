@@ -59,8 +59,8 @@ https://blog.laxdu.com/leisure/index.html
 https://blog.laxdu.com/links/index.html
 https://blog.laxdu.com/links/life.json
 https://blog.laxdu.com/links/tech.json
-https://blog.laxdu.com/policy/index.html
 https://blog.laxdu.com/resources/artalk-emoji.json
+https://blog.laxdu.com/policy/index.html
 https://blog.laxdu.com/tags/index.html
 https://blog.laxdu.com/leisure/animes/animes.json
 https://blog.laxdu.com/leisure/animes/index.html
