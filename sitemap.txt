@@ -42,6 +42,8 @@ https://blog.laxdu.com/posts/202303/
 https://blog.laxdu.com/posts/202304/
 https://blog.laxdu.com/posts/202305/
 https://blog.laxdu.com/posts/202306/
+https://blog.laxdu.com/posts/202307/
+https://blog.laxdu.com/posts/202308/
 https://blog.laxdu.com/posts/202401/
 https://blog.laxdu.com/posts/202402/
 https://blog.laxdu.com/posts/202403/
@@ -59,8 +61,8 @@ https://blog.laxdu.com/leisure/index.html
 https://blog.laxdu.com/links/index.html
 https://blog.laxdu.com/links/life.json
 https://blog.laxdu.com/links/tech.json
-https://blog.laxdu.com/resources/artalk-emoji.json
 https://blog.laxdu.com/policy/index.html
+https://blog.laxdu.com/resources/artalk-emoji.json
 https://blog.laxdu.com/tags/index.html
 https://blog.laxdu.com/leisure/animes/animes.json
 https://blog.laxdu.com/leisure/animes/index.html
@@ -78,6 +80,7 @@ https://blog.laxdu.com/tags/%E7%AE%97%E6%B3%95/
 https://blog.laxdu.com/tags/%E5%B0%8F%E6%9D%82%E7%AE%B1/
 https://blog.laxdu.com/tags/%E5%8D%9A%E5%AE%A2/
 https://blog.laxdu.com/tags/%E5%8C%BB%E9%99%A2/
+https://blog.laxdu.com/tags/%E5%9B%BE%E5%83%8F/
 https://blog.laxdu.com/industry/
 https://blog.laxdu.com/notes/
 https://blog.laxdu.com/life/
