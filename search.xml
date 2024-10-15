@@ -5755,14 +5755,40 @@ wavelet基   -->
   <entry>
     <title>深度学习 - 基础篇</title>
     <url>//posts/202307/</url>
-    <content><![CDATA[<h2 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h2><h3 id="Dropout-暂退法"><a href="#Dropout-暂退法" class="headerlink" title="Dropout (暂退法)"></a>Dropout (暂退法)</h3><p>当谈到深度学习中的Dropout时，我们可以用一个简单的比喻来解释它。想象你在学校里上课，有时候你会突然觉得有点疲倦或者分心，于是你决定暂时离开教室去休息一下，然后回来继续听课。在这个过程中，其他同学也可能会有类似的情况，他们也会暂时离开教室。  </p>
+    <content><![CDATA[<h2 id="1-专业术语"><a href="#1-专业术语" class="headerlink" title="1. 专业术语"></a>1. 专业术语</h2><span id="more"></span>  
+
+<h3 id="1-1-Dropout-暂退法"><a href="#1-1-Dropout-暂退法" class="headerlink" title="1.1. Dropout (暂退法)"></a>1.1. Dropout (暂退法)</h3><p>当谈到深度学习中的Dropout时，我们可以用一个简单的比喻来解释它。想象你在学校里上课，有时候你会突然觉得有点疲倦或者分心，于是你决定暂时离开教室去休息一下，然后回来继续听课。在这个过程中，其他同学也可能会有类似的情况，他们也会暂时离开教室。  </p>
 <p>在深度学习中，Dropout就像是让神经元“暂时离开”模型一样。具体来说，当我们应用Dropout时，我们会随机地关闭一些神经元（让它们的输出为0）以及与之相连的神经元，就像暂时“删除”它们一样。这样，训练过程中的每一次迭代，都会随机地“踢出”一些神经元，使得网络不会过度依赖某些特定的神经元，从而提高了模型的泛化能力。  </p>
 <p>通过Dropout，我们可以防止神经网络过拟合训练数据，因为网络不会过度依赖某些特定的神经元，而是学会了更加鲁棒和通用的特征表示。这有助于提高模型在未见过的数据上的表现。  </p>
 <p>总的来说，Dropout就像是让神经元“休息”一下，以促进模型的泛化能力和稳健性。  </p>
-<h2 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a>Matplotlib</h2><h3 id="组成部分"><a href="#组成部分" class="headerlink" title="组成部分"></a>组成部分</h3><p>Figure(面板)<br>Axes(坐标系)<br>Axis(坐标轴)<br>Artist(艺术元素)  </p>
-<span id="more"></span>  
-
-<h3 id="折线函数Plot"><a href="#折线函数Plot" class="headerlink" title="折线函数Plot"></a>折线函数Plot</h3><p>下面对 Plot函数 中的参数做详细解释<br>X: x轴数据，列表或数组，可选，缺少时系统采用默认值<br>Y: y轴数据，列表或数组，必须输入值<br>fmt: 控制曲线的格式字符串，可选，缺少是系统采用默认值<br>fmt由颜色字符(color)、线型字符(line style)和点型字符(maker)组成  </p>
+<h3 id="1-2-Regularization（正则化）"><a href="#1-2-Regularization（正则化）" class="headerlink" title="1.2. Regularization（正则化）"></a>1.2. Regularization（正则化）</h3><p>用于控制模型复杂度并防止过拟合的技术。<br>正则化通过向模型的损失函数添加一个惩罚项来限制模型参数的大小。常见的正则化方法包括L1正则化和L2正则化，它们分别使用L1范数和L2范数作为惩罚项。</p>
+<h4 id="1-2-1-L1-L2区别"><a href="#1-2-1-L1-L2区别" class="headerlink" title="1.2.1. L1&L2区别"></a>1.2.1. L1&amp;L2区别</h4><p>L1正则化（Lasso）和L2正则化（Ridge）的主要区别在于惩罚项的形式。  </p>
+<p>L1正则化：L1正则化使用模型参数的L1范数作为惩罚项，即参数的绝对值之和。L1正则化有助于稀疏性，即使得模型参数中的许多值变为零，从而可以进行特征选择，减少不重要特征的影响。  </p>
+<p>L2正则化：L2正则化使用模型参数的L2范数的平方作为惩罚项，即参数的平方和。L2正则化有助于防止参数过大，使得模型更加平滑，有助于提高模型的泛化能力。  </p>
+<h4 id="1-2-2-实践中常使用L2而非L1的原因"><a href="#1-2-2-实践中常使用L2而非L1的原因" class="headerlink" title="1.2.2. 实践中常使用L2而非L1的原因"></a>1.2.2. 实践中常使用L2而非L1的原因</h4><p>1.平滑性<br>L2正则化对参数的平方进行惩罚，使得模型参数更加平滑，有助于防止过拟合。相比之下，L1正则化倾向于使得模型参数更加稀疏，可能不利于模型的平滑性。  </p>
+<p>2.数学性质<br>L2正则化在数学上更容易处理，因为它是可微的，有解析解。这使得在训练过程中更容易优化。  </p>
+<p>3.特征选择<br>虽然L1正则化有助于特征选择，但在某些情况下，模型需要考虑所有特征对预测的影响。L2正则化可以更平滑地调整参数，不会将参数压缩为零，从而保留更多特征信息。  </p>
+<p>总的来说，L2正则化在实践中更常用是因为它的平滑性和数学性质使得模型更容易优化，并且有助于防止过拟合。然而，在某些情况下，L1正则化仍然是有用的，特别是在需要进行特征选择或稀疏性约束时  </p>
+<h4 id="1-2-3-其他正则化技术"><a href="#1-2-3-其他正则化技术" class="headerlink" title="1.2.3. 其他正则化技术"></a>1.2.3. 其他正则化技术</h4><p>1.Elastic Net正则化<br>结合了L1和L2正则化，同时考虑了稀疏性和平滑性，可以克服L1和L2正则化各自的缺点。  </p>
+<p>2.Dropout<br>在神经网络中随机丢弃部分神经元，有助于减少过拟合，提高模型的泛化能力。  </p>
+<p>3.数据增强<br>在训练过程中对数据进行一定程度的扩增，如旋转、翻转、裁剪等，有助于提高模型的泛化能力。  </p>
+<p>4.Batch Normalization<br>在神经网络中对每个批次的数据进行归一化处理，有助于加速训练过程，减少梯度消失问题。  </p>
+<p>5.Early Stopping<br>在训练过程中监控验证集的性能，当性能不再提升时停止训练，有助于防止过拟合。  </p>
+<p>6.数据集扩充（Data Augmentation）<br>通过对训练数据进行变换，如旋转、平移、缩放等，增加训练数据的多样性，有助于提高模型的泛化能力。  </p>
+<p>这些正则化技术可以单独应用，也可以结合使用，以提高模型的泛化能力，降低过拟合风险。选择合适的正则化技术取决于具体的任务和数据特点。  </p>
+<h3 id="1-3-Vanishing-Exploding-Gradients（梯度消失和梯度爆炸）"><a href="#1-3-Vanishing-Exploding-Gradients（梯度消失和梯度爆炸）" class="headerlink" title="1.3. Vanishing/Exploding Gradients（梯度消失和梯度爆炸）"></a>1.3. Vanishing/Exploding Gradients（梯度消失和梯度爆炸）</h3><p>梯度消失问题解决方案  </p>
+<p>1.使用激活函数<br>使用非饱和激活函数，如ReLU（Rectified Linear Unit）、Leaky ReLU、ELU（Exponential Linear Unit）等，可以减轻梯度消失问题。  </p>
+<p>2.批量归一化（Batch Normalization）<br>在每一层的输入进行归一化，有助于加速训练过程，减少梯度消失问题。  </p>
+<p>残差连接（Residual Connections）<br>使用残差连接可以减少梯度消失问题，通过跳过连接将输入直接传递到输出层。  </p>
+<p>3.梯度裁剪（Gradient Clipping）<br>对梯度进行裁剪，限制梯度的范围，防止梯度过大导致梯度爆炸问题。</p>
+<p>梯度爆炸问题解决方案  </p>
+<p>1.梯度裁剪（Gradient Clipping）<br>对梯度进行裁剪，限制梯度的范围，防止梯度爆炸问题。  </p>
+<p>2.权重初始化<br>使用合适的权重初始化方法，如Xavier初始化、He初始化等，有助于避免梯度爆炸问题。    </p>
+<p>3.使用梯度稳定的优化器<br>使用一些梯度稳定的优化器，如Adam、RMSprop等，可以减少梯度爆炸问题的发生。  </p>
+<p>4.减小学习率<br>如果梯度爆炸问题仍然存在，可以尝试减小学习率，以缓解梯度爆炸的影响。  </p>
+<p>综合利用上述方法可以有效地解决梯度消失和梯度爆炸问题，提高深度神经网络的训练稳定性和效果。</p>
+<h2 id="2-Matplotlib"><a href="#2-Matplotlib" class="headerlink" title="2. Matplotlib"></a>2. Matplotlib</h2><h3 id="2-1-组成部分"><a href="#2-1-组成部分" class="headerlink" title="2.1. 组成部分"></a>2.1. 组成部分</h3><p>Figure(面板)<br>Axes(坐标系)<br>Axis(坐标轴)<br>Artist(艺术元素)  </p>
+<h3 id="2-2-折线函数Plot"><a href="#2-2-折线函数Plot" class="headerlink" title="2.2. 折线函数Plot"></a>2.2. 折线函数Plot</h3><p>下面对 Plot函数 中的参数做详细解释<br>X: x轴数据，列表或数组，可选，缺少时系统采用默认值<br>Y: y轴数据，列表或数组，必须输入值<br>fmt: 控制曲线的格式字符串，可选，缺少是系统采用默认值<br>fmt由颜色字符(color)、线型字符(line style)和点型字符(maker)组成  </p>
 <p>color表 </p>
 <table>
 <thead>
@@ -5876,7 +5902,7 @@ wavelet基   -->
 <td align="center"></td>
 </tr>
 </tbody></table>
-<h3 id="显示模式"><a href="#显示模式" class="headerlink" title="显示模式"></a>显示模式</h3><p>阻塞(block)模式  </p>
+<h3 id="2-3-显示模式"><a href="#2-3-显示模式" class="headerlink" title="2.3. 显示模式"></a>2.3. 显示模式</h3><p>阻塞(block)模式  </p>
 <p>调用Plt.Plot函数后不显示图像，需要调用Plt.show()才能打开窗口，显示图像  </p>
 <p>交互模式  </p>
 <p>调用Plt.Plot函数会直接打开窗口，显示窗口  </p>
