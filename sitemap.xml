@@ -245,15 +245,6 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202001/</loc>
-    
-    <lastmod>2020-06-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.laxdu.com/posts/202002/</loc>
     
     <lastmod>2020-04-30</lastmod>
@@ -308,15 +299,6 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202201/</loc>
-    
-    <lastmod>2022-04-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.laxdu.com/posts/202202/</loc>
     
     <lastmod>2022-04-13</lastmod>
@@ -362,15 +344,6 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202303/</loc>
-    
-    <lastmod>2023-05-05</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.laxdu.com/posts/202304/</loc>
     
     <lastmod>2023-05-12</lastmod>
@@ -389,9 +362,9 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202306/</loc>
+    <loc>https://blog.laxdu.com/posts/202303/</loc>
     
-    <lastmod>2023-05-10</lastmod>
+    <lastmod>2023-05-05</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -461,9 +434,9 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202407/</loc>
+    <loc>https://blog.laxdu.com/posts/202306/</loc>
     
-    <lastmod>2024-06-24</lastmod>
+    <lastmod>2023-05-10</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -479,6 +452,15 @@
   </url>
   
   <url>
+    <loc>https://blog.laxdu.com/posts/202407/</loc>
+    
+    <lastmod>2024-06-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.laxdu.com/posts/202409/</loc>
     
     <lastmod>2024-07-08</lastmod>
@@ -488,18 +470,18 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202415/</loc>
+    <loc>https://blog.laxdu.com/posts/202420/</loc>
     
-    <lastmod>2024-07-16</lastmod>
+    <lastmod>2024-07-26</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202420/</loc>
+    <loc>https://blog.laxdu.com/posts/202415/</loc>
     
-    <lastmod>2024-07-26</lastmod>
+    <lastmod>2024-07-16</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -527,6 +509,24 @@
     <loc>https://blog.laxdu.com/posts/202424/</loc>
     
     <lastmod>2024-10-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.laxdu.com/posts/202001/</loc>
+    
+    <lastmod>2020-06-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.laxdu.com/posts/202201/</loc>
+    
+    <lastmod>2022-04-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
