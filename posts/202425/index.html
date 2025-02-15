@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="zh-CN"><head><link rel="preconnect" href="https://cdn.laxdu.com" crossorigin=""><link rel="preconnect" href="https://cdn.staticfile.org" crossorigin=""><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="theme-color" content="#e7ddc8" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#181c27" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0"><link rel="apple-touch-icon" sizes="180x180" href="/resources/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/resources/favicon/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/resources/favicon/favicon.ico"><meta name="google-site-verification" content="qrfHdjHo8d6tPJTdX-b5IScRX0L1lgZk7ikpMOFlzrc"><meta name="baidu-site-verification" content="codeva-z6LkdLbjuo"><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous"><script class="next-config" data-name="main" type="application/json">{"hostname":"blog.laxdu.com","root":"/","images":"/resources/img/","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":true,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12,"on_mobile":true,"button_reverse":true,"Pisces | Gemini":240},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script><meta property="og:type" content="article"><meta property="og:title" content="UE自动曝光（眼部适应）"><meta property="og:url" content="https://blog.laxdu.com/posts/202425/index.html"><meta property="og:site_name" content="渡"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/E/Exposure/rendering-herobanner-5-0.png"><meta property="og:image" content="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/E/Exposure/histogram.png"><meta property="og:image" content="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/E/Exposure/reduce.png"><meta property="og:image" content="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/E/Exposure/eyeAdaptation.png"><meta property="article:published_time" content="2024-10-16T07:05:23.000Z"><meta property="article:author" content="辰"><meta property="article:tag" content="图形"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/E/Exposure/rendering-herobanner-5-0.png"><link rel="canonical" href="https://blog.laxdu.com/posts/202425/"><script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.laxdu.com/posts/202425/","path":"/posts/202425/","title":"UE自动曝光（眼部适应）"}</script><script class="next-config" data-name="calendar" type="application/json">""</script><title>UE自动曝光（眼部适应） | 渡</title><link rel="stylesheet" href="/resources/fonts/longcang/LongCang-Regular.css"><link rel="stylesheet" href="https://cdn.staticfile.net/lxgw-wenkai-screen-webfont/1.7.0/style.min.css"><noscript><link rel="stylesheet" href="/css/noscript.css"></noscript></head><body itemscope itemtype="http://schema.org/WebPage" class="use-motion"><div class="headband"></div><main class="main"><div class="column"><header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container"><div class="site-nav-toggle"><div class="toggle" aria-label="切换导航栏" role="button"><span class="toggle-line"></span> <span class="toggle-line"></span> <span class="toggle-line"></span></div></div><div class="site-meta"><a href="/" class="brand" rel="start"><i class="logo-line"></i><p class="site-title">渡</p><i class="logo-line"></i></a><p class="site-subtitle" itemprop="description">静谧中，沉静心灵</p></div><div class="site-nav-right"><div class="toggle popup-trigger" aria-label="搜索" role="button"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class="site-nav"><ul class="main-menu menu"><li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="fa fa-pizza-slice fa-fw"></i>生活</a></li><li class="menu-item menu-item-leisure"><a href="/leisure/" rel="section"><i class="fa fa-mug-hot fa-fw"></i>余暇</a></li><li class="menu-item menu-item-industry"><a href="/industry/" rel="section"><i class="fa fa-fish fa-fw"></i>工业</a></li><li class="menu-item menu-item-notes"><a href="/notes/" rel="section"><i class="fa fa-book fa-fw"></i>随记</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-splotch fa-fw"></i>留言</a></li><li class="menu-item menu-item-search"><a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索</a></li></ul></nav><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-icon"><i class="fa fa-search"></i></span><div class="search-input-container"><input autocomplete="off" autocapitalize="off" maxlength="80" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close" role="button"><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class="search-result-icon"><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></header><aside class="sidebar"><div class="sidebar-inner sidebar-nav-active sidebar-toc-active"><ul class="sidebar-nav"><li class="sidebar-nav-toc">目 录</li><li class="sidebar-nav-overview">站点概览</li></ul><div class="sidebar-panel-container"><div class="post-toc-wrap sidebar-panel"><div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%99%8D%E8%87%B3%E5%88%86%E8%BE%A8%E7%8E%87"><span class="nav-text">1. 降至分辨率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Auto-Exposure-Histogram"><span class="nav-text">2. Auto Exposure Histogram</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%8C%89%E5%9D%97%E7%94%9F%E6%88%90%E7%9B%B4%E6%96%B9%E4%BA%AE%E5%BA%A6%E5%9B%BE"><span class="nav-text">2.1. 按块生成直方亮度图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E7%B4%AF%E5%8A%A0%E7%9B%B4%E6%96%B9%E4%BA%AE%E5%BA%A6%E5%9B%BE"><span class="nav-text">2.2. 累加直方亮度图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E7%94%9F%E6%88%901x1%E6%9B%9D%E5%85%89%E7%BA%B9%E7%90%86"><span class="nav-text">2.3. 生成1x1曝光纹理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Auto-Exposure-Basic"><span class="nav-text">3. Auto Exposure Basic</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Scene-Color%E4%BA%AE%E5%BA%A6%E8%AE%A1%E7%AE%97"><span class="nav-text">3.1. Scene Color亮度计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E7%94%9F%E6%88%901x1%E6%9B%9D%E5%85%89%E7%BA%B9%E7%90%86"><span class="nav-text">3.2. 生成1x1曝光纹理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9B%9D%E5%85%89%E7%BA%B9%E7%90%86"><span class="nav-text">4. 曝光纹理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%8F%82%E8%80%83"><span class="nav-text">5. 参考</span></a></li></ol></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" alt="辰" src="/resources/img/avatar-cat.jpg"><p class="site-author-name" itemprop="name">辰</p><div class="site-description" itemprop="description">C'est la vie</div></div><div class="site-state-wrap animated"><nav class="site-state"><div class="site-state-item site-state-posts"><a href="/archives/"><span class="site-state-item-count">61</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><span class="site-state-item-count">3</span> <span class="site-state-item-name">分类</span></div><div class="site-state-item site-state-tags"><a href="/tags/"><span class="site-state-item-count">11</span> <span class="site-state-item-name">标签</span></a></div></nav></div></div></div></div><div class="pjax"><div class="sidebar-inner sidebar-post-related"><div class="animated"><div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i> 相关文章</div><ul class="popular-posts"><li class="popular-posts-item"><a class="popular-posts-link" href="/posts/202101/" rel="bookmark"><time class="popular-posts-time">2021-07-21</time><br>CMake编译传递</a></li></ul></div></div></div></aside></div><div class="main-inner post posts-expand"><div class="post-block"><article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://blog.laxdu.com/posts/202425/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="image" content="/resources/img/avatar-cat.jpg"><meta itemprop="name" content="辰"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="渡"><meta itemprop="description" content="C'est la vie"></span><span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="UE自动曝光（眼部适应） | 渡"><meta itemprop="description" content=""></span><header class="post-header"><h1 class="post-title" itemprop="name headline">UE自动曝光（眼部适应）</h1><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2024-10-16 15:05:23" itemprop="dateCreated datePublished" datetime="2024-10-16T15:05:23+08:00">2024-10-16</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-folder"></i> </span><span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/industry/" itemprop="url" rel="index"><span itemprop="name">工业</span></a> </span></span><span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span id="busuanzi_value_page_pv"></span> </span><span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>2.2k</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 &asymp;</span> <span>8 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><p><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/E/Exposure/rendering-herobanner-5-0.png"></p><span id="more"></span><p>UE文档（见文末<a href="#%E5%8F%82%E8%80%83">参考</a>）中描述具体参数已经很详细了, 本文主要对代码实现补充说明</p><p>UE里有两种方式计算场景亮度<code>Auto Exposure Basic</code>&amp; <code>Auto Exposure Histogram</code>, 区别在于计算场景亮度的方式</p><ul><li><code>Auto Exposure Basic</code>算法使用场景亮度对数值平均来计算Target曝光值.</li><li><code>Auto Exposure Histogram</code>模式首先计算场景亮度对数值的直方图, 然后用该直方图分析来决定平均亮度值.</li></ul><p>拿一张渲染_MainRT分辨率为1214x650的Scene Color举例</p><h3 id="1-降至分辨率"><a href="#1-降至分辨率" class="headerlink" title="1. 降至分辨率"></a>1. 降至分辨率</h3><p>Scene Color分辨率一般过高, 为此需额外降半分辨率做亮度计算, 渲染至半分辨率_Scene0RT上, 其分辨率为607x325</p><h3 id="2-Auto-Exposure-Histogram"><a href="#2-Auto-Exposure-Histogram" class="headerlink" title="2. Auto Exposure Histogram"></a>2. Auto Exposure Histogram</h3><h4 id="2-1-按块生成直方亮度图"><a href="#2-1-按块生成直方亮度图" class="headerlink" title="2.1. 按块生成直方亮度图"></a>2.1. 按块生成直方亮度图</h4><p>GPU每个线程处理8x8像素, 按一个线程组8x4个线程数量划分, 一个线程组就能处理(8x8)x(8x4)&#x3D;64x32个像素<br>分辨率为607x325的_Scene0RT, 先用单像素来补齐奇数分辨率, 方便后续双线性并行计算</p><pre class="language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F; 先定义一些线程常量
+static readonly int LoopSizeX &#x3D; 8; &#x2F;&#x2F; 每线程处理循环的X维度
+static readonly int LoopSizeY &#x3D; 8; &#x2F;&#x2F; 每线程处理循环的Y维度
+static readonly int HistogramSize &#x3D; 64; &#x2F;&#x2F; 将亮度的对数值, 映射到直方亮度0~63范围
+static readonly int ThreadGroupSizeX &#x3D; 8;
+static readonly int ThreadGroupSizeY &#x3D; 4;
+static readonly int HistogramTexelCount &#x3D; HistogramSize &#x2F; 4; &#x2F;&#x2F; 直方亮度图_HistogramRT每纹素可存储4通道值, 将直方图64范围数量存放至分辨率宽为16的4通道上
+static readonly Vector2Int TexelsPerThreadGroup &#x3D; new Vector2Int(ThreadGroupSizeX * LoopSizeX, ThreadGroupSizeY * LoopSizeY);
+
+&#x2F;&#x2F; 并行计算实际使用的_Scene0RT分辨率
+w &#x3D; (607 + 607 % 2) &#x2F; 2;
+h &#x3D; (325 + 325 % 2) &#x2F; 2;
+
+&#x2F;&#x2F; 线程组数量&amp;直方亮度图纹理分辨率
+histogramThreadGroupCount.x &#x3D; Mathf.CeilToInt(w &#x2F; (float)TexelsPerThreadGroup.x); &#x2F;&#x2F; &#x3D; 608 &#x2F; (8*8) &#x3D; 10, 其中, TexelsPerThreadGroup.x &#x3D; 8*8
+histogramThreadGroupCount.y &#x3D; Mathf.CeilToInt(h &#x2F; (float)TexelsPerThreadGroup.y); &#x2F;&#x2F; &#x3D; 608 &#x2F; (8*4) &#x3D; 11, 其中, TexelsPerThreadGroup.y &#x3D; 8*4
+histogramThreadGroupCountTotal &#x3D; histogramThreadGroupCount.x * histogramThreadGroupCount.y; &#x2F;&#x2F; &#x3D; 10 * 11 &#x3D; 110
+_HistogramRT.w &#x3D; HistogramTexelCount; &#x2F;&#x2F; &#x3D; 16
+_HistogramRT.h &#x3D; histogramThreadGroupCountTotal; &#x2F;&#x2F; &#x3D; 110, 线程组个数, 为RT的行数, 即每一列为所有线程组
+_HistogramRT.colorFormat &#x3D; RenderTextureFormat.ARGBHalf; &#x2F;&#x2F; 4通道</code></pre><p>平均亮度计算<br>简单说就是累加每个像素亮度的对数值然后取幂后平均</p><p>基于亮度值计算其在直方图位置</p><pre class="language-C#" data-language="C#"><code class="language-C#">&#x2F;&#x2F; inverse of ComputeLuminanceFromHistogramPosition
+&#x2F;&#x2F; is executed more often than ComputeLuminanceFromHistogramPosition()
+&#x2F;&#x2F; @param Luminance
+&#x2F;&#x2F; @return HistogramPosition 0..1
+&#x2F;&#x2F; EyeAdaptation_HistogramScale &#x3D; 1.0f &#x2F; (histogramLogMax - histogramLogMin);
+&#x2F;&#x2F; EyeAdaptation_HistogramBias  &#x3D; -histogramLogMin * EyeAdaptation_HistogramScale;
+
+float ComputeHistogramPositionFromLuminance(float Luminance)
+&#123;
+	return log2(Luminance) * EyeAdaptation_HistogramScale + EyeAdaptation_HistogramBias;
+&#125;</code></pre><p>每个线程组均分配一个三维数组gs_sharedHistogram</p><pre class="language-C#" data-language="C#"><code class="language-C#">#define THREADGROUP_SIZEX 8
+#define THREADGROUP_SIZEY 4
+#define HISTOGRAM_SIZE 64
+&#x2F;&#x2F; THREADGROUP_SIZEX*THREADGROUP_SIZEY histograms of the size HISTOGRAM_SIZE
+groupshared float gs_sharedHistogram[HISTOGRAM_SIZE][THREADGROUP_SIZEX][THREADGROUP_SIZEY];</code></pre><p>先将_Scene0RT按每线程处理8x8循环, 计算好每个线程组上, 每个线程覆盖的8x8范围亮度的对数值累加</p><pre class="language-C#" data-language="C#"><code class="language-C#">&#x2F;&#x2F; Extract luminance.
+float LuminanceVal &#x3D; max(dot(SceneColor.xyz, float3(1.0f, 1.0f, 1.0f)&#x2F;3.0f), EyeAdaptation_LuminanceMin);
+
+&#x2F;&#x2F; Compute histogram position.
+float LogLuminance &#x3D; ComputeHistogramPositionFromLuminance(LuminanceVal);
+
+float2 ScreenUV &#x3D; (TexelPos.xy - _ViewportMin) * InvViewSize;
+float ScreenWeight &#x3D; AdaptationWeightTexture(ScreenUV);
+
+&#x2F;&#x2F; Map the normalized histogram position into texels.
+float fBucket &#x3D; saturate(LogLuminance) * (HISTOGRAM_SIZE - 1);&#x2F;&#x2F; * 0.9999f;
+
+&#x2F;&#x2F; Find two discrete buckets that straddle the continuous histogram position.
+uint Bucket0 &#x3D; (uint)(fBucket);
+uint Bucket1 &#x3D; Bucket0 + 1;
+
+Bucket0 &#x3D; min(Bucket0, uint(HISTOGRAM_SIZE - 1));
+Bucket1 &#x3D; min(Bucket1, uint(HISTOGRAM_SIZE - 1));
+
+&#x2F;&#x2F; Weighted blend between the two buckets.
+float Weight1 &#x3D; frac(fBucket);
+float Weight0 &#x3D; 1.0f - Weight1;
+
+&#x2F;&#x2F; Accumulate the weight to the nearby history buckets.
+gs_sharedHistogram[Bucket0][GroupThreadId.x][GroupThreadId.y] +&#x3D; Weight0 * ScreenWeight;
+gs_sharedHistogram[Bucket1][GroupThreadId.x][GroupThreadId.y] +&#x3D; Weight1 * ScreenWeight;</code></pre><p>按直方亮度值, 统计当前线程组上所有线程亮度对应的权重值。共计64个亮度值, 按16组每组4个统计, 16即对应_HistogramRT的宽。<br>目的是为了将当前线程组所覆盖的所有像素亮度, 映射至直方图64块亮度值上。 直方亮度图每一行即表示一个线程组所覆盖的范围（8x8x8x4）在该行上的亮度分布。</p><pre class="language-C#" data-language="C#"><code class="language-C#">&#x2F;&#x2F; Ensure that all threads in the current thread group have processed 8*8 pixels in advance.
+GroupMemoryBarrierWithGroupSync();
+
+&#x2F;&#x2F; Accumulate all histograms into one.
+if (GroupIndex &lt; HISTOGRAM_SIZE &#x2F; 4) 
+&#123;
+    float4 Sum &#x3D; 0;
+
+    [loop] 
+    for (uint y &#x3D; 0; y &lt; THREADGROUP_SIZEY; ++y)
+    &#123;
+        [loop] 
+        for (uint x &#x3D; 0; x &lt; THREADGROUP_SIZEX; ++x)
+        &#123;
+            Sum +&#x3D; float4(
+                gs_sharedHistogram[GroupIndex * 4 + 0][x][y],
+                gs_sharedHistogram[GroupIndex * 4 + 1][x][y],
+                gs_sharedHistogram[GroupIndex * 4 + 2][x][y],
+                gs_sharedHistogram[GroupIndex * 4 + 3][x][y]);
+        &#125;
+    &#125;
+
+    float2 MaxExtent &#x3D; _ViewportSize;
+    float Area &#x3D; MaxExtent.x * MaxExtent.y;
+
+    &#x2F;&#x2F; Fixed to include borders.
+    float NormalizeFactor &#x3D; 1.0f &#x2F; Area;
+
+    &#x2F;&#x2F; Output texture with one histogram per line, x and y unwrapped into all the lines
+    _RWHistogramTexture[uint2(GroupIndex, GroupId.x + GroupId.y * _ThreadGroupCount.x)] &#x3D; Sum * NormalizeFactor; &#x2F;&#x2F; _RWHistogramTexture &#x3D; _HistogramRT
+&#125;</code></pre><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/E/Exposure/histogram.png" alt="Histogram纹理" width="32" height="220"><h4 id="2-2-累加直方亮度图"><a href="#2-2-累加直方亮度图" class="headerlink" title="2.2. 累加直方亮度图"></a>2.2. 累加直方亮度图</h4><p>得到分辨率为16x110的亮度分布纹理_HistogramRT后, 由于每一行都是各线程组覆盖范围的亮度分布, 为此需将各覆盖范围的亮度对数值合起来</p><p>先分配累加结果的_ReduceRT纹理</p><pre class="language-C#" data-language="C#"><code class="language-C#">&#x2F;&#x2F; histogramreduce texture.
+_ReduceRT.w &#x3D; histogramThreadGroupCountTotal; &#x2F;&#x2F; &#x3D; 110
+_ReduceRT.h &#x3D; 2;
+_ReduceRT.colorFormat &#x3D; RenderTextureFormat.ARGBFloat;</code></pre><p>可使用硬件支持的双线性插值, 加速累加计算<br>_ReduceRT存储两行数据, 第一行数据为_HistogramRT每列累加的结果, 第二行数据为上帧_EyeAdaptationRT的结果</p><pre class="language-C#" data-language="C#"><code class="language-C#">&#x2F;&#x2F; accumulate all histograms into a single one
+&#x2F;&#x2F; could be optimized using bilinear filtering (half sample count)
+&#x2F;&#x2F; _LoopSize &#x3D; histogramThreadGroupCountTotal &#x3D; 110
+&#x2F;&#x2F; _ColorTexture &#x3D; _HistogramRT
+for (uint y &#x3D; 0; y &lt; _LoopSize&#x2F;2; ++y)
+&#123;
+    SceneColor +&#x3D; SAMPLE_TEXTURE2D_X(_ColorTexture, sampler_LinearClamp, float2(UV.x, (float(2*y + 1) * _ExtentInverse.y)));
+&#125;
+
+if(input.positionCS.y &lt; 1.0f)
+&#123;
+    &#x2F;&#x2F; line 0: histogram, we&#39;re not going to divide by the number of lines because it gets normalized later anyways
+    return SceneColor;
+&#125;
+else
+&#123;
+    &#x2F;&#x2F; line 1: store 4 channels of EyeAdaptationTexture (copied over so we can read the value in EyeAdaptation pass which is writing to eye adaptation)
+    &#x2F;&#x2F; second line first pixel in the texture has the ExposureScale from last frame
+    float4 OldExposureScale &#x3D; _EyeAdaptationTexture.Load(int3(0, 0, 0));
+    return OldExposureScale;
+&#125;</code></pre><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/E/Exposure/reduce.png" alt="Reduce纹理" width="220" height="2"><h4 id="2-3-生成1x1曝光纹理"><a href="#2-3-生成1x1曝光纹理" class="headerlink" title="2.3. 生成1x1曝光纹理"></a>2.3. 生成1x1曝光纹理</h4><p>生成分辨率1x1的_EyeAdapatationRT, 存放四个值</p><p>x: 隐式的存储了最终计算的亮度值 (Current)<br>y: 隐式的存储了需要达到的亮度值（Target）<br>z: 当前场景的平均亮度, 已还原至非对数值的亮度<br>w: …</p><pre class="language-C#" data-language="C#"><code class="language-C#">&#x2F;&#x2F; _HistogramTexture &#x3D;&gt; _ReduceRT
+const float AverageSceneLuminance &#x3D; ComputeEyeAdaptationExposure(_HistogramTexture);
+
+const float TargetAverageLuminance &#x3D; clamp(AverageSceneLuminance, EyeAdaptation_MinAverageLuminance, EyeAdaptation_MaxAverageLuminance);
+
+&#x2F;&#x2F; White point luminance is target luminance divided by 0.18 (18% grey).
+const float TargetExposure &#x3D; TargetAverageLuminance &#x2F; 0.18;
+
+const float OldExposureScale &#x3D; _HistogramTexture.Load(int3(0, 1, 0)).x;
+const float MiddleGreyExposureCompensation &#x3D; EyeAdaptation_ExposureCompensationSettings * EyeAdaptation_ExposureCompensationCurve; &#x2F;&#x2F; we want the average luminance remapped to 0.18, not 1.0
+const float OldExposure &#x3D; MiddleGreyExposureCompensation &#x2F; (OldExposureScale !&#x3D; 0 ? OldExposureScale : 1.0f);
+
+&#x2F;&#x2F; eye adaptation changes over time
+const float EstimatedExposure &#x3D; ComputeEyeAdaptation(OldExposure, TargetExposure, unity_DeltaTime.x);&#x2F;&#x2F;EyeAdaptation_DeltaWorldTime);
+
+&#x2F;&#x2F; maybe make this an option to avoid hard clamping when transitioning between different exposure volumes?
+const float SmoothedExposure &#x3D; clamp(EstimatedExposure, EyeAdaptation_MinAverageLuminance&#x2F;.18f, EyeAdaptation_MaxAverageLuminance&#x2F;.18f);
+
+const float SmoothedExposureScale &#x3D; 1.0f &#x2F; max(0.0001f, SmoothedExposure);
+const float TargetExposureScale &#x3D;   1.0f &#x2F; max(0.0001f, TargetExposure);
+
+OutColor.x &#x3D; MiddleGreyExposureCompensation * SmoothedExposureScale;
+OutColor.y &#x3D; MiddleGreyExposureCompensation * TargetExposureScale;
+OutColor.z &#x3D; AverageSceneLuminance;
+OutColor.w &#x3D; MiddleGreyExposureCompensation;
+
+return OutColor;</code></pre><h3 id="3-Auto-Exposure-Basic"><a href="#3-Auto-Exposure-Basic" class="headerlink" title="3. Auto Exposure Basic"></a>3. Auto Exposure Basic</h3><h4 id="3-1-Scene-Color亮度计算"><a href="#3-1-Scene-Color亮度计算" class="headerlink" title="3.1. Scene Color亮度计算"></a>3.1. Scene Color亮度计算</h4><p>先将半分辨率纹理_Scene0RT, 预处理下 &#x3D;&gt; 再降半分辨率至304x163的_Scene5RT, 映射至参数设置的亮度对数值范围, 并存至颜色的w通道</p><pre class="language-C#" data-language="C#"><code class="language-C#">
+float4 FragBasicEyeAdaptationSetup(Varyings input)
+	&#x2F;&#x2F; noperspective float4 UVAndScreenPos : TEXCOORD0,
+	&#x2F;&#x2F; out float4 OutColor : SV_Target0)
+&#123;
+    float4 OutColor &#x3D; 0;
+
+	float2 UV &#x3D; input.texcoord.xy;
+	OutColor &#x3D; SAMPLE_TEXTURE2D_X(_ColorTexture, sampler_LinearClamp, UV);
+	&#x2F;&#x2F; return OutColor;
+	&#x2F;&#x2F; Use max to ensure intensity is never zero (so the following log is well behaved)
+	const float Intensity &#x3D; max(dot(OutColor.xyz, float3(1.0f, 1.0f, 1.0f)&#x2F;3.0f), EyeAdaptation_LuminanceMin);
+	const float LogIntensity &#x3D; clamp(log2(Intensity), -10.0f, 20.0f);
+
+	&#x2F;&#x2F; Store log intensity in the alpha channel: scale to 0,1 range.
+	OutColor.w &#x3D; EyeAdaptation_HistogramScale * LogIntensity + EyeAdaptation_HistogramBias; 
+	return OutColor;
+&#125;
+</code></pre><h4 id="3-2-生成1x1曝光纹理"><a href="#3-2-生成1x1曝光纹理" class="headerlink" title="3.2. 生成1x1曝光纹理"></a>3.2. 生成1x1曝光纹理</h4><p>根据WeightMask纹理, 计算亮度对数值的平均值</p><pre class="language-C#" data-language="C#"><code class="language-C#">float ComputeWeightedTextureAverageAlpha(
+	Texture2D Texture,
+	uint2 RectMin,
+	uint2 RectMax)
+&#123;
+	&#x2F;&#x2F; The inverse of the Region of Interest size.
+	const float InvRectWidth &#x3D; 1.0f &#x2F; float(RectMax.x - RectMin.x);
+	const float InvRectHeight &#x3D; 1.0f &#x2F; float(RectMax.y - RectMin.y);
+
+	&#x2F;&#x2F; use product of linear weight in x and y.
+	float Average &#x3D; 0.0f;
+	float WeightTotal &#x3D; 0.0f;
+
+	for (uint i &#x3D; RectMin.x; i &lt; RectMax.x; ++i)
+	&#123;
+		for (uint j &#x3D; RectMin.y; j &lt; RectMax.y; ++j)
+		&#123;
+			float2 ScreenUV &#x3D; float2(float(i) * InvRectWidth, float(j) * InvRectHeight);
+
+			float Weight &#x3D; max(AdaptationWeightTexture(ScreenUV), 0.05f);
+
+			WeightTotal +&#x3D; Weight;
+
+			&#x2F;&#x2F; Accumulate values from alpha channel.
+			float Sample &#x3D; Texture.Load(int3(i, j, 0)).w;
+			Average +&#x3D; Weight * Sample;
+		&#125;
+	&#125;
+
+	Average &#x2F;&#x3D; WeightTotal;
+	return Average;
+&#125;</code></pre><p>根据Target及Old的曝光值, 结合由明到暗或由暗到明的速度参数, 来确定Current的曝光值。<br>EyeAdaptation_StartDistance为从线性切换到指数的距离。例如，在StartDistance&#x3D;1.5时，当线性距离命中目标1.5档光圈时，切换到指数。</p><pre class="language-C#" data-language="C#"><code class="language-C#">float ComputeEyeAdaptation(float OldExposure, float TargetExposure, float FrameTime)
+&#123;
+	const float LogTargetExposure &#x3D; log2(TargetExposure);
+	const float LogOldExposure &#x3D; log2(OldExposure);
+
+	const float LogDiff &#x3D; LogTargetExposure - LogOldExposure;
+
+	const float AdaptionSpeed &#x3D; (LogDiff &gt; 0) ? EyeAdaptation_ExposureSpeedUp : EyeAdaptation_ExposureSpeedDown;
+	const float M &#x3D; (LogDiff &gt; 0) ? EyeAdaptation_ExponentialUpM : EyeAdaptation_ExponentialDownM;
+
+	const float AbsLogDiff &#x3D; abs(LogDiff);
+
+	&#x2F;&#x2F; blended exposure
+	const float LogAdaptedExposure_Exponential &#x3D; ExponentialAdaption(LogOldExposure, LogTargetExposure, FrameTime, AdaptionSpeed, M);
+	const float LogAdaptedExposure_Linear &#x3D; LinearAdaption(LogOldExposure, LogTargetExposure, FrameTime, AdaptionSpeed);
+
+	const float LogAdaptedExposure &#x3D; AbsLogDiff &gt; EyeAdaptation_StartDistance ? LogAdaptedExposure_Linear : LogAdaptedExposure_Exponential;
+
+	&#x2F;&#x2F; Note: no clamping here. The target exposure should always be clamped so if we are below the min or above the max,
+	&#x2F;&#x2F; instead of clamping, we will gradually transition to the target exposure. If were to clamp, the then we would have a harsh transition
+	&#x2F;&#x2F; when going from postFX volumes with different min&#x2F;max luminance values.
+	const float AdaptedExposure &#x3D; exp2(LogAdaptedExposure);
+
+	&#x2F;&#x2F; for manual mode or camera cuts, just lerp to the target
+	const float AdjustedExposure &#x3D; lerp(AdaptedExposure,TargetExposure,EyeAdaptation_ForceTarget);
+	
+	return AdjustedExposure;
+&#125;</code></pre><p>生成分辨率1x1的_EyeAdapatationRT, 存放四个值</p><p>x: 隐式的存储了最终计算的亮度值 (Current)<br>y: 隐式的存储了需要达到的亮度值（Target）<br>z: 当前场景的平均亮度, 已还原至非对数值的亮度<br>w: …</p><pre class="language-C#" data-language="C#"><code class="language-C#">&#x2F;&#x2F; _ColorTexture &#x3D; _Scene5RT
+float LogLumAve &#x3D; ComputeWeightedTextureAverageAlpha(_ColorTexture, _ViewportMin, _ViewportMax);
+
+&#x2F;&#x2F; Correct for [0,1] scaling
+LogLumAve &#x3D; (LogLumAve - EyeAdaptation_HistogramBias) &#x2F; EyeAdaptation_HistogramScale;
+
+&#x2F;&#x2F; Convert LogLuminanceAverage to Average Intensity
+const float AverageSceneLuminance &#x3D; OneOverPreExposure * exp2(LogLumAve);
+
+const float MiddleGreyExposureCompensation &#x3D; EyeAdaptation_ExposureCompensationSettings * EyeAdaptation_ExposureCompensationCurve * EyeAdaptation_GreyMult;&#x2F;&#x2F; we want the average luminance remapped to 0.18, not 1.0
+
+const float LumAve &#x3D; AverageSceneLuminance; 
+
+const float ClampedLumAve &#x3D; clamp(LumAve, EyeAdaptation_MinAverageLuminance, EyeAdaptation_MaxAverageLuminance);
+
+&#x2F;&#x2F; The Exposure Scale (and thus intensity) used in the previous frame
+const float ExposureScaleOld &#x3D; _EyeAdaptationTexture.Load(int3(0, 0, 0)).x;
+const float LuminanceAveOld &#x3D; MiddleGreyExposureCompensation &#x2F; (ExposureScaleOld !&#x3D; 0 ? ExposureScaleOld : 1.0f);
+
+&#x2F;&#x2F; Time-based expoential blend of the intensity to allow the eye adaptation to ramp up over a few frames.
+const float EstimatedLuminance &#x3D; ComputeEyeAdaptation(LuminanceAveOld, ClampedLumAve, EyeAdaptation_DeltaWorldTime);
+
+&#x2F;&#x2F; maybe make this an option to avoid hard clamping when transitioning between different exposure volumes?
+const float SmoothedLuminance &#x3D; clamp(EstimatedLuminance, EyeAdaptation_MinAverageLuminance, EyeAdaptation_MaxAverageLuminance);
+
+const float SmoothedExposureScale &#x3D; 1.0f &#x2F; max(0.0001f, SmoothedLuminance);
+const float TargetExposureScale   &#x3D; 1.0f &#x2F; max(0.0001f, ClampedLumAve);
+
+&#x2F;&#x2F; Output the number that will rescale the image intensity
+OutColor.x &#x3D; MiddleGreyExposureCompensation * SmoothedExposureScale;
+&#x2F;&#x2F; Output the target value
+OutColor.y &#x3D; MiddleGreyExposureCompensation * TargetExposureScale;
+OutColor.z &#x3D; AverageSceneLuminance;
+OutColor.w &#x3D; MiddleGreyExposureCompensation &#x2F; EyeAdaptation_GreyMult;</code></pre><h3 id="4-曝光纹理"><a href="#4-曝光纹理" class="headerlink" title="4. 曝光纹理"></a>4. 曝光纹理</h3><img data-src="https://media.githubusercontent.com/media/2015winter/ImageHosting/main/E/Exposure/eyeAdaptation.png" alt="眼部适应纹理" width="100" height="100"><h3 id="5-参考"><a href="#5-参考" class="headerlink" title="5. 参考"></a>5. 参考</h3><p>1.<span class="exturl" data-url="aHR0cHM6Ly9kZXYuZXBpY2dhbWVzLmNvbS9kb2N1bWVudGF0aW9uL3poLWNuL3VucmVhbC1lbmdpbmUvYXV0by1leHBvc3VyZS1leWUtYWRhcHRhdGlvbj9hcHBsaWNhdGlvbl92ZXJzaW9uPTQuMjc=">UE4自动曝光<i class="fa fa-external-link-alt"></i></span><br>2.<span class="exturl" data-url="aHR0cHM6Ly9kZXYuZXBpY2dhbWVzLmNvbS9kb2N1bWVudGF0aW9uL3poLWNuL3VucmVhbC1lbmdpbmUvYXV0by1leHBvc3VyZS1pbi11bnJlYWwtZW5naW5lP2FwcGxpY2F0aW9uX3ZlcnNpb249NS4z">UE5自动曝光<i class="fa fa-external-link-alt"></i></span></p></div><footer class="post-footer"><div class="license"><div class="license-title">UE自动曝光（眼部适应）</div><div class="license-link"><a href="https://blog.laxdu.com/posts/202425/">https://blog.laxdu.com/posts/202425/</a></div><div class="license-meta"><div class="license-meta-item"><div class="license-meta-title">本文作者</div><div class="license-meta-text">辰</div></div><div class="license-meta-item"><div class="license-meta-title">发布于</div><div class="license-meta-text">2024-10-16</div></div><div class="license-meta-item"><div class="license-meta-title">许可协议</div><div class="license-meta-text">禁止转载引用</div></div></div><div class="license-statement">如需转载或引用本文，请先获得作者授权！</div></div><div class="donation"><div class="donation-label">喜欢这篇文章？赞赏一下吧！</div><a class="donation-button" href="/donation/">赞赏作者</a></div><div class="post-tags"><a href="/tags/%E5%9B%BE%E5%BD%A2/" rel="tag"><i class="fa fa-tag"></i> 图形</a></div><div class="post-nav"><div class="post-nav-item"><a href="/posts/202424/" rel="prev" title="DeepMimic环境配置"><i class="fa fa-angle-left"></i> DeepMimic环境配置</a></div><div class="post-nav-item"><a href="/posts/202426/" rel="next" title="不要温和地走入那良夜">不要温和地走入那良夜 <i class="fa fa-angle-right"></i></a></div></div></footer></article></div><div class="comments"><div id="twikoo-comments"></div></div></div></main><footer class="footer"><div class="footer-inner"><div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">鄂ICP备2024062836号</span></div><div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2025</span> <span class="with-love"><i class="fa fa-heart"></i> </span><span class="author" itemprop="copyrightHolder">辰</span></div><div class="busuanzi-count"></div><div class="footer-menu"><a href="/tags/">文章标签</a> · <a href="/policy/">网站政策</a> · <a href="/links/">友情链接</a></div></div></footer><div class="toggle sidebar-toggle" role="button"><span class="toggle-line"></span> <span class="toggle-line"></span> <span class="toggle-line"></span></div><div class="sidebar-dimmer"></div><div class="back-to-top" role="button" aria-label="返回顶部"><i class="fa fa-arrow-up fa-lg"></i> <span>0%</span></div><noscript><div class="noscript-warning">Theme NexT works best with JavaScript enabled</div></noscript><script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script><script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script><script src="/js/third-party/search/local-search.js"></script><script src="/js/third-party/fancybox.js"></script><script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script><script src="/js/third-party/math/mathjax.js"></script><script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":false,"envId":"https://chenn9527-twikoo.hf.space","el":"#twikoo-comments"}</script><script>document.addEventListener("page:loaded",()=>{NexT.utils.loadComments(CONFIG.twikoo.el).then(()=>NexT.utils.getScript(CONFIG.twikoo.jsUrl||"https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js",{condition:window.twikoo})).then(()=>{twikoo.init(CONFIG.twikoo)})})</script><style>.comments,.post-block{overflow:visible}.tk-owo-emotion{display:inline-block}</style><script data-pjax type="text/javascript">var linkLists=document.querySelectorAll(".link-list");linkLists.forEach((function(n){var t=n.getAttribute("json-src"),a=n.getAttribute("icon-src"),e=new XMLHttpRequest;e.open("GET",t,!0),e.onreadystatechange=function(){if(4===e.readyState&&200===e.status){var t=JSON.parse(e.responseText),s="";n.innerHTML="";for(var r=0;r<t.length;r++){var i=t[r],l=i.warn?'<span class="label warn">'+i.warn+"</span>":"",o=i.info?'<span class="label info">'+i.info+"</span>":"";s+='<div class="link-list-container">',s+='<img class="link-list-image" src="'+a+i.logo+'">',s+="<p>"+i.title+o+l+"</p>",s+="<p>"+i.intro+"</p>",s+='<a href="'+i.url+'" rel="noopener" target="_blank" data-pjax-state=""></a>',s+="</div>"}n.innerHTML=s}},e.send()}))</script><script data-pjax type="text/javascript">var leisureList=document.querySelectorAll(".leisure-list");if(0!==leisureList.length)for(var j=-1,i=0;i<leisureList.length;i++){const r=leisureList[i].getAttribute("json-src"),s=leisureList[i].getAttribute("cover-src");var xhr=new XMLHttpRequest;xhr.open("GET",r,!0),xhr.onreadystatechange=function(){if(4===xhr.readyState&&200===xhr.status){j++;var r=JSON.parse(xhr.responseText),e="";leisureList[j].innerHTML="";for(var t=0;t<r.length;t++){var i=r[t],a=i.title;i.pid&&(a='<a href="/posts/'+i.pid+'/">'+i.title+"</a>");var o=i.author?'<span class="author">'+i.author+"</span>":"",l=i.intro?i.intro:"",n="";if(null==i.score)n="";else{var c="",v="",u=Math.floor(i.score),d=0;i.score%1!=0&&(d=1);for(var h=0;h<u;h++)c+="★";0!==d&&(c+="☆");for(h=0;h<5-d-u;h++)v+="☆";n=5!==i.score?'<span class="star-score">'+c+'<span class="grey-star">'+v+"</span></span>":'<span class="star-score">'+c+"</span>"}e+='<div class="work">',e+='<div class="work-cover" style="background-image:url('+s+i.cover+')"></div>',e+='<div class="work-meta">',e+='<div class="work-meta-item title">'+a+"</div>",e+='<div class="work-meta-item">'+o+n+"</div>",e+='<div class="work-meta-item intro">'+l+"</div>",e+="</div></div>"}leisureList[j].innerHTML=e}},xhr.send()}</script></body></html>
