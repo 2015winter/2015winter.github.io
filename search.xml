@@ -2598,18 +2598,6 @@ brew install glfw3</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Hello Twikoo</title>
-    <url>//posts/202002/</url>
-    <content><![CDATA[<p>测试Twikoo评论系统</p>
-<span id="more"></span>]]></content>
-      <categories>
-        <category>随记</category>
-      </categories>
-      <tags>
-        <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>平台工具总结篇</title>
     <url>//posts/202001/</url>
     <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/A/Altas/altas3005.webp">  </p>
@@ -2729,6 +2717,18 @@ brew install glfw3</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Hello Twikoo</title>
+    <url>//posts/202002/</url>
+    <content><![CDATA[<p>测试Twikoo评论系统</p>
+<span id="more"></span>]]></content>
+      <categories>
+        <category>随记</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>批量转WebP/WebM小工具</title>
     <url>//posts/202003/</url>
     <content><![CDATA[<h2 id="关于图片"><a href="#关于图片" class="headerlink" title="关于图片"></a>关于图片</h2><p>博客搭建过程中, 涉及图片的加载, 可能会遇到</p>
@@ -2834,6 +2834,36 @@ ffmpeg <span class="token parameter variable">-i</span> <span class="token strin
       </tags>
   </entry>
   <entry>
+    <title>PicGo Plugins记录</title>
+    <url>//posts/202004/</url>
+    <content><![CDATA[<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2p1emlzYW5nL3BpY2dvLXBsdWdpbi1jb21wcmVzcy9pc3N1ZXMvMiNpc3N1ZWNvbW1lbnQtMTAwODAwNzM1MA==">picgo-plugin-compress<i class="fa fa-external-link-alt"></i></span>, 用于 PicGo 的图片压缩插件,支持 TinyPng ImageMin</p>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/P/PicGo/0.webp"></p>
+<span id="more"></span>
+
+<p>出现安装失败, 一直提示安装中</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><img data-src="https://cdn.laxdu.com/ImageHosting/P/PicGo/1.webp">  </p>
+<p>1、 首先进入PicGo数据安装目录 (带node_modules及package.json等的Pico目录)参照该目录找.  </p>
+<pre class="language-none"><code class="language-none">cd &#x2F;Users&#x2F;&lt;用户名&gt;&#x2F;Library&#x2F;Application Support&#x2F;picgo </code></pre>
+<p>2、 依赖安装  </p>
+<pre class="language-none"><code class="language-none">brew install libtool automake autoconf nasm</code></pre>
+<p>3、 清理缓存  </p>
+<pre class="language-none"><code class="language-none">npm cache clean --force</code></pre>
+<p>4、 删除已安装的node_modules  </p>
+<pre class="language-none"><code class="language-none">rm -r &lt;PicGo目录&gt;&#x2F;picgo&#x2F;node_modules&#x2F;</code></pre>
+<p>5、 安装插件 (参照的是有镜像地址, 自己尝试加反而安装失败)  </p>
+<pre class="language-none"><code class="language-none">npm install picgo-plugin-compress --save --ignore-scripts</code></pre>
+
+<p>安装成功<br><img data-src="https://cdn.laxdu.com/ImageHosting/P/PicGo/2.webp">  </p>
+]]></content>
+      <categories>
+        <category>随记</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CMake编译传递</title>
     <url>//posts/202101/</url>
     <content><![CDATA[<h4 id="传递使用要求-Transitive-Usage-Requirements"><a href="#传递使用要求-Transitive-Usage-Requirements" class="headerlink" title="传递使用要求 (Transitive Usage Requirements)"></a>传递使用要求 (Transitive Usage Requirements)</h4><p>Target的使用要求可以传递到依赖项. <code>target_link_libraries() </code>命令有 <code>PRIVATE</code>、<code>INTERFACE</code> 和 <code>PUBLIC </code>关键字来控制传递.  </p>
@@ -2883,36 +2913,6 @@ ffmpeg <span class="token parameter variable">-i</span> <span class="token strin
       </categories>
       <tags>
         <tag>小杂箱</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PicGo Plugins记录</title>
-    <url>//posts/202004/</url>
-    <content><![CDATA[<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2p1emlzYW5nL3BpY2dvLXBsdWdpbi1jb21wcmVzcy9pc3N1ZXMvMiNpc3N1ZWNvbW1lbnQtMTAwODAwNzM1MA==">picgo-plugin-compress<i class="fa fa-external-link-alt"></i></span>, 用于 PicGo 的图片压缩插件,支持 TinyPng ImageMin</p>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/P/PicGo/0.webp"></p>
-<span id="more"></span>
-
-<p>出现安装失败, 一直提示安装中</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><img data-src="https://cdn.laxdu.com/ImageHosting/P/PicGo/1.webp">  </p>
-<p>1、 首先进入PicGo数据安装目录 (带node_modules及package.json等的Pico目录)参照该目录找.  </p>
-<pre class="language-none"><code class="language-none">cd &#x2F;Users&#x2F;&lt;用户名&gt;&#x2F;Library&#x2F;Application Support&#x2F;picgo </code></pre>
-<p>2、 依赖安装  </p>
-<pre class="language-none"><code class="language-none">brew install libtool automake autoconf nasm</code></pre>
-<p>3、 清理缓存  </p>
-<pre class="language-none"><code class="language-none">npm cache clean --force</code></pre>
-<p>4、 删除已安装的node_modules  </p>
-<pre class="language-none"><code class="language-none">rm -r &lt;PicGo目录&gt;&#x2F;picgo&#x2F;node_modules&#x2F;</code></pre>
-<p>5、 安装插件 (参照的是有镜像地址, 自己尝试加反而安装失败)  </p>
-<pre class="language-none"><code class="language-none">npm install picgo-plugin-compress --save --ignore-scripts</code></pre>
-
-<p>安装成功<br><img data-src="https://cdn.laxdu.com/ImageHosting/P/PicGo/2.webp">  </p>
-]]></content>
-      <categories>
-        <category>随记</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -4593,66 +4593,6 @@ Euphoria物理引擎
       </tags>
   </entry>
   <entry>
-    <title>UE高度雾性能分析</title>
-    <url>//posts/202203/</url>
-    <content><![CDATA[<h4 id="测试条件"><a href="#测试条件" class="headerlink" title="测试条件"></a>测试条件</h4><table>
-<thead>
-<tr>
-<th>机型</th>
-<th>系统</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>iPhone6s</td>
-<td>IOS 14.3</td>
-</tr>
-</tbody></table>
-<h4 id="影响因子"><a href="#影响因子" class="headerlink" title="影响因子"></a>影响因子</h4><p>移动平台的高度雾, 默认是Forward管线, 在BasePass上的<code>Vert</code>阶段计算雾效, 如<a href="../202202">UE指数高度雾</a>中分析, 因计算方法是固定的, 故而影响的因素比较单一. </p>
-<ul>
-<li>场景几何复杂度</li>
-<li>体积雾的开启或关闭</li>
-</ul>
-<p>进而两个处理优化方向</p>
-<ul>
-<li>计算方法优化</li>
-<li>场景几何复杂度优化</li>
-</ul>
-<span id="more"></span>
-
-<p><strong>注意:</strong> 移动平台使用高度雾需关闭 <strong><code>Disable vertex fogging on mobile shaders</code></strong> 开关, 如下图所示.<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/2.webp"></p>
-<h4 id="场景性能图"><a href="#场景性能图" class="headerlink" title="场景性能图"></a>场景性能图</h4><p>无雾效场景性能图<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/3.webp"><br>有雾效场景性能图<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/4.webp"><br>无雾效时BasePass各Pass耗时<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/5.webp"></p>
-<p>有雾效时BasePass各Pass耗时<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/6.webp"></p>
-<p>有雾效场景近似GPUTime(1.96ms)此时相比无雾效场景GPUTime(2.35ms)耗时更低, </p>
-<p>还可考虑对计算方法进行优化<br>诸如<br><strong><code>pow</code>函数优化</strong></p>
-<p>雾效的计算多处使用了<code>pow</code>函数, 可以优化之<br>通用实现</p>
-<pre class="language-C" data-language="C"><code class="language-C">&#x2F;&#x2F; Generalized Power Function
-float pow(float x, float n)
-&#123;
-    return exp(log(x) * n);
-&#125;</code></pre>
-<p>优化后</p>
-<pre class="language-C" data-language="C"><code class="language-C">&#x2F;&#x2F; Spherical Gaussian Power Function
-float pow(float x, float n)
-&#123;
-    n &#x3D; n * 1.4427f + 1.4427f; &#x2F;&#x2F; 1.4427f -&gt; 1&#x2F;ln(2)
-    return exp2(x*n-n); 
-&#125;</code></pre>
-<p><strong><a href="UE%E6%8C%87%E6%95%B0%E9%AB%98%E5%BA%A6%E9%9B%BE.md">UE指数高度雾</a>部分删除部分中间方法</strong></p>
-<ul>
-<li><p>比如雾效的散射部分, 关闭<code>SUPPORT_FOG_DIRECTIONAL_LIGHT_INSCATTERING</code>宏或删除该部分<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/7.webp"></p>
-</li>
-<li><p>保持体积雾开关关闭 (注意: 若是修改组件里体积雾开关配置, 实际使用的可能不是该配置)<br> <img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/8.webp"></p>
-</li>
-</ul>
-<!-- [关于pow的优化](https://blog.csdn.net/weixin_45979158/article/details/104656123) -->]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>图形</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>UE指数高度雾(Exponential Height Fog)</title>
     <url>//posts/202202/</url>
     <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/0.webp"></p>
@@ -4780,6 +4720,66 @@ DirectionalInscattering = DirectionalLightInscattering * (1 - DirectionalInscatt
 #else
 	OutColor.rgb = Color * VertexFog.a + VertexFog.rgb;</code></pre>
 ]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UE高度雾性能分析</title>
+    <url>//posts/202203/</url>
+    <content><![CDATA[<h4 id="测试条件"><a href="#测试条件" class="headerlink" title="测试条件"></a>测试条件</h4><table>
+<thead>
+<tr>
+<th>机型</th>
+<th>系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iPhone6s</td>
+<td>IOS 14.3</td>
+</tr>
+</tbody></table>
+<h4 id="影响因子"><a href="#影响因子" class="headerlink" title="影响因子"></a>影响因子</h4><p>移动平台的高度雾, 默认是Forward管线, 在BasePass上的<code>Vert</code>阶段计算雾效, 如<a href="../202202">UE指数高度雾</a>中分析, 因计算方法是固定的, 故而影响的因素比较单一. </p>
+<ul>
+<li>场景几何复杂度</li>
+<li>体积雾的开启或关闭</li>
+</ul>
+<p>进而两个处理优化方向</p>
+<ul>
+<li>计算方法优化</li>
+<li>场景几何复杂度优化</li>
+</ul>
+<span id="more"></span>
+
+<p><strong>注意:</strong> 移动平台使用高度雾需关闭 <strong><code>Disable vertex fogging on mobile shaders</code></strong> 开关, 如下图所示.<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/2.webp"></p>
+<h4 id="场景性能图"><a href="#场景性能图" class="headerlink" title="场景性能图"></a>场景性能图</h4><p>无雾效场景性能图<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/3.webp"><br>有雾效场景性能图<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/4.webp"><br>无雾效时BasePass各Pass耗时<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/5.webp"></p>
+<p>有雾效时BasePass各Pass耗时<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/6.webp"></p>
+<p>有雾效场景近似GPUTime(1.96ms)此时相比无雾效场景GPUTime(2.35ms)耗时更低, </p>
+<p>还可考虑对计算方法进行优化<br>诸如<br><strong><code>pow</code>函数优化</strong></p>
+<p>雾效的计算多处使用了<code>pow</code>函数, 可以优化之<br>通用实现</p>
+<pre class="language-C" data-language="C"><code class="language-C">&#x2F;&#x2F; Generalized Power Function
+float pow(float x, float n)
+&#123;
+    return exp(log(x) * n);
+&#125;</code></pre>
+<p>优化后</p>
+<pre class="language-C" data-language="C"><code class="language-C">&#x2F;&#x2F; Spherical Gaussian Power Function
+float pow(float x, float n)
+&#123;
+    n &#x3D; n * 1.4427f + 1.4427f; &#x2F;&#x2F; 1.4427f -&gt; 1&#x2F;ln(2)
+    return exp2(x*n-n); 
+&#125;</code></pre>
+<p><strong><a href="UE%E6%8C%87%E6%95%B0%E9%AB%98%E5%BA%A6%E9%9B%BE.md">UE指数高度雾</a>部分删除部分中间方法</strong></p>
+<ul>
+<li><p>比如雾效的散射部分, 关闭<code>SUPPORT_FOG_DIRECTIONAL_LIGHT_INSCATTERING</code>宏或删除该部分<br><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/7.webp"></p>
+</li>
+<li><p>保持体积雾开关关闭 (注意: 若是修改组件里体积雾开关配置, 实际使用的可能不是该配置)<br> <img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/8.webp"></p>
+</li>
+</ul>
+<!-- [关于pow的优化](https://blog.csdn.net/weixin_45979158/article/details/104656123) -->]]></content>
       <categories>
         <category>工业</category>
       </categories>
@@ -5254,88 +5254,6 @@ static uint32 ComputeRenderTargetCount(EShaderPlatform Platform, ERenderTargetMo
       </tags>
   </entry>
   <entry>
-    <title>Unity sRGB格式支持</title>
-    <url>//posts/202304/</url>
-    <content><![CDATA[<p>测试的Unity版本 2021.03.32f1</p>
-<h3 id="RenderTexture"><a href="#RenderTexture" class="headerlink" title="RenderTexture"></a>RenderTexture</h3><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>1.设置sRGB为false（linear纹理），可直接根据<code>GetLinearFormat()</code>设置<code>graphicsFormat</code>，获取线性纹理格式<br>2.设置sRGB为true（sRGB纹理），则需优先判定Quality里设置是否为Linear空间且不属于R8、RG16格式，为Linear且不属于则根据<code>GetSRGBFormat</code>设置<code>graphicsFormat</code>  </p>
-<span id="more"></span>  
-
-<p>3.Unity代码里，<code>IsSRGBFormat</code>格式<code>R16G16B16A16_SFloat</code>是否为sRGB，未找到<code>kFormatPropertySRGBBit</code>标志，故而该格式不支持sRGB  </p>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>sRGB为函数式属性, 在该版本中get&#x2F;set官方做了定义 </p>
-<p>测试调用时, 调用了<code>GetCompatibleDescriptor()</code>方法, 且<code>QualitySettings</code>里ColorSpace为<code>Linear</code>  </p>
-<pre class="language-c#" data-language="c#"><code class="language-c#">
-R16G16B16A16_SFloat &#x3D; 48, &#x2F;&#x2F; 0x00000030, 该格式枚举索引值为48
-GetCompatibleDescriptor(512, 512, RenderTextureFormat.ARGBHalf，0)；</code></pre>
-
-<pre class="language-c#" data-language="c#"><code class="language-c#">RenderTextureDescriptor GetCompatibleDescriptor(
-    int width,
-    int height,
-    RenderTextureFormat format &#x3D; RenderTextureFormat.Default,
-    int depthBufferBits &#x3D; 0,
-    RenderTextureReadWrite readWrite &#x3D; RenderTextureReadWrite.Default,
-    bool enableRandomWrite &#x3D; false)
-    &#123;
-        var desc &#x3D; cameraData.cameraTargetDescriptor;
-        desc.depthBufferBits &#x3D; depthBufferBits;
-        desc.msaaSamples &#x3D; 1;
-        desc.width &#x3D; width;
-        desc.height &#x3D; height;
-        desc.colorFormat &#x3D; format;
-        desc.enableRandomWrite &#x3D; enableRandomWrite;
-
-        if (readWrite &#x3D;&#x3D; RenderTextureReadWrite.sRGB)
-            desc.sRGB &#x3D; true;
-        else if (readWrite &#x3D;&#x3D; RenderTextureReadWrite.Linear)
-            desc.sRGB &#x3D; false;
-        else if (readWrite &#x3D;&#x3D; RenderTextureReadWrite.Default)
-            desc.sRGB &#x3D; QualitySettings.activeColorSpace &#x3D;&#x3D; ColorSpace.Linear;
-
-        return desc;
-    &#125;</code></pre>
-
-<pre class="language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F; this flag causes the render texture uses sRGB read&#x2F;write conversions.
-bool sRGB
-&#123;
-    get
-    &#123;
-        return GraphicsFormatUtility.IsSRGBFormat(graphicsFormat);
-    &#125;
-    set
-    &#123;
-        graphicsFormat &#x3D; (
-            (value &amp;&amp; QualitySettings.activeColorSpace &#x3D;&#x3D; ColorSpace.Linear &amp;&amp; colorFormat !&#x3D; RenderTextureFormat.R8 &amp;&amp; colorFormat !&#x3D; RenderTextureFormat.RG16) ? 
-            GraphicsFormatUtility.GetSRGBFormat(graphicsFormat) : 
-            GraphicsFormatUtility.GetLinearFormat(graphicsFormat));
-    &#125;
-&#125;</code></pre>
-
-<pre><code class="c++">bool IsSRGBFormat(GraphicsFormat format)
-&#123;
-    return (GetDesc(format).flags &amp; kFormatPropertySRGBBit) != 0;
-&#125;
-
-GraphicsFormat GetSRGBFormat(GraphicsFormat format)
-&#123;
-    return GetDesc(format).srgbFormat;
-&#125;
-
-GraphicsFormat GetLinearFormat(GraphicsFormat format)
-&#123;
-    return GetDesc(format).linearFormat;
-&#125;
-</code></pre>
-<p>索引48枚举键值不含<code>kFormatPropertySRGBBit</code>标志位  </p>
-<pre><code class="c++">&#123;8, 1, 1, 1, kFormatSwizzleR, kFormatSwizzleG, kFormatSwizzleB, kFormatSwizzleA, kFormatR32G32B32A32_SFloat, kFormatR16G16B16A16_SFloat, kFormatR16G16B16A16_SFloat, kFormatR16G16B16A16_SFloat, kTexFormatRGBAHalf, kRTFormatARGBHalf, 3, 1, &quot;RGBAHalf&quot;, kFormatPropertyIEEE754Bit | kFormatPropertySignedBit&#125;;    //kFormatR16G16B16A16_SFloat
-</code></pre>
-]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>图形</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker的那些事</title>
     <url>//posts/202303/</url>
     <content><![CDATA[<h2 id="0-Docker常用命令"><a href="#0-Docker常用命令" class="headerlink" title="0. Docker常用命令"></a>0. Docker常用命令</h2><pre class="language-none"><code class="language-none">docker ps -a
@@ -5667,6 +5585,88 @@ hslr&#x2F;sun-panel:latest</code></pre>
         <tag>服务器</tag>
         <tag>GitHub</tag>
         <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Unity sRGB格式支持</title>
+    <url>//posts/202304/</url>
+    <content><![CDATA[<p>测试的Unity版本 2021.03.32f1</p>
+<h3 id="RenderTexture"><a href="#RenderTexture" class="headerlink" title="RenderTexture"></a>RenderTexture</h3><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>1.设置sRGB为false（linear纹理），可直接根据<code>GetLinearFormat()</code>设置<code>graphicsFormat</code>，获取线性纹理格式<br>2.设置sRGB为true（sRGB纹理），则需优先判定Quality里设置是否为Linear空间且不属于R8、RG16格式，为Linear且不属于则根据<code>GetSRGBFormat</code>设置<code>graphicsFormat</code>  </p>
+<span id="more"></span>  
+
+<p>3.Unity代码里，<code>IsSRGBFormat</code>格式<code>R16G16B16A16_SFloat</code>是否为sRGB，未找到<code>kFormatPropertySRGBBit</code>标志，故而该格式不支持sRGB  </p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>sRGB为函数式属性, 在该版本中get&#x2F;set官方做了定义 </p>
+<p>测试调用时, 调用了<code>GetCompatibleDescriptor()</code>方法, 且<code>QualitySettings</code>里ColorSpace为<code>Linear</code>  </p>
+<pre class="language-c#" data-language="c#"><code class="language-c#">
+R16G16B16A16_SFloat &#x3D; 48, &#x2F;&#x2F; 0x00000030, 该格式枚举索引值为48
+GetCompatibleDescriptor(512, 512, RenderTextureFormat.ARGBHalf，0)；</code></pre>
+
+<pre class="language-c#" data-language="c#"><code class="language-c#">RenderTextureDescriptor GetCompatibleDescriptor(
+    int width,
+    int height,
+    RenderTextureFormat format &#x3D; RenderTextureFormat.Default,
+    int depthBufferBits &#x3D; 0,
+    RenderTextureReadWrite readWrite &#x3D; RenderTextureReadWrite.Default,
+    bool enableRandomWrite &#x3D; false)
+    &#123;
+        var desc &#x3D; cameraData.cameraTargetDescriptor;
+        desc.depthBufferBits &#x3D; depthBufferBits;
+        desc.msaaSamples &#x3D; 1;
+        desc.width &#x3D; width;
+        desc.height &#x3D; height;
+        desc.colorFormat &#x3D; format;
+        desc.enableRandomWrite &#x3D; enableRandomWrite;
+
+        if (readWrite &#x3D;&#x3D; RenderTextureReadWrite.sRGB)
+            desc.sRGB &#x3D; true;
+        else if (readWrite &#x3D;&#x3D; RenderTextureReadWrite.Linear)
+            desc.sRGB &#x3D; false;
+        else if (readWrite &#x3D;&#x3D; RenderTextureReadWrite.Default)
+            desc.sRGB &#x3D; QualitySettings.activeColorSpace &#x3D;&#x3D; ColorSpace.Linear;
+
+        return desc;
+    &#125;</code></pre>
+
+<pre class="language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F; this flag causes the render texture uses sRGB read&#x2F;write conversions.
+bool sRGB
+&#123;
+    get
+    &#123;
+        return GraphicsFormatUtility.IsSRGBFormat(graphicsFormat);
+    &#125;
+    set
+    &#123;
+        graphicsFormat &#x3D; (
+            (value &amp;&amp; QualitySettings.activeColorSpace &#x3D;&#x3D; ColorSpace.Linear &amp;&amp; colorFormat !&#x3D; RenderTextureFormat.R8 &amp;&amp; colorFormat !&#x3D; RenderTextureFormat.RG16) ? 
+            GraphicsFormatUtility.GetSRGBFormat(graphicsFormat) : 
+            GraphicsFormatUtility.GetLinearFormat(graphicsFormat));
+    &#125;
+&#125;</code></pre>
+
+<pre><code class="c++">bool IsSRGBFormat(GraphicsFormat format)
+&#123;
+    return (GetDesc(format).flags &amp; kFormatPropertySRGBBit) != 0;
+&#125;
+
+GraphicsFormat GetSRGBFormat(GraphicsFormat format)
+&#123;
+    return GetDesc(format).srgbFormat;
+&#125;
+
+GraphicsFormat GetLinearFormat(GraphicsFormat format)
+&#123;
+    return GetDesc(format).linearFormat;
+&#125;
+</code></pre>
+<p>索引48枚举键值不含<code>kFormatPropertySRGBBit</code>标志位  </p>
+<pre><code class="c++">&#123;8, 1, 1, 1, kFormatSwizzleR, kFormatSwizzleG, kFormatSwizzleB, kFormatSwizzleA, kFormatR32G32B32A32_SFloat, kFormatR16G16B16A16_SFloat, kFormatR16G16B16A16_SFloat, kFormatR16G16B16A16_SFloat, kTexFormatRGBAHalf, kRTFormatARGBHalf, 3, 1, &quot;RGBAHalf&quot;, kFormatPropertyIEEE754Bit | kFormatPropertySignedBit&#125;;    //kFormatR16G16B16A16_SFloat
+</code></pre>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -7876,6 +7876,264 @@ OutColor.w &#x3D; MiddleGreyExposureCompensation &#x2F; EyeAdaptation_GreyMult;<
       </categories>
       <tags>
         <tag>随记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重要性采样及多重重要性采样</title>
+    <url>//posts/202427/</url>
+    <content><![CDATA[<p><strong>重要性采样（Importance Sampling, IS）</strong> 和<strong>多重重要性采样（Multiple Importance Sampling, MIS）</strong> 技术在蒙特卡洛积分中至关重要。</p>
+<p>它们主要用于计算机图形学（如光线追踪渲染）、强化学习等领域，以高效地计算复杂积分。</p>
+<hr>
+<h3 id="1-蒙特卡洛积分基础"><a href="#1-蒙特卡洛积分基础" class="headerlink" title="1. 蒙特卡洛积分基础"></a>1. 蒙特卡洛积分基础</h3><p>首先，快速回顾一下蒙特卡洛积分。我们要计算一个积分：<br>$$I &#x3D; \int_a^b f(x) dx$$</p>
+<p>蒙特卡洛积分的基本思想是<strong>随机采样</strong>。它通过从定义域内随机抽取样本 $x_i$，计算 $f(x_i)$，然后取平均值来近似积分：<br>$$I \approx \frac{1}{N} \sum_{i&#x3D;1}^N f(x_i)$$</p>
+<p>但这里有一个问题：如果 $f(x)$ 在某些区域值很大，在另一些区域值很小（例如，一个尖锐的峰值），均匀随机采样会非常低效。大多数样本会落在 $f(x)$ 值很小的“不重要”区域，对最终结果的贡献微乎其微，从而造成方差很大，收敛速度很慢。</p>
+<hr>
+<h3 id="2-重要性采样-Importance-Sampling-IS"><a href="#2-重要性采样-Importance-Sampling-IS" class="headerlink" title="2. 重要性采样 (Importance Sampling, IS)"></a>2. 重要性采样 (Importance Sampling, IS)</h3><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><p><strong>重要性采样的核心思想是：我们应该把更多的样本放在函数值大（重要）的区域，而不是均匀地放置样本。</strong></p>
+<p>换句话说，我们不再使用均匀分布进行采样，而是使用一个与我们想要积分的函数 $f(x)$ <strong>形状相似</strong>的概率分布 $p(x)$ 来生成样本。</p>
+<h4 id="数学表达"><a href="#数学表达" class="headerlink" title="数学表达"></a>数学表达</h4><p>为了修正采样分布带来的偏差，我们需要对每个样本进行加权。蒙特卡洛积分公式变为：<br>$$I &#x3D; \int f(x) dx &#x3D; \int \frac{f(x)}{p(x)} p(x) dx \approx \frac{1}{N} \sum_{i&#x3D;1}^N \frac{f(x_i)}{p(x_i)}$$<br>其中：</p>
+<ul>
+<li>$x_i$ 是从分布 $p(x)$ 中抽取的样本。</li>
+<li>$\frac{f(x_i)}{p(x_i)}$ 被称为<strong>重要性权重</strong>。</li>
+</ul>
+<h4 id="关键要求与目标"><a href="#关键要求与目标" class="headerlink" title="关键要求与目标"></a>关键要求与目标</h4><ol>
+<li><strong>$p(x)$ 必须满足</strong>：$p(x) &gt; 0$  wherever $f(x) \neq 0$。即，在 $f(x)$ 有值的任何地方，$p(x)$ 都不能为零，否则我们会忽略掉一些本应有贡献的区域。</li>
+<li><strong>理想情况</strong>：如果 $p(x)$ 正比于 $f(x)$，即 $p(x) &#x3D; c|f(x)|$，那么方差会变为 0，每个样本的贡献都是常数。这是重要性采样的终极目标。</li>
+<li><strong>现实情况</strong>：我们很难找到完美的 $p(x)$，但只要 $p(x)$ 的形状大致与 $f(x)$ 相似，就能显著降低方差。</li>
+</ol>
+<h4 id="例子：渲染中的直接光照"><a href="#例子：渲染中的直接光照" class="headerlink" title="例子：渲染中的直接光照"></a>例子：渲染中的直接光照</h4><p>在计算一个点接收到来自环境的光照时，积分函数 $f(x)$ 是光的强度乘以BRDF（材质属性）。如果光来自一个很小的窗户（一个很小的区域贡献了大部分的光），均匀地在所有方向采样会非常低效。重要性采样会选择一个与光强分布相似的 $p(x)$，让我们更多地朝窗户的方向采样，从而快速收敛。</p>
+<h4 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h4><p>重要性采样有一个致命弱点：<strong>它严重依赖于所选采样分布 $p(x)$ 的质量</strong>。<br>如果 $p(x)$ 选得不好，比如：</p>
+<ul>
+<li>$p(x)$ 的形状与 $f(x)$ 相差甚远。</li>
+<li>$f(x)$ 本身由多个不同特征的函数相乘组成（例如，$f(x) &#x3D; g(x)h(x)$），很难找到一个 $p(x)$ 同时匹配 $g(x)$ 和 $h(x)$。</li>
+</ul>
+<p>这时，重要性采样的效果可能甚至不如简单采样，方差会变得非常大。</p>
+<hr>
+<h3 id="3-多重重要性采样-Multiple-Importance-Sampling-MIS"><a href="#3-多重重要性采样-Multiple-Importance-Sampling-MIS" class="headerlink" title="3. 多重重要性采样 (Multiple Importance Sampling, MIS)"></a>3. 多重重要性采样 (Multiple Importance Sampling, MIS)</h3><h4 id="核心思想-1"><a href="#核心思想-1" class="headerlink" title="核心思想"></a>核心思想</h4><p><strong>既然很难找到一个完美的采样分布，那我们为什么不结合多个不同的采样分布呢？</strong></p>
+<p>MIS 的核心智慧在于：它允许我们使用 <strong>多种采样策略</strong>（例如，从一个分布 $p_1$ 中取 $n_1$ 个样本，从另一个分布 $p_2$ 中取 $n_2$ 个样本），然后通过一个<strong>聪明的加权函数</strong>将这些样本结合起来，从而充分利用每种策略的优势，避免其劣势。</p>
+<h4 id="数学表达-1"><a href="#数学表达-1" class="headerlink" title="数学表达"></a>数学表达</h4><p>假设我们有 $m$ 种不同的采样分布 $p_1(x), p_2(x), …, p_m(x)$。<br>从每个分布 $p_i(x)$ 中采集 $n_i$ 个样本，总样本数 $N &#x3D; \sum n_i$。</p>
+<p>MIS 的估计量表示为：<br>$$I \approx \sum_{i&#x3D;1}^m \frac{1}{n_i} \sum_{j&#x3D;1}^{n_i} w_i(x_{i,j}) \frac{f(x_{i,j})}{p_i(x_{i,j})}$$<br>其中：</p>
+<ul>
+<li>$x_{i,j}$ 是从第 $i$ 个分布 $p_i$ 中抽取的第 $j$ 个样本。</li>
+<li>$w_i(x)$ 是<strong>权重函数</strong>，其关键作用是<strong>平衡不同采样方法在某个特定点 $x$ 上的贡献</strong>。所有权重函数必须满足 $\sum_{i&#x3D;1}^m w_i(x) &#x3D; 1$（当 $f(x) \neq 0$）。</li>
+</ul>
+<h4 id="关键：权重函数-w-i-x"><a href="#关键：权重函数-w-i-x" class="headerlink" title="关键：权重函数 $w_i(x)$"></a>关键：权重函数 $w_i(x)$</h4><p>权重函数的设计是 MIS 的精髓。一个好的权重函数应该：</p>
+<ul>
+<li>在某种采样策略表现好的地方，给予该策略产生的样本更高的权重。</li>
+<li>在某种采样策略表现差的地方（即该策略的概率密度函数值很小），降低其权重，以避免产生巨大的重要性权重（$f(x)&#x2F;p_i(x)$）。</li>
+</ul>
+<p>最著名和常用的权重函数是<strong>平衡启发式（Balance Heuristic）</strong>：<br>$$w_i(x) &#x3D; \frac{n_i p_i(x)}{\sum_k n_k p_k(x)}$$</p>
+<p>将其代入 MIS 公式，得到：<br>$$I \approx \sum_{i&#x3D;1}^m \frac{1}{n_i} \sum_{j&#x3D;1}^{n_i} \frac{f(x_{i,j})}{\sum_k n_k p_k(x_{i,j})} \approx \frac{1}{N} \sum_{i&#x3D;1}^m \sum_{j&#x3D;1}^{n_i} \frac{f(x_{i,j})}{\sum_k (n_k &#x2F; N) p_k(x_{i,j})}$$</p>
+<p>平衡启发式在实践中效果非常好，它几乎总是比使用任何一种单一采样策略的方差要低。</p>
+<h4 id="例子：渲染中的直接光照（再次）"><a href="#例子：渲染中的直接光照（再次）" class="headerlink" title="例子：渲染中的直接光照（再次）"></a>例子：渲染中的直接光照（再次）</h4><p>计算光照积分 $L &#x3D; \int L_i(light) * BRDF * \cos\theta  d\omega$ 时，这个函数是两部分相乘：</p>
+<ol>
+<li>**光强分布 $L_i$**：可能是一个小窗户，适合用光源采样。</li>
+<li><strong>BRDF 分布</strong>：可能是镜面反射，适合用 BRDF 采样。</li>
+</ol>
+<p>单一的重要性采样会陷入两难：</p>
+<ul>
+<li>如果用光源采样，在BRDF值很小（非镜面反射方向）的地方采样会浪费样本。</li>
+<li>如果用BRDF采样，可能会错过重要的光源。</li>
+</ul>
+<p><strong>MIS 的解决方案</strong>：<br>同时使用两种采样策略。</p>
+<ul>
+<li>策略1（$p_1$）：根据光源分布采样（多朝窗户方向采样）。</li>
+<li>策略2（$p_2$）：根据BRDF分布采样（多朝镜面反射方向采样）。</li>
+</ul>
+<p>然后使用平衡启发式权重函数将这两组样本结合起来。结果是：</p>
+<ul>
+<li>当采样方向既指向光源又是镜面反射方向时（“好”样本），两种策略的 $p_i(x)$ 都较高，权重被合理分配。</li>
+<li>当采样方向指向光源但不是镜面反射方向时，BRDF采样策略的 $p_{brdf}(x)$ 会很小，因此其样本权重 $w_{brdf}(x)$ 会被降低，避免产生噪声。</li>
+<li>反之亦然。</li>
+</ul>
+<p>这样，MIS 巧妙地结合了两种策略的优点，得到了一个方差更低、更稳定的估计结果。</p>
+<hr>
+<h3 id="总结与对比"><a href="#总结与对比" class="headerlink" title="总结与对比"></a>总结与对比</h3><table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">重要性采样 (IS)</th>
+<th align="left">多重重要性采样 (MIS)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>核心思想</strong></td>
+<td align="left">用一个好的分布 $p(x)$ 来指导采样，聚焦重要区域。</td>
+<td align="left">组合多个采样分布，用加权函数智能地结合它们的样本。</td>
+</tr>
+<tr>
+<td align="left"><strong>采样分布</strong></td>
+<td align="left">单一分布 $p(x)$</td>
+<td align="left">多个分布 $p_1(x), p_2(x), …, p_m(x)$</td>
+</tr>
+<tr>
+<td align="left"><strong>权重</strong></td>
+<td align="left">简单的重要性权重 $1&#x2F;p(x)$</td>
+<td align="left">复杂的权重函数 $w_i(x)$（如平衡启发式）</td>
+</tr>
+<tr>
+<td align="left"><strong>优点</strong></td>
+<td align="left">概念简单，在 $p(x)$ 匹配 $f(x)$ 时极其高效。</td>
+<td align="left"><strong>非常鲁棒</strong>。能有效处理由多个因素相乘组成的复杂被积函数 $f(x)$，方差显著低于任何单一策略。</td>
+</tr>
+<tr>
+<td align="left"><strong>缺点</strong></td>
+<td align="left"><strong>极度依赖 $p(x)$ 的质量</strong>。选错 $p(x)$ 会导致方差极大。</td>
+<td align="left">计算开销更大，需要计算多个 PDF 的值。</td>
+</tr>
+<tr>
+<td align="left"><strong>适用场景</strong></td>
+<td align="left">被积函数 $f(x)$ 特征明显且单一，容易找到匹配的 $p(x)$。</td>
+<td align="left">被积函数是多个函数的乘积（如渲染中的 $Lighting * BRDF$），难以用单一分布描述。</td>
+</tr>
+</tbody></table>
+<p>简单来说，<strong>重要性采样是“把所有鸡蛋放在一个篮子里，但希望这个篮子足够结实”，而多重重要性采样是“把鸡蛋分开放到几个篮子里，并且有一个智能系统来决定从哪个篮子拿鸡蛋最安全”</strong>。MIS 是重要性采样思想的重大飞跃，使其在实践中变得更加实用和强大。</p>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>28-多光源渲染方案</title>
+    <url>//posts/202428/</url>
+    <content><![CDATA[<p>在现代实时渲染中，处理大量动态光源是一个核心挑战。传统的 <strong>Forward Rendering（正向渲染）</strong> 在每个物体绘制时遍历所有光源计算光照，其性能开销与 <strong>物体数量 × 光源数量</strong> 成正比，因此无法高效处理大量光源。</p>
+<p>以下是主流的几种方案：</p>
+<hr>
+<h3 id="1-Deferred-Shading-Deferred-Rendering（延迟着色-延迟渲染）"><a href="#1-Deferred-Shading-Deferred-Rendering（延迟着色-延迟渲染）" class="headerlink" title="1. Deferred Shading&#x2F;Deferred Rendering（延迟着色&#x2F;延迟渲染）"></a>1. Deferred Shading&#x2F;Deferred Rendering（延迟着色&#x2F;延迟渲染）</h3><p>这是最早广泛用于解决多光源问题的方案。</p>
+<ul>
+<li><p><strong>核心思想</strong>：将<strong>几何处理</strong>和<strong>光照计算</strong>分离成两个独立的阶段。</p>
+<ul>
+<li><strong>第一阶段（Geometry Pass）</strong>：遍历所有几何体，但不计算任何光照。 Instead，将表面的各种属性（如位置、法线、漫反射颜色、高光系数等）渲染到一张张单独的缓冲区中，合称为 <strong>G-Buffer</strong>。</li>
+<li><strong>第二阶段（Lighting Pass）</strong>：不再需要场景几何信息。遍历<strong>每一个光源</strong>，对于每个光源，将其视为一个几何体（如球体、锥体），并在屏幕空间下，根据 G-Buffer 中存储的信息，计算该光源对哪些像素有贡献。每个光源的计算互不影响。</li>
+</ul>
+</li>
+<li><p><strong>优点</strong>：</p>
+<ul>
+<li>光照计算复杂度与场景复杂度无关，仅与<strong>屏幕分辨率</strong>和<strong>光源数量</strong>成正比。非常适合处理大量小型光源。</li>
+<li>每个像素只计算真正被贡献的光照，效率高。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>：</p>
+<ul>
+<li><strong>G-Buffer 占用大量带宽和内存</strong>。</li>
+<li><strong>对透明物体和抗锯齿（MSAA）支持不友好</strong>，需要额外方案（如正向渲染透明物体，使用 TAA&#x2F;FXAA）。</li>
+<li><strong>材质类型受限</strong>，G-Buffer 的格式固定，难以支持非常复杂、多样的材质（虽然可以通过设计来扩展，但有成本）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="2-Forward-Tiled-Forward-Rendering-（分块正向渲染）"><a href="#2-Forward-Tiled-Forward-Rendering-（分块正向渲染）" class="headerlink" title="2. Forward+ (Tiled Forward Rendering)（分块正向渲染）"></a>2. Forward+ (Tiled Forward Rendering)（分块正向渲染）</h3><p>Forward+ 是对传统正向渲染的增强，旨在保留其优点的同时解决多光源问题。</p>
+<ul>
+<li><p><strong>核心思想</strong>：它也分为两个阶段，但比延迟渲染更“轻量”。</p>
+<ul>
+<li><strong>第一阶段（Depth Pre-Pass）</strong>：首先，渲染整个场景的深度信息，得到一个深度缓冲区（Depth Buffer）。</li>
+<li><strong>第二阶段（Light Culling &amp; Shading）</strong>：<ol>
+<li><strong>分块（Tiling）</strong>：将屏幕分割成许多个小块（Tiles），例如 16x16 或 32x32 像素的块。</li>
+<li><strong>光源剔除（Light Culling）</strong>：对<strong>每个屏幕块</strong>，根据其在世界空间中的视锥体（由块的像素区域和深度范围计算得出），遍历所有光源，找出哪些光源会影响到这个块。为每个块生成一个<strong>光源索引列表</strong>。</li>
+<li><strong>着色（Shading）</strong>：使用传统的正向渲染流程绘制每个物体。在像素着色器中，<strong>不再是遍历所有光源</strong>，而是只需加载当前像素所在屏幕块对应的光源索引列表，并只计算这些少数光源的贡献。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>优点</strong>：</p>
+<ul>
+<li>克服了传统正向渲染 <code>O(n*m)</code> 的计算复杂度。</li>
+<li><strong>支持 MSAA 和任意材质</strong>，因为着色阶段仍然是正向渲染，着色器可以非常灵活。</li>
+<li>比延迟渲染占用更少的内存带宽（没有大的 G-Buffer）。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>：</p>
+<ul>
+<li>光源剔除阶段需要一定的 CPU 或 GPU 计算开销。</li>
+<li>每个像素最终计算的光源数量可能不均匀（有的块光源多，有的块光源少），可能导致性能波动。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="3-Clustered-Shading（集群着色）"><a href="#3-Clustered-Shading（集群着色）" class="headerlink" title="3. Clustered Shading（集群着色）"></a>3. Clustered Shading（集群着色）</h3><p>这是对 Forward+ 的进一步优化，解决了其一个主要痛点：在深度方向上划分不够精细。</p>
+<ul>
+<li><p><strong>核心思想</strong>：Forward+ 只在屏幕的 2D 空间上分块，而在深度方向上是“一刀切”的。Clustered Shading 在 <strong>3D 空间</strong>中对视图视锥体进行划分。</p>
+<ul>
+<li>不仅沿着屏幕的 X、Y 轴分块，还沿着 <strong>Z 轴（深度轴）</strong> 进行切片（Slice）。这样形成了一个个 3D 的“集群”（Cluster）。</li>
+<li>光源剔除过程是为每个 3D 集群计算其影响的光源列表。</li>
+</ul>
+</li>
+<li><p><strong>优点</strong>：</p>
+<ul>
+<li>解决了 Forward+ 在深度方向上的浪费问题。例如，一个靠近相机的小块和一个很远的小块，如果包含的光源数量差异很大，在 2D Tiling 中会被同等对待，而在 3D Clustering 中会被区分开，光照列表更精确。</li>
+<li>尤其擅长处理光源分布不均匀的复杂场景（如有很多小灯的长走廊）。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>：</p>
+<ul>
+<li>算法实现比 Forward+ 更复杂。</li>
+<li>剔除阶段的计算开销更高。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="4-Tiled-Deferred-Clustered-Deferred"><a href="#4-Tiled-Deferred-Clustered-Deferred" class="headerlink" title="4. Tiled Deferred &#x2F; Clustered Deferred"></a>4. Tiled Deferred &#x2F; Clustered Deferred</h3><p>这只是上述思想的组合。延迟渲染同样可以受益于分块&#x2F;集群的光源剔除技术。</p>
+<ul>
+<li><strong>核心思想</strong>：在延迟渲染的 Lighting Pass 中，不再为每个光源绘制一个全屏的 Light Volume，而是使用计算着色器，对每个 Tile 或 Cluster 进行光源剔除，然后逐块进行光照计算。</li>
+<li><strong>优点</strong>：进一步提升了延迟渲染在处理<em>极大量</em>光源时的性能，因为它避免了为每个光源绘制其影响范围（Overdraw），而是更精确地计算每个像素受哪些光源影响。</li>
+</ul>
+<hr>
+<h3 id="总结与对比"><a href="#总结与对比" class="headerlink" title="总结与对比"></a>总结与对比</h3><table>
+<thead>
+<tr>
+<th align="left">方案</th>
+<th align="left">核心思想</th>
+<th align="left">优点</th>
+<th align="left">缺点</th>
+<th align="left">适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>传统正向渲染</strong></td>
+<td align="left">逐个物体，遍历所有光源计算</td>
+<td align="left">材质灵活，支持MSAA，透明物体简单</td>
+<td align="left">性能与物体×光源数成正比，无法处理多光源</td>
+<td align="left">光源数量很少的场景（&lt;10个）</td>
+</tr>
+<tr>
+<td align="left"><strong>延迟渲染</strong></td>
+<td align="left">将几何和光照分离，使用G-Buffer</td>
+<td align="left">高效处理大量小型光源，与场景复杂度无关</td>
+<td align="left">占用带宽大，透明和MSAA支持差，材质不灵活</td>
+<td align="left">大量小型动态光源的场景（如科幻、霓虹灯）</td>
+</tr>
+<tr>
+<td align="left"><strong>Forward+</strong></td>
+<td align="left">屏幕分块，为每个块剔除光源</td>
+<td align="left">支持MSAA和复杂材质，内存带宽占用低</td>
+<td align="left">深度方向剔除不精确，性能可能不均</td>
+<td align="left">需要MSAA、复杂材质且光源数量较多的场景</td>
+</tr>
+<tr>
+<td align="left"><strong>Clustered</strong></td>
+<td align="left">在3D视锥体内分块，更精确剔除</td>
+<td align="left">光源剔除最精确，尤其擅长深度变化大的场景</td>
+<td align="left">实现最复杂，计算开销最大</td>
+<td align="left">最通用、高效处理极大量动态光源的方案</td>
+</tr>
+</tbody></table>
+<h3 id="现代游戏引擎的选择"><a href="#现代游戏引擎的选择" class="headerlink" title="现代游戏引擎的选择"></a>现代游戏引擎的选择</h3><ul>
+<li>**Unity (URP&#x2F;HDRP)**：<ul>
+<li><strong>URP</strong>：默认使用 <strong>Forward+ (Tiled)</strong> 渲染器。因为它需要在移动端和PC端有良好的平衡，并支持多种材质。</li>
+<li><strong>HDRP</strong>：默认使用 <strong>Deferred</strong>。因为它面向高端平台，需要处理极其复杂的光照和材质（通过多通道G-Buffer实现），并且其透明物体通常用正向渲染进行叠加。</li>
+</ul>
+</li>
+<li><strong>Unreal Engine</strong>：传统上以<strong>延迟渲染</strong>为核心，并且其<strong>光照计算也使用了分块&#x2F;集群优化</strong>。UE5 的 Lumen 等全局光照系统也构建在延迟管线之上。</li>
+</ul>
+<p><strong>结论：</strong><br>目前，<strong>Clustered Shading</strong> 被认为是处理大量动态光源最强大和通用的解决方案，无论是与正向渲染结合（Clustered Forward）还是与延迟渲染结合（Clustered Deferred），它都提供了最佳的性能和灵活性，因此被许多3A游戏和现代游戏引擎所采用。<strong>Forward+</strong> 是一个优秀的折中方案，而<strong>延迟渲染</strong>在特定需求下依然非常强大。</p>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
       </tags>
   </entry>
 </search>
