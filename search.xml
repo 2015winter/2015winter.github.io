@@ -660,6 +660,43 @@ p2-&gt;Shape::draw();      &#x2F;&#x2F;调用Shape::draw</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>CDN加速，解决Github博客被百度蜘蛛禁止录入的问题</title>
+    <url>//posts/201610/</url>
+    <content><![CDATA[<p>先来看看这篇文章<span class="exturl" data-url="aHR0cDovL2plcnJ5em91LmNvbS9wb3N0cy9mZWFzaWJpbGl0eS1vZi1hbGxvd2luZy1iYWlkdVNwaWRlci1mb3ItR2l0aHViLVBhZ2VzLw==">解决 Github Pages 禁止百度爬虫的方法与可行性分析<i class="fa fa-external-link-alt"></i></span>，该文章说明了为什么 Github Pages 禁用了百度爬虫，以及CDN的相关知识，这里我来引用一下CDN的原理</p>
+<span id="more"></span>
+<h3 id="CDN-的原理"><a href="#CDN-的原理" class="headerlink" title="CDN 的原理"></a>CDN 的原理</h3><p>CDN 的全称是 <span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvQ29udGVudF9kZWxpdmVyeV9uZXR3b3Jr">Content Delivery Network<i class="fa fa-external-link-alt"></i></span>，即内容分发网络，一般用于分发静态内容，比如图片、视频、CSS、JS文件。<br><img data-src="https://cdn.laxdu.com/ImageHosting/C/CDN/cdn2.webp"><br>&emsp;&emsp;如果不使用 CDN，那所有用户的请求都会直接导向单一的源服务器(Origin Server)。而如果启用了 CDN 服务，那么 CDN 服务提供商会分配给你若干个节点，这里以上图为例，比如分配给你的服务器 3 个东海岸的节点和 3 个西海岸的节点。</p>
+<p>&emsp;&emsp;此时用户就不会直接向源服务器发送请求，而是向边缘服务器(Edge Server)发送请求。再看下面这张示意图，当你第一次访问资源 foo.webp 时，边缘服务器没有 foo.webp 的缓存。所以会由它向源服务器发送请求，并获取到 foo.webp。下一次所有经过这个节点的请求，因为存在缓存的缘故，都不用再次向源服务器发送请求，而是由边缘服务器直接返回该文件的缓存即可。这样一来就可以大大降低时延，也减小了源服务器的压力。<br><img data-src="https://cdn.laxdu.com/ImageHosting/C/CDN/cdn3.webp"></p>
+<p>Github 可能是封了百度的 IP，也有可能是封了百度爬虫的 User-Agent， 反正就是Github博客无法被百度收录啦，<br>可以通过下面命令查看，如果被Forbidden了，那就证明被禁了</p>
+<pre class="language-none"><code class="language-none">curl -A &quot;Mozilla&#x2F;5.0 (compatible; Baiduspider&#x2F;2.0; +http:&#x2F;&#x2F;www.baidu.com&#x2F;search&#x2F;spider.html)&quot; www.example.com</code></pre>
+<p>后面的<span class="exturl" data-url="aHR0cDovL3d3dy5leGFtcGxlLmNvbeabv+aNouS4uuS9oOimgeafpeeci+eahOWfn+WQjS8=">www.example.com替换为你要查看的域名<i class="fa fa-external-link-alt"></i></span>, <strong>使用 CDN 来解决这个问题的关键就在于，让百度爬虫不要直接向 Github 的服务器发送请求，而是通过 CDN 边缘服务器的缓存来抓取网站的内容。边缘服务器本身是不会关心 UA 的，所以问题就迎刃而解了。</strong></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWhhbzEyMy5jb20vMjAxNC1jZG4v">国外比较出名的CDN<i class="fa fa-external-link-alt"></i></span></p>
+<blockquote>
+<p>CloudFlare -IPv6免费CDN加速和免费SSL<br>Incapsula -日本、香港、美国、欧洲CDN加速<br>Google PageSpeed Service 谷歌出品的免费CDN</p>
+</blockquote>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5kb3plci5jYy8yMDE1LzA2L2dpdGh1Yi1wYWdlcy1hbmQtY2RuLmh0bWw=">国内比较出名的CDN<i class="fa fa-external-link-alt"></i></span>，不外乎三种</p>
+<blockquote>
+<p>七牛<br>又拍云<br>百度加速乐</p>
+</blockquote>
+<p>自己动手搭建专属CDN服务</p>
+<blockquote>
+<p>LuManager CDN 一键安装快速部署全站CDN<br>Layer –多平台快速生成镜像实现CDN加速<br>网站使用CDN后获取真实IP地址</p>
+</blockquote>
+<p>如果域名没有备案的话，可以使用国外的，域名有备案的，可以选择使用国内的，当然你也可以自己动手搭建CDN</p>
+<p>我在这里说说我的使用经历，我注册过<span class="exturl" data-url="aHR0cHM6Ly93d3cuY2xvdWRmbGFyZS5jb20v">CloudFlare<i class="fa fa-external-link-alt"></i></span>, <span class="exturl" data-url="aHR0cHM6Ly93d3cuaW5jYXBzdWxhLmNvbS8=">Incapsula<i class="fa fa-external-link-alt"></i></span>, <span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW4uY29tL2luZGV4Lmh0bWw=">又拍云<i class="fa fa-external-link-alt"></i></span>, 前两个我试过直接添加github博客的.io子域名去进行分发, 给出的结果是</p>
+<pre class="language-none"><code class="language-none">We were unable to identify username.github.io as a registered domain. Please ensure you are providing the root domain and not any subdomains (e.g., example.com, not subdomain.example.com) (Code: 1099)</code></pre>
+<p>幸好我还有个域名，于是就用上了，又拍云我只是注册了，还没试过，觉得过程比较麻烦，2016年之后，又拍云还需要上传手持身份证照片进行实名认证(实名认证也就算了，还手持身份证，我还是默默的用国外的CDN算了吧)，我直接注册后，有客服过了一两个小时，直接给我打电话，号召我尽快注册，CloudFlare的话，它和Incapsula的区别可以参考<span class="exturl" data-url="aHR0cDovL3d3dy56aGlodS5jb20vcXVlc3Rpb24vMjAwMzg2MzIvYW5zd2VyLzE1OTUyMzY0">Incapsula与Cloudflare那一个会更加优秀？<i class="fa fa-external-link-alt"></i></span>, 免费的CloudFlare不提供CNAME方式</p>
+<p>注册完Incapsula后，添加你要使用CDN的域名，然后就是检测，它会提供两个A Record(一般是两个)以及一个CNAME Record给你更改，你可以在你自己的域名管理处，更改就行了，依照它的说明重新指向，将你原来指向github的两个A Record替换为它给定的，一个CNAME Record替换为它给定的，等一会儿就行了，github博客里的CNAME仍然是你的域名<br><img data-src="https://cdn.laxdu.com/ImageHosting/C/CDN/cdn4.webp"><br>这是我在CDN里的DNS转换，下面是我的namecheap的Host Record<br><img data-src="https://cdn.laxdu.com/ImageHosting/C/CDN/cdn5.webp"><br>Incapsula给我的IP指向是美国那边的，听说香港和日本那边的节点，也是要经过美国那边，不过对大天朝来说，香港和日本这边的访问速度还是快些，如果换节点，可以查看Incapsula的节点，Incapsula所有的CDN节点IP地址可以在<span class="exturl" data-url="aHR0cDovL2JncC5oZS5uZXQvQVMxOTU1MSNfcHJlZml4ZXM=">这里<i class="fa fa-external-link-alt"></i></span>找到</p>
+<p>如果使用国内的CDN，推荐看看这篇文章<span class="exturl" data-url="aHR0cDovL3d3dy5kb3plci5jYy8yMDE1LzA2L2dpdGh1Yi1wYWdlcy1hbmQtY2RuLmh0bWw=">利用 CDN 解决百度爬虫被 Github Pages 拒绝的问题<i class="fa fa-external-link-alt"></i></span>，对比了国内的CDN的优劣势，以及使用体验</p>
+<p>最后，做个参考链接汇总<br><span class="exturl" data-url="aHR0cDovL2JncC5oZS5uZXQvQVMxOTU1MSNfcHJlZml4ZXM=">Incapsula各地CDN节点<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWhhbzEyMy5jb20vMjAxNC1jZG4v">2014年十个优秀的免费CDN加速服务-国内和国外免费CDN<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL2plcnJ5em91LmNvbS9wb3N0cy9mZWFzaWJpbGl0eS1vZi1hbGxvd2luZy1iYWlkdVNwaWRlci1mb3ItR2l0aHViLVBhZ2VzLw==">解决 Github Pages 禁止百度爬虫的方法与可行性分析<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy5kb3plci5jYy8yMDE1LzA2L2dpdGh1Yi1wYWdlcy1hbmQtY2RuLmh0bWw=">利用 CDN 解决百度爬虫被 Github Pages 拒绝的问题<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy5jaGluYXouY29tL3dlYi8yMDE1LzAxMjYvMzgwNzI0XzMuc2h0bWw=">Incapsula免费CDN服务申请使用及加速效果测评<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy56aGlodS5jb20vcXVlc3Rpb24vMzA4OTgzMjY=">如何解决百度爬虫无法爬取搭建在Github上的个人博客的问题？<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy56aGlodS5jb20vcXVlc3Rpb24vMjAwMzg2MzIvYW5zd2VyLzE1OTUyMzY0">Incapsula与Cloudflare那一个会更加优秀？<i class="fa fa-external-link-alt"></i></span></p>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>GitHub</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu常用软件包deb的安装与卸载命令</title>
     <url>//posts/201609/</url>
     <content><![CDATA[<p>主要用到<code>apt-get</code>, <code>dpkg</code>两个命令</p>
@@ -877,43 +914,6 @@ alien –-patch<span class="token operator">=</span>patch 设置patch</code></pr
       </categories>
       <tags>
         <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CDN加速，解决Github博客被百度蜘蛛禁止录入的问题</title>
-    <url>//posts/201610/</url>
-    <content><![CDATA[<p>先来看看这篇文章<span class="exturl" data-url="aHR0cDovL2plcnJ5em91LmNvbS9wb3N0cy9mZWFzaWJpbGl0eS1vZi1hbGxvd2luZy1iYWlkdVNwaWRlci1mb3ItR2l0aHViLVBhZ2VzLw==">解决 Github Pages 禁止百度爬虫的方法与可行性分析<i class="fa fa-external-link-alt"></i></span>，该文章说明了为什么 Github Pages 禁用了百度爬虫，以及CDN的相关知识，这里我来引用一下CDN的原理</p>
-<span id="more"></span>
-<h3 id="CDN-的原理"><a href="#CDN-的原理" class="headerlink" title="CDN 的原理"></a>CDN 的原理</h3><p>CDN 的全称是 <span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvQ29udGVudF9kZWxpdmVyeV9uZXR3b3Jr">Content Delivery Network<i class="fa fa-external-link-alt"></i></span>，即内容分发网络，一般用于分发静态内容，比如图片、视频、CSS、JS文件。<br><img data-src="https://cdn.laxdu.com/ImageHosting/C/CDN/cdn2.webp"><br>&emsp;&emsp;如果不使用 CDN，那所有用户的请求都会直接导向单一的源服务器(Origin Server)。而如果启用了 CDN 服务，那么 CDN 服务提供商会分配给你若干个节点，这里以上图为例，比如分配给你的服务器 3 个东海岸的节点和 3 个西海岸的节点。</p>
-<p>&emsp;&emsp;此时用户就不会直接向源服务器发送请求，而是向边缘服务器(Edge Server)发送请求。再看下面这张示意图，当你第一次访问资源 foo.webp 时，边缘服务器没有 foo.webp 的缓存。所以会由它向源服务器发送请求，并获取到 foo.webp。下一次所有经过这个节点的请求，因为存在缓存的缘故，都不用再次向源服务器发送请求，而是由边缘服务器直接返回该文件的缓存即可。这样一来就可以大大降低时延，也减小了源服务器的压力。<br><img data-src="https://cdn.laxdu.com/ImageHosting/C/CDN/cdn3.webp"></p>
-<p>Github 可能是封了百度的 IP，也有可能是封了百度爬虫的 User-Agent， 反正就是Github博客无法被百度收录啦，<br>可以通过下面命令查看，如果被Forbidden了，那就证明被禁了</p>
-<pre class="language-none"><code class="language-none">curl -A &quot;Mozilla&#x2F;5.0 (compatible; Baiduspider&#x2F;2.0; +http:&#x2F;&#x2F;www.baidu.com&#x2F;search&#x2F;spider.html)&quot; www.example.com</code></pre>
-<p>后面的<span class="exturl" data-url="aHR0cDovL3d3dy5leGFtcGxlLmNvbeabv+aNouS4uuS9oOimgeafpeeci+eahOWfn+WQjS8=">www.example.com替换为你要查看的域名<i class="fa fa-external-link-alt"></i></span>, <strong>使用 CDN 来解决这个问题的关键就在于，让百度爬虫不要直接向 Github 的服务器发送请求，而是通过 CDN 边缘服务器的缓存来抓取网站的内容。边缘服务器本身是不会关心 UA 的，所以问题就迎刃而解了。</strong></p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWhhbzEyMy5jb20vMjAxNC1jZG4v">国外比较出名的CDN<i class="fa fa-external-link-alt"></i></span></p>
-<blockquote>
-<p>CloudFlare -IPv6免费CDN加速和免费SSL<br>Incapsula -日本、香港、美国、欧洲CDN加速<br>Google PageSpeed Service 谷歌出品的免费CDN</p>
-</blockquote>
-<p><span class="exturl" data-url="aHR0cDovL3d3dy5kb3plci5jYy8yMDE1LzA2L2dpdGh1Yi1wYWdlcy1hbmQtY2RuLmh0bWw=">国内比较出名的CDN<i class="fa fa-external-link-alt"></i></span>，不外乎三种</p>
-<blockquote>
-<p>七牛<br>又拍云<br>百度加速乐</p>
-</blockquote>
-<p>自己动手搭建专属CDN服务</p>
-<blockquote>
-<p>LuManager CDN 一键安装快速部署全站CDN<br>Layer –多平台快速生成镜像实现CDN加速<br>网站使用CDN后获取真实IP地址</p>
-</blockquote>
-<p>如果域名没有备案的话，可以使用国外的，域名有备案的，可以选择使用国内的，当然你也可以自己动手搭建CDN</p>
-<p>我在这里说说我的使用经历，我注册过<span class="exturl" data-url="aHR0cHM6Ly93d3cuY2xvdWRmbGFyZS5jb20v">CloudFlare<i class="fa fa-external-link-alt"></i></span>, <span class="exturl" data-url="aHR0cHM6Ly93d3cuaW5jYXBzdWxhLmNvbS8=">Incapsula<i class="fa fa-external-link-alt"></i></span>, <span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW4uY29tL2luZGV4Lmh0bWw=">又拍云<i class="fa fa-external-link-alt"></i></span>, 前两个我试过直接添加github博客的.io子域名去进行分发, 给出的结果是</p>
-<pre class="language-none"><code class="language-none">We were unable to identify username.github.io as a registered domain. Please ensure you are providing the root domain and not any subdomains (e.g., example.com, not subdomain.example.com) (Code: 1099)</code></pre>
-<p>幸好我还有个域名，于是就用上了，又拍云我只是注册了，还没试过，觉得过程比较麻烦，2016年之后，又拍云还需要上传手持身份证照片进行实名认证(实名认证也就算了，还手持身份证，我还是默默的用国外的CDN算了吧)，我直接注册后，有客服过了一两个小时，直接给我打电话，号召我尽快注册，CloudFlare的话，它和Incapsula的区别可以参考<span class="exturl" data-url="aHR0cDovL3d3dy56aGlodS5jb20vcXVlc3Rpb24vMjAwMzg2MzIvYW5zd2VyLzE1OTUyMzY0">Incapsula与Cloudflare那一个会更加优秀？<i class="fa fa-external-link-alt"></i></span>, 免费的CloudFlare不提供CNAME方式</p>
-<p>注册完Incapsula后，添加你要使用CDN的域名，然后就是检测，它会提供两个A Record(一般是两个)以及一个CNAME Record给你更改，你可以在你自己的域名管理处，更改就行了，依照它的说明重新指向，将你原来指向github的两个A Record替换为它给定的，一个CNAME Record替换为它给定的，等一会儿就行了，github博客里的CNAME仍然是你的域名<br><img data-src="https://cdn.laxdu.com/ImageHosting/C/CDN/cdn4.webp"><br>这是我在CDN里的DNS转换，下面是我的namecheap的Host Record<br><img data-src="https://cdn.laxdu.com/ImageHosting/C/CDN/cdn5.webp"><br>Incapsula给我的IP指向是美国那边的，听说香港和日本那边的节点，也是要经过美国那边，不过对大天朝来说，香港和日本这边的访问速度还是快些，如果换节点，可以查看Incapsula的节点，Incapsula所有的CDN节点IP地址可以在<span class="exturl" data-url="aHR0cDovL2JncC5oZS5uZXQvQVMxOTU1MSNfcHJlZml4ZXM=">这里<i class="fa fa-external-link-alt"></i></span>找到</p>
-<p>如果使用国内的CDN，推荐看看这篇文章<span class="exturl" data-url="aHR0cDovL3d3dy5kb3plci5jYy8yMDE1LzA2L2dpdGh1Yi1wYWdlcy1hbmQtY2RuLmh0bWw=">利用 CDN 解决百度爬虫被 Github Pages 拒绝的问题<i class="fa fa-external-link-alt"></i></span>，对比了国内的CDN的优劣势，以及使用体验</p>
-<p>最后，做个参考链接汇总<br><span class="exturl" data-url="aHR0cDovL2JncC5oZS5uZXQvQVMxOTU1MSNfcHJlZml4ZXM=">Incapsula各地CDN节点<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWhhbzEyMy5jb20vMjAxNC1jZG4v">2014年十个优秀的免费CDN加速服务-国内和国外免费CDN<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL2plcnJ5em91LmNvbS9wb3N0cy9mZWFzaWJpbGl0eS1vZi1hbGxvd2luZy1iYWlkdVNwaWRlci1mb3ItR2l0aHViLVBhZ2VzLw==">解决 Github Pages 禁止百度爬虫的方法与可行性分析<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy5kb3plci5jYy8yMDE1LzA2L2dpdGh1Yi1wYWdlcy1hbmQtY2RuLmh0bWw=">利用 CDN 解决百度爬虫被 Github Pages 拒绝的问题<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy5jaGluYXouY29tL3dlYi8yMDE1LzAxMjYvMzgwNzI0XzMuc2h0bWw=">Incapsula免费CDN服务申请使用及加速效果测评<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy56aGlodS5jb20vcXVlc3Rpb24vMzA4OTgzMjY=">如何解决百度爬虫无法爬取搭建在Github上的个人博客的问题？<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dy56aGlodS5jb20vcXVlc3Rpb24vMjAwMzg2MzIvYW5zd2VyLzE1OTUyMzY0">Incapsula与Cloudflare那一个会更加优秀？<i class="fa fa-external-link-alt"></i></span></p>
-]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>GitHub</tag>
       </tags>
   </entry>
   <entry>
@@ -4420,6 +4420,141 @@ Euphoria物理引擎
       </tags>
   </entry>
   <entry>
+    <title>UE指数高度雾(Exponential Height Fog)</title>
+    <url>//posts/202202/</url>
+    <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/0.webp"></p>
+<span id="more"></span>
+
+<h3 id="文件相关"><a href="#文件相关" class="headerlink" title="文件相关"></a>文件相关</h3><pre class="language-C++" data-language="C++"><code class="language-C++">// C++
+HeightFogComponent.cpp
+FogRendering.cpp
+ExponentialHeightFogComponent.h
+
+// Shaders
+HeightFogCommon.ush
+
+/* 
+* Others, 
+* different platforms or application scenarios, etc.
+*/
+MobileBasePassVertexShader.usf // Base pass vertex shader used with forward shading
+MobileBasePassPixelShader.usf // Base pass pixel shader used with forward shading
+
+HeightFogVertexShader.usf // Scene fogging vertex shader
+HeightFogPixelShader.usf // Scene fogging pixel shader
+...</code></pre>
+<p>其中最泛的函数</p>
+<pre class="language-C" data-language="C"><code class="language-C">half4 CalculateHeightFog(float3 WorldPositionRelativeToCamera);</code></pre>
+<p>无论是VertexFog或是PixelFog, 基本都可直接调用该函数, 获取HeightFog和场景Color混合, 不同在于性能和效果权衡下</p>
+<h3 id="雾的计算"><a href="#雾的计算" class="headerlink" title="雾的计算"></a>雾的计算</h3><p>计算雾效浓度衰减的公式如下</p>
+<pre class="language-C++" data-language="C++"><code class="language-C++">// Calculate the line integral of the ray from the camera to the receiver position through the fog density function
+// The exponential fog density function is d = GlobalDensity * exp(-HeightFalloff * z)
+float CalculateLineIntegralShared(float FogHeightFalloff, float RayDirectionZ, float RayOriginTerms)
+{
+	float Falloff = max(-127.0f, FogHeightFalloff * RayDirectionZ);    // if it's lower than -127.0, then exp2() goes crazy in OpenGL's GLSL.
+	float LineIntegral = ( 1.0f - exp2(-Falloff) ) / Falloff;
+	float LineIntegralTaylor = log(2.0) - ( 0.5 * Pow2( log(2.0) ) ) * Falloff;		// Taylor expansion around 0
+	
+	return RayOriginTerms * ( abs(Falloff) &gt; FLT_EPSILON2 ? LineIntegral : LineIntegralTaylor );
+}
+
+// Calculate the "shared" line integral (this term is also used for the directional light inscattering) by adding the two line integrals together (from two different height falloffs and densities)
+float ExponentialHeightLineIntegralShared = CalculateLineIntegralShared(FogStruct.ExponentialFogParameters.y, RayDirectionZ, RayOriginTerms) + CalculateLineIntegralShared(FogStruct.ExponentialFogParameters2.y, RayDirectionZ, RayOriginTermsSecond);
+
+float DirExponentialHeightLineIntegral = ExponentialHeightLineIntegralShared * max(RayLength - StartDistance, 0.0f);
+
+float ExponentialHeightLineIntegral = ExponentialHeightLineIntegralShared * RayLength;</code></pre>
+<p>最终雾效颜色的计算公式如下</p>
+<pre class="language-C" data-language="C"><code class="language-C">half3 FogColor = (InscatteringColor) * (1 - ExpFogFactor) + DirectionalInscattering;</code></pre>
+<p>其中因式项拆分<br><em>DirectionalInscattering</em>, 光照散射部分, 同时便于调节视野雾效开始距离</p>
+<pre class="language-C++" data-language="C++"><code class="language-C++">// Calculate the line integral of the eye ray through the haze, using a special starting distance to limit the inscattering to the distance
+float DirectionalInscatteringStartDistance = FogStruct.InscatteringLightDirection.w;
+float DirExponentialHeightLineIntegral = ExponentialHeightLineIntegralShared * max(RayLength - DirectionalInscatteringStartDistance, 0.0f);
+// Calculate the amount of light that made it through the fog using the transmission equation
+half DirectionalInscatteringFogFactor = saturate(exp2(-DirExponentialHeightLineIntegral));
+// Final inscattering from the light
+DirectionalInscattering = DirectionalLightInscattering * (1 - DirectionalInscatteringFogFactor);</code></pre>
+
+<p><em>ExpFogFactor</em>, 雾效因子, 控制与输出颜色的混合程度<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="14.836ex" height="2.598ex" role="img" focusable="false" viewBox="0 -943.3 6557.6 1148.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mo" transform="translate(1204.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(2260.1,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(3002.3,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="msup" transform="translate(3724.6,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,413) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mo" transform="translate(778,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1167,0)"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mo" transform="translate(1717,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="mi" transform="translate(2217,0)"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mo" transform="translate(2793,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g></g></svg></mjx-container><br>其中,<br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.023ex;" xmlns="http://www.w3.org/2000/svg" width="1.176ex" height="1.593ex" role="img" focusable="false" viewBox="0 -694 520 704"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g></g></g></svg></mjx-container>为<code>FogDensity</code><br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="1.244ex" height="2.059ex" role="img" focusable="false" viewBox="0 -705 550 910"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g></g></g></svg></mjx-container>为<code>FogHeightFalloff</code><br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.303ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 576 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g></g></g></svg></mjx-container>为<code>CameraWorldPosition.z - FogHeight</code></p>
+<p>公式对应的代码部分</p>
+<pre class="language-C++" data-language="C++"><code class="language-C++">float RayOriginTerms = FogDensity * exp2(-FogHeightFalloff * (CameraWorldPosition.z - FogHeight));</code></pre>
+<p><em>InscatteringColor</em>, 光照本身的散射颜色部分<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -2.016ex;" xmlns="http://www.w3.org/2000/svg" width="18.169ex" height="5.643ex" role="img" focusable="false" viewBox="0 -1603.3 8030.7 2494.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="mo" transform="translate(1204.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(2260.1,0)"><g data-mml-node="mrow" transform="translate(220,710)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mn" transform="translate(389,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(1111.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="msup" transform="translate(2111.4,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mo" transform="translate(778,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1167,0)"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mo" transform="translate(1717,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="mi" transform="translate(2217,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(2789,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g><g data-mml-node="mo" transform="translate(4941.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g><g data-mml-node="mrow" transform="translate(1852.1,-686)"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mo" transform="translate(772.2,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="mi" transform="translate(1494.4,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g><rect width="5530.6" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container><br>其中,<br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="1.244ex" height="2.059ex" role="img" focusable="false" viewBox="0 -705 550 910"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g></g></g></svg></mjx-container>为<code>FogHeightFalloff</code><br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.294ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 572 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g></g></svg></mjx-container>为<code>RayDirectionZ</code></p>
+<p>加入散射, 雾效更具光感,<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="25.667ex" height="2.7ex" role="img" focusable="false" viewBox="0 -943.3 11344.9 1193.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(1204.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(2260.1,0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mo" transform="translate(2915.3,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="msup" transform="translate(3637.6,0)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,413) scale(0.707)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g></g><g data-mml-node="mo" transform="translate(4775.1,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="mo" transform="translate(5497.3,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mn" transform="translate(5886.3,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(6608.6,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="msup" transform="translate(7608.8,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,413) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mo" transform="translate(778,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msub" transform="translate(1167,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mo" transform="translate(2093.6,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="msub" transform="translate(2593.6,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="mo" transform="translate(3520.1,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g><g data-mml-node="mo" transform="translate(10955.9,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container><br>其中,<br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.98ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 433 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g></g></g></svg></mjx-container>为<code>lightColor</code><br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.023ex;" xmlns="http://www.w3.org/2000/svg" width="1.197ex" height="1.02ex" role="img" focusable="false" viewBox="0 -441 529 451"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g></g></g></svg></mjx-container>为<code>dot(cameraToReceiver.xyz, lightDir.xyz)</code><br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.971ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 429 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g></g></g></svg></mjx-container>为<code>exponent</code><br>最后,<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="19.957ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 8821 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(767.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1823.6,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mo" transform="translate(2522.8,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="mo" transform="translate(3245,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mn" transform="translate(3634,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(4356.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="msub" transform="translate(5356.4,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mo" transform="translate(6283,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(6894.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="msub" transform="translate(7894.4,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></svg></mjx-container><br>其中,<br><code>g</code>为<code>InscatteringColor</code><br>对应最终雾效颜色的计算公式如开始所述.</p>
+<h4 id="设置相关"><a href="#设置相关" class="headerlink" title="设置相关"></a>设置相关</h4><p><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/1.webp"></p>
+<ul>
+<li><strong>Apply Fogging</strong>, 默认是<code>true</code>, 该材质是否参数雾效计算</li>
+<li><strong>Apply Cloud Fogging</strong>, 默认是<code>false</code>, 计算云的贡献时, 会考虑雾效的影响</li>
+<li><strong>Compute Fog Per Pixel</strong>, 默认是<code>false</code>, 该材质是否在<code>Frag</code>阶段计算雾效, 否则是在<code>Vert</code>阶段计算雾效, 对应宏<code>MATERIAL_COMPUTE_FOG_PER_PIXEL</code>, 应用范围为材质级别</li>
+</ul>
+<p><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/2.webp"></p>
+<ul>
+<li><strong>Disable vertex fogging on mobile shaders</strong>, 默认是<code>true</code>, 移动平台关闭雾效果, 对应宏<code>PROJECT_MOBILE_DISABLE_VERTEX_FOG</code></li>
+<li><strong>Vertex Fogging to Opaque</strong>, 默认是<code>false</code>, 不透明BasePass且需要雾效下是否使用顶点雾, <code>false</code>时使用在<code>Frag</code>阶段计算雾效, 对应宏<code>PROJECT_VERTEX_FOGGING_FOR_OPAQUE</code></li>
+</ul>
+<pre class="language-C++" data-language="C++"><code class="language-C++">#define USE_VERTEX_FOG					(!PROJECT_MOBILE_DISABLE_VERTEX_FOG) &amp;&amp; MATERIAL_ENABLE_TRANSLUCENCY_FOGGING
+
+#define NEEDS_BASEPASS_VERTEX_FOGGING		(TRANSLUCENCY_NEEDS_BASEPASS_FOGGING &amp;&amp; !MATERIAL_COMPUTE_FOG_PER_PIXEL || OPAQUE_NEEDS_BASEPASS_FOGGING &amp;&amp; PROJECT_VERTEX_FOGGING_FOR_OPAQUE)
+#define NEEDS_BASEPASS_PIXEL_FOGGING		(TRANSLUCENCY_NEEDS_BASEPASS_FOGGING &amp;&amp; MATERIAL_COMPUTE_FOG_PER_PIXEL || OPAQUE_NEEDS_BASEPASS_FOGGING &amp;&amp; !PROJECT_VERTEX_FOGGING_FOR_OPAQUE)</code></pre>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>其他材质或Shader使用姿势</p>
+<p><strong><code>ush</code>部分</strong></p>
+<pre class="language-C" data-language="C"><code class="language-C">#if PACK_INTERPOLANTS
+	float4 PackedInterps[NUM_VF_PACKED_INTERPOLANTS];
+	UNROLL 
+	for(int i = 0; i &lt; NUM_VF_PACKED_INTERPOLANTS; ++i)
+	{
+		PackedInterps[i] = 0;
+	}
+#endif
+
+#if USE_VERTEX_FOG
+	float4 VertexFog = CalculateHeightFog(WorldPosition.xyz - ResolvedView.TranslatedWorldCameraOrigin);
+
+// Ignore the sky atmosphere impact.
+// #if PROJECT_SUPPORT_SKY_ATMOSPHERE &amp;&amp; MATERIAL_IS_SKY==0 // Do not apply aerial perpsective on sky materials
+// #endif
+
+#if PACK_INTERPOLANTS
+	PackedInterps[0] = VertexFog;
+#else
+	Output.BasePassInterpolants.VertexFog = VertexFog;
+#endif // PACK_INTERPOLANTS
+#endif</code></pre>
+
+<p><strong><code>usf</code>部分</strong></p>
+<pre class="language-C" data-language="C"><code class="language-C">	half4 VertexFog = half4(0, 0, 0, 1);
+
+#if USE_VERTEX_FOG
+#if PACK_INTERPOLANTS
+	VertexFog = PackedInterpolants[0];
+#else
+	VertexFog = BasePassInterpolants.VertexFog;
+#endif
+#endif
+
+// On mobile, water (an opaque material) is rendered as trnaslucent with forced premultiplied alpha blending (see MobileBasePass::SetTranslucentRenderState)
+#if MATERIALBLENDING_ALPHACOMPOSITE || MATERIAL_SHADINGMODEL_SINGLELAYERWATER
+	OutColor = half4(Color * VertexFog.a + VertexFog.rgb * ShadingModelContext.Opacity, ShadingModelContext.Opacity);
+#elif MATERIALBLENDING_ALPHAHOLDOUT
+	// not implemented for holdout
+	OutColor = half4(Color * VertexFog.a + VertexFog.rgb * ShadingModelContext.Opacity, ShadingModelContext.Opacity);
+#elif MATERIALBLENDING_TRANSLUCENT
+	OutColor = half4(Color * VertexFog.a + VertexFog.rgb, ShadingModelContext.Opacity);
+#elif MATERIALBLENDING_ADDITIVE
+	OutColor = half4(Color * (VertexFog.a * ShadingModelContext.Opacity.x), 0.0f);
+#elif MATERIALBLENDING_MODULATE
+	half3 FoggedColor = lerp(half3(1, 1, 1), Color, VertexFog.aaa * VertexFog.aaa);
+	OutColor = half4(FoggedColor, ShadingModelContext.Opacity);
+#else
+	OutColor.rgb = Color * VertexFog.a + VertexFog.rgb;</code></pre>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>免费的苹果开发者账号申请iOS证书</title>
     <url>//posts/202201/</url>
     <content><![CDATA[<p>本文介绍使用未付费688的苹果账号（apple id）申请ios证书打包ipa安装到未越狱苹果手机真机测试调试。</p>
@@ -4590,141 +4725,6 @@ Euphoria物理引擎
       </categories>
       <tags>
         <tag>小杂箱</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UE指数高度雾(Exponential Height Fog)</title>
-    <url>//posts/202202/</url>
-    <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/0.webp"></p>
-<span id="more"></span>
-
-<h3 id="文件相关"><a href="#文件相关" class="headerlink" title="文件相关"></a>文件相关</h3><pre class="language-C++" data-language="C++"><code class="language-C++">// C++
-HeightFogComponent.cpp
-FogRendering.cpp
-ExponentialHeightFogComponent.h
-
-// Shaders
-HeightFogCommon.ush
-
-/* 
-* Others, 
-* different platforms or application scenarios, etc.
-*/
-MobileBasePassVertexShader.usf // Base pass vertex shader used with forward shading
-MobileBasePassPixelShader.usf // Base pass pixel shader used with forward shading
-
-HeightFogVertexShader.usf // Scene fogging vertex shader
-HeightFogPixelShader.usf // Scene fogging pixel shader
-...</code></pre>
-<p>其中最泛的函数</p>
-<pre class="language-C" data-language="C"><code class="language-C">half4 CalculateHeightFog(float3 WorldPositionRelativeToCamera);</code></pre>
-<p>无论是VertexFog或是PixelFog, 基本都可直接调用该函数, 获取HeightFog和场景Color混合, 不同在于性能和效果权衡下</p>
-<h3 id="雾的计算"><a href="#雾的计算" class="headerlink" title="雾的计算"></a>雾的计算</h3><p>计算雾效浓度衰减的公式如下</p>
-<pre class="language-C++" data-language="C++"><code class="language-C++">// Calculate the line integral of the ray from the camera to the receiver position through the fog density function
-// The exponential fog density function is d = GlobalDensity * exp(-HeightFalloff * z)
-float CalculateLineIntegralShared(float FogHeightFalloff, float RayDirectionZ, float RayOriginTerms)
-{
-	float Falloff = max(-127.0f, FogHeightFalloff * RayDirectionZ);    // if it's lower than -127.0, then exp2() goes crazy in OpenGL's GLSL.
-	float LineIntegral = ( 1.0f - exp2(-Falloff) ) / Falloff;
-	float LineIntegralTaylor = log(2.0) - ( 0.5 * Pow2( log(2.0) ) ) * Falloff;		// Taylor expansion around 0
-	
-	return RayOriginTerms * ( abs(Falloff) &gt; FLT_EPSILON2 ? LineIntegral : LineIntegralTaylor );
-}
-
-// Calculate the "shared" line integral (this term is also used for the directional light inscattering) by adding the two line integrals together (from two different height falloffs and densities)
-float ExponentialHeightLineIntegralShared = CalculateLineIntegralShared(FogStruct.ExponentialFogParameters.y, RayDirectionZ, RayOriginTerms) + CalculateLineIntegralShared(FogStruct.ExponentialFogParameters2.y, RayDirectionZ, RayOriginTermsSecond);
-
-float DirExponentialHeightLineIntegral = ExponentialHeightLineIntegralShared * max(RayLength - StartDistance, 0.0f);
-
-float ExponentialHeightLineIntegral = ExponentialHeightLineIntegralShared * RayLength;</code></pre>
-<p>最终雾效颜色的计算公式如下</p>
-<pre class="language-C" data-language="C"><code class="language-C">half3 FogColor = (InscatteringColor) * (1 - ExpFogFactor) + DirectionalInscattering;</code></pre>
-<p>其中因式项拆分<br><em>DirectionalInscattering</em>, 光照散射部分, 同时便于调节视野雾效开始距离</p>
-<pre class="language-C++" data-language="C++"><code class="language-C++">// Calculate the line integral of the eye ray through the haze, using a special starting distance to limit the inscattering to the distance
-float DirectionalInscatteringStartDistance = FogStruct.InscatteringLightDirection.w;
-float DirExponentialHeightLineIntegral = ExponentialHeightLineIntegralShared * max(RayLength - DirectionalInscatteringStartDistance, 0.0f);
-// Calculate the amount of light that made it through the fog using the transmission equation
-half DirectionalInscatteringFogFactor = saturate(exp2(-DirExponentialHeightLineIntegral));
-// Final inscattering from the light
-DirectionalInscattering = DirectionalLightInscattering * (1 - DirectionalInscatteringFogFactor);</code></pre>
-
-<p><em>ExpFogFactor</em>, 雾效因子, 控制与输出颜色的混合程度<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="14.836ex" height="2.598ex" role="img" focusable="false" viewBox="0 -943.3 6557.6 1148.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mo" transform="translate(1204.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(2260.1,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(3002.3,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="msup" transform="translate(3724.6,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,413) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mo" transform="translate(778,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1167,0)"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mo" transform="translate(1717,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="mi" transform="translate(2217,0)"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mo" transform="translate(2793,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g></g></svg></mjx-container><br>其中,<br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.023ex;" xmlns="http://www.w3.org/2000/svg" width="1.176ex" height="1.593ex" role="img" focusable="false" viewBox="0 -694 520 704"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g></g></g></svg></mjx-container>为<code>FogDensity</code><br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="1.244ex" height="2.059ex" role="img" focusable="false" viewBox="0 -705 550 910"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g></g></g></svg></mjx-container>为<code>FogHeightFalloff</code><br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.303ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 576 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g></g></g></svg></mjx-container>为<code>CameraWorldPosition.z - FogHeight</code></p>
-<p>公式对应的代码部分</p>
-<pre class="language-C++" data-language="C++"><code class="language-C++">float RayOriginTerms = FogDensity * exp2(-FogHeightFalloff * (CameraWorldPosition.z - FogHeight));</code></pre>
-<p><em>InscatteringColor</em>, 光照本身的散射颜色部分<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -2.016ex;" xmlns="http://www.w3.org/2000/svg" width="18.169ex" height="5.643ex" role="img" focusable="false" viewBox="0 -1603.3 8030.7 2494.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="mo" transform="translate(1204.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(2260.1,0)"><g data-mml-node="mrow" transform="translate(220,710)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mn" transform="translate(389,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(1111.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="msup" transform="translate(2111.4,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mo" transform="translate(778,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1167,0)"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mo" transform="translate(1717,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="mi" transform="translate(2217,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(2789,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g><g data-mml-node="mo" transform="translate(4941.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g><g data-mml-node="mrow" transform="translate(1852.1,-686)"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mo" transform="translate(772.2,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="mi" transform="translate(1494.4,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g><rect width="5530.6" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container><br>其中,<br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="1.244ex" height="2.059ex" role="img" focusable="false" viewBox="0 -705 550 910"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g></g></g></svg></mjx-container>为<code>FogHeightFalloff</code><br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.294ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 572 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g></g></svg></mjx-container>为<code>RayDirectionZ</code></p>
-<p>加入散射, 雾效更具光感,<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="25.667ex" height="2.7ex" role="img" focusable="false" viewBox="0 -943.3 11344.9 1193.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(1204.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(2260.1,0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mo" transform="translate(2915.3,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="msup" transform="translate(3637.6,0)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,413) scale(0.707)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g></g><g data-mml-node="mo" transform="translate(4775.1,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="mo" transform="translate(5497.3,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mn" transform="translate(5886.3,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(6608.6,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="msup" transform="translate(7608.8,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,413) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mo" transform="translate(778,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msub" transform="translate(1167,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mo" transform="translate(2093.6,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="msub" transform="translate(2593.6,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="mo" transform="translate(3520.1,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g><g data-mml-node="mo" transform="translate(10955.9,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container><br>其中,<br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.98ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 433 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g></g></g></svg></mjx-container>为<code>lightColor</code><br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.023ex;" xmlns="http://www.w3.org/2000/svg" width="1.197ex" height="1.02ex" role="img" focusable="false" viewBox="0 -441 529 451"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g></g></g></svg></mjx-container>为<code>dot(cameraToReceiver.xyz, lightDir.xyz)</code><br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.971ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 429 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g></g></g></svg></mjx-container>为<code>exponent</code><br>最后,<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="19.957ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 8821 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(767.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1823.6,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mo" transform="translate(2522.8,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="mo" transform="translate(3245,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mn" transform="translate(3634,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(4356.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="msub" transform="translate(5356.4,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mo" transform="translate(6283,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(6894.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="msub" transform="translate(7894.4,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></svg></mjx-container><br>其中,<br><code>g</code>为<code>InscatteringColor</code><br>对应最终雾效颜色的计算公式如开始所述.</p>
-<h4 id="设置相关"><a href="#设置相关" class="headerlink" title="设置相关"></a>设置相关</h4><p><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/1.webp"></p>
-<ul>
-<li><strong>Apply Fogging</strong>, 默认是<code>true</code>, 该材质是否参数雾效计算</li>
-<li><strong>Apply Cloud Fogging</strong>, 默认是<code>false</code>, 计算云的贡献时, 会考虑雾效的影响</li>
-<li><strong>Compute Fog Per Pixel</strong>, 默认是<code>false</code>, 该材质是否在<code>Frag</code>阶段计算雾效, 否则是在<code>Vert</code>阶段计算雾效, 对应宏<code>MATERIAL_COMPUTE_FOG_PER_PIXEL</code>, 应用范围为材质级别</li>
-</ul>
-<p><img data-src="https://cdn.laxdu.com/ImageHosting/H/HeightFog/2.webp"></p>
-<ul>
-<li><strong>Disable vertex fogging on mobile shaders</strong>, 默认是<code>true</code>, 移动平台关闭雾效果, 对应宏<code>PROJECT_MOBILE_DISABLE_VERTEX_FOG</code></li>
-<li><strong>Vertex Fogging to Opaque</strong>, 默认是<code>false</code>, 不透明BasePass且需要雾效下是否使用顶点雾, <code>false</code>时使用在<code>Frag</code>阶段计算雾效, 对应宏<code>PROJECT_VERTEX_FOGGING_FOR_OPAQUE</code></li>
-</ul>
-<pre class="language-C++" data-language="C++"><code class="language-C++">#define USE_VERTEX_FOG					(!PROJECT_MOBILE_DISABLE_VERTEX_FOG) &amp;&amp; MATERIAL_ENABLE_TRANSLUCENCY_FOGGING
-
-#define NEEDS_BASEPASS_VERTEX_FOGGING		(TRANSLUCENCY_NEEDS_BASEPASS_FOGGING &amp;&amp; !MATERIAL_COMPUTE_FOG_PER_PIXEL || OPAQUE_NEEDS_BASEPASS_FOGGING &amp;&amp; PROJECT_VERTEX_FOGGING_FOR_OPAQUE)
-#define NEEDS_BASEPASS_PIXEL_FOGGING		(TRANSLUCENCY_NEEDS_BASEPASS_FOGGING &amp;&amp; MATERIAL_COMPUTE_FOG_PER_PIXEL || OPAQUE_NEEDS_BASEPASS_FOGGING &amp;&amp; !PROJECT_VERTEX_FOGGING_FOR_OPAQUE)</code></pre>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>其他材质或Shader使用姿势</p>
-<p><strong><code>ush</code>部分</strong></p>
-<pre class="language-C" data-language="C"><code class="language-C">#if PACK_INTERPOLANTS
-	float4 PackedInterps[NUM_VF_PACKED_INTERPOLANTS];
-	UNROLL 
-	for(int i = 0; i &lt; NUM_VF_PACKED_INTERPOLANTS; ++i)
-	{
-		PackedInterps[i] = 0;
-	}
-#endif
-
-#if USE_VERTEX_FOG
-	float4 VertexFog = CalculateHeightFog(WorldPosition.xyz - ResolvedView.TranslatedWorldCameraOrigin);
-
-// Ignore the sky atmosphere impact.
-// #if PROJECT_SUPPORT_SKY_ATMOSPHERE &amp;&amp; MATERIAL_IS_SKY==0 // Do not apply aerial perpsective on sky materials
-// #endif
-
-#if PACK_INTERPOLANTS
-	PackedInterps[0] = VertexFog;
-#else
-	Output.BasePassInterpolants.VertexFog = VertexFog;
-#endif // PACK_INTERPOLANTS
-#endif</code></pre>
-
-<p><strong><code>usf</code>部分</strong></p>
-<pre class="language-C" data-language="C"><code class="language-C">	half4 VertexFog = half4(0, 0, 0, 1);
-
-#if USE_VERTEX_FOG
-#if PACK_INTERPOLANTS
-	VertexFog = PackedInterpolants[0];
-#else
-	VertexFog = BasePassInterpolants.VertexFog;
-#endif
-#endif
-
-// On mobile, water (an opaque material) is rendered as trnaslucent with forced premultiplied alpha blending (see MobileBasePass::SetTranslucentRenderState)
-#if MATERIALBLENDING_ALPHACOMPOSITE || MATERIAL_SHADINGMODEL_SINGLELAYERWATER
-	OutColor = half4(Color * VertexFog.a + VertexFog.rgb * ShadingModelContext.Opacity, ShadingModelContext.Opacity);
-#elif MATERIALBLENDING_ALPHAHOLDOUT
-	// not implemented for holdout
-	OutColor = half4(Color * VertexFog.a + VertexFog.rgb * ShadingModelContext.Opacity, ShadingModelContext.Opacity);
-#elif MATERIALBLENDING_TRANSLUCENT
-	OutColor = half4(Color * VertexFog.a + VertexFog.rgb, ShadingModelContext.Opacity);
-#elif MATERIALBLENDING_ADDITIVE
-	OutColor = half4(Color * (VertexFog.a * ShadingModelContext.Opacity.x), 0.0f);
-#elif MATERIALBLENDING_MODULATE
-	half3 FoggedColor = lerp(half3(1, 1, 1), Color, VertexFog.aaa * VertexFog.aaa);
-	OutColor = half4(FoggedColor, ShadingModelContext.Opacity);
-#else
-	OutColor.rgb = Color * VertexFog.a + VertexFog.rgb;</code></pre>
-]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>图形</tag>
       </tags>
   </entry>
   <entry>
@@ -6659,6 +6659,23 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
       </tags>
   </entry>
   <entry>
+    <title>平台资源总结篇</title>
+    <url>//posts/202420/</url>
+    <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/A/Altas/82bcb8592d4948b3996d968bae0bb7ff_640.webp">  </p>
+<span id="more"></span>  
+
+<p>网盘资源搜索引擎, 不定时更新  </p>
+<h3 id="盘搜"><a href="#盘搜" class="headerlink" title="盘搜"></a>盘搜</h3><p>1.<span class="exturl" data-url="aHR0cHM6Ly9hbGlwYW5zb3UuY29tLw==">猫狸盘搜<i class="fa fa-external-link-alt"></i></span><br>2.<span class="exturl" data-url="aHR0cHM6Ly9qdWp1c28uY29tLw==">优聚搜<i class="fa fa-external-link-alt"></i></span><br>3.<span class="exturl" data-url="aHR0cHM6Ly9zaGFyZXJ3LmxhbnpvdWkuY29tL2IwYWdpcXp5Zg==">阿里网盘TV版<i class="fa fa-external-link-alt"></i></span><br>4.<span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW5zby5jb20v">Up云搜1<i class="fa fa-external-link-alt"></i></span>, <span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW5zbzMuY29tLw==">Up云搜3<i class="fa fa-external-link-alt"></i></span>  </p>
+<h3 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h3><p>1.<span class="exturl" data-url="aHR0cHM6Ly9waW96LmNuLw==">夸克短剧<i class="fa fa-external-link-alt"></i></span>  </p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>随记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>高通分享总结篇（2024）</title>
     <url>//posts/202422/</url>
     <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/G/Graphics/qualcomm_512.webp">  </p>
@@ -6946,23 +6963,6 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
       </categories>
       <tags>
         <tag>图形</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>平台资源总结篇</title>
-    <url>//posts/202420/</url>
-    <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/A/Altas/82bcb8592d4948b3996d968bae0bb7ff_640.webp">  </p>
-<span id="more"></span>  
-
-<p>网盘资源搜索引擎, 不定时更新  </p>
-<h3 id="盘搜"><a href="#盘搜" class="headerlink" title="盘搜"></a>盘搜</h3><p>1.<span class="exturl" data-url="aHR0cHM6Ly9hbGlwYW5zb3UuY29tLw==">猫狸盘搜<i class="fa fa-external-link-alt"></i></span><br>2.<span class="exturl" data-url="aHR0cHM6Ly9qdWp1c28uY29tLw==">优聚搜<i class="fa fa-external-link-alt"></i></span><br>3.<span class="exturl" data-url="aHR0cHM6Ly9zaGFyZXJ3LmxhbnpvdWkuY29tL2IwYWdpcXp5Zg==">阿里网盘TV版<i class="fa fa-external-link-alt"></i></span><br>4.<span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW5zby5jb20v">Up云搜1<i class="fa fa-external-link-alt"></i></span>, <span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW5zbzMuY29tLw==">Up云搜3<i class="fa fa-external-link-alt"></i></span>  </p>
-<h3 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h3><p>1.<span class="exturl" data-url="aHR0cHM6Ly9waW96LmNuLw==">夸克短剧<i class="fa fa-external-link-alt"></i></span>  </p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>随记</tag>
       </tags>
   </entry>
   <entry>
@@ -7879,6 +7879,123 @@ OutColor.w &#x3D; MiddleGreyExposureCompensation &#x2F; EyeAdaptation_GreyMult;<
       </tags>
   </entry>
   <entry>
+    <title>重要性采样及多重重要性采样</title>
+    <url>//posts/202427/</url>
+    <content><![CDATA[<p><strong>重要性采样（Importance Sampling, IS）</strong> 和<strong>多重重要性采样（Multiple Importance Sampling, MIS）</strong> 技术在蒙特卡洛积分中至关重要。</p>
+<p>它们主要用于计算机图形学（如光线追踪渲染）、强化学习等领域，以高效地计算复杂积分。</p>
+<hr>
+<h3 id="1-蒙特卡洛积分基础"><a href="#1-蒙特卡洛积分基础" class="headerlink" title="1. 蒙特卡洛积分基础"></a>1. 蒙特卡洛积分基础</h3><p>首先，快速回顾一下蒙特卡洛积分。我们要计算一个积分：<br>$$I &#x3D; \int_a^b f(x) dx$$</p>
+<p>蒙特卡洛积分的基本思想是<strong>随机采样</strong>。它通过从定义域内随机抽取样本 $x_i$，计算 $f(x_i)$，然后取平均值来近似积分：<br>$$I \approx \frac{1}{N} \sum_{i&#x3D;1}^N f(x_i)$$</p>
+<p>但这里有一个问题：如果 $f(x)$ 在某些区域值很大，在另一些区域值很小（例如，一个尖锐的峰值），均匀随机采样会非常低效。大多数样本会落在 $f(x)$ 值很小的“不重要”区域，对最终结果的贡献微乎其微，从而造成方差很大，收敛速度很慢。</p>
+<hr>
+<h3 id="2-重要性采样-Importance-Sampling-IS"><a href="#2-重要性采样-Importance-Sampling-IS" class="headerlink" title="2. 重要性采样 (Importance Sampling, IS)"></a>2. 重要性采样 (Importance Sampling, IS)</h3><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><p><strong>重要性采样的核心思想是：我们应该把更多的样本放在函数值大（重要）的区域，而不是均匀地放置样本。</strong></p>
+<p>换句话说，我们不再使用均匀分布进行采样，而是使用一个与我们想要积分的函数 $f(x)$ <strong>形状相似</strong>的概率分布 $p(x)$ 来生成样本。</p>
+<h4 id="数学表达"><a href="#数学表达" class="headerlink" title="数学表达"></a>数学表达</h4><p>为了修正采样分布带来的偏差，我们需要对每个样本进行加权。蒙特卡洛积分公式变为：<br>$$I &#x3D; \int f(x) dx &#x3D; \int \frac{f(x)}{p(x)} p(x) dx \approx \frac{1}{N} \sum_{i&#x3D;1}^N \frac{f(x_i)}{p(x_i)}$$<br>其中：</p>
+<ul>
+<li>$x_i$ 是从分布 $p(x)$ 中抽取的样本。</li>
+<li>$\frac{f(x_i)}{p(x_i)}$ 被称为<strong>重要性权重</strong>。</li>
+</ul>
+<h4 id="关键要求与目标"><a href="#关键要求与目标" class="headerlink" title="关键要求与目标"></a>关键要求与目标</h4><ol>
+<li><strong>$p(x)$ 必须满足</strong>：$p(x) &gt; 0$  wherever $f(x) \neq 0$。即，在 $f(x)$ 有值的任何地方，$p(x)$ 都不能为零，否则我们会忽略掉一些本应有贡献的区域。</li>
+<li><strong>理想情况</strong>：如果 $p(x)$ 正比于 $f(x)$，即 $p(x) &#x3D; c|f(x)|$，那么方差会变为 0，每个样本的贡献都是常数。这是重要性采样的终极目标。</li>
+<li><strong>现实情况</strong>：我们很难找到完美的 $p(x)$，但只要 $p(x)$ 的形状大致与 $f(x)$ 相似，就能显著降低方差。</li>
+</ol>
+<h4 id="例子：渲染中的直接光照"><a href="#例子：渲染中的直接光照" class="headerlink" title="例子：渲染中的直接光照"></a>例子：渲染中的直接光照</h4><p>在计算一个点接收到来自环境的光照时，积分函数 $f(x)$ 是光的强度乘以BRDF（材质属性）。如果光来自一个很小的窗户（一个很小的区域贡献了大部分的光），均匀地在所有方向采样会非常低效。重要性采样会选择一个与光强分布相似的 $p(x)$，让我们更多地朝窗户的方向采样，从而快速收敛。</p>
+<h4 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h4><p>重要性采样有一个致命弱点：<strong>它严重依赖于所选采样分布 $p(x)$ 的质量</strong>。<br>如果 $p(x)$ 选得不好，比如：</p>
+<ul>
+<li>$p(x)$ 的形状与 $f(x)$ 相差甚远。</li>
+<li>$f(x)$ 本身由多个不同特征的函数相乘组成（例如，$f(x) &#x3D; g(x)h(x)$），很难找到一个 $p(x)$ 同时匹配 $g(x)$ 和 $h(x)$。</li>
+</ul>
+<p>这时，重要性采样的效果可能甚至不如简单采样，方差会变得非常大。</p>
+<hr>
+<h3 id="3-多重重要性采样-Multiple-Importance-Sampling-MIS"><a href="#3-多重重要性采样-Multiple-Importance-Sampling-MIS" class="headerlink" title="3. 多重重要性采样 (Multiple Importance Sampling, MIS)"></a>3. 多重重要性采样 (Multiple Importance Sampling, MIS)</h3><h4 id="核心思想-1"><a href="#核心思想-1" class="headerlink" title="核心思想"></a>核心思想</h4><p><strong>既然很难找到一个完美的采样分布，那我们为什么不结合多个不同的采样分布呢？</strong></p>
+<p>MIS 的核心智慧在于：它允许我们使用 <strong>多种采样策略</strong>（例如，从一个分布 $p_1$ 中取 $n_1$ 个样本，从另一个分布 $p_2$ 中取 $n_2$ 个样本），然后通过一个<strong>聪明的加权函数</strong>将这些样本结合起来，从而充分利用每种策略的优势，避免其劣势。</p>
+<h4 id="数学表达-1"><a href="#数学表达-1" class="headerlink" title="数学表达"></a>数学表达</h4><p>假设我们有 $m$ 种不同的采样分布 $p_1(x), p_2(x), …, p_m(x)$。<br>从每个分布 $p_i(x)$ 中采集 $n_i$ 个样本，总样本数 $N &#x3D; \sum n_i$。</p>
+<p>MIS 的估计量表示为：<br>$$I \approx \sum_{i&#x3D;1}^m \frac{1}{n_i} \sum_{j&#x3D;1}^{n_i} w_i(x_{i,j}) \frac{f(x_{i,j})}{p_i(x_{i,j})}$$<br>其中：</p>
+<ul>
+<li>$x_{i,j}$ 是从第 $i$ 个分布 $p_i$ 中抽取的第 $j$ 个样本。</li>
+<li>$w_i(x)$ 是<strong>权重函数</strong>，其关键作用是<strong>平衡不同采样方法在某个特定点 $x$ 上的贡献</strong>。所有权重函数必须满足 $\sum_{i&#x3D;1}^m w_i(x) &#x3D; 1$（当 $f(x) \neq 0$）。</li>
+</ul>
+<h4 id="关键：权重函数-w-i-x"><a href="#关键：权重函数-w-i-x" class="headerlink" title="关键：权重函数 $w_i(x)$"></a>关键：权重函数 $w_i(x)$</h4><p>权重函数的设计是 MIS 的精髓。一个好的权重函数应该：</p>
+<ul>
+<li>在某种采样策略表现好的地方，给予该策略产生的样本更高的权重。</li>
+<li>在某种采样策略表现差的地方（即该策略的概率密度函数值很小），降低其权重，以避免产生巨大的重要性权重（$f(x)&#x2F;p_i(x)$）。</li>
+</ul>
+<p>最著名和常用的权重函数是<strong>平衡启发式（Balance Heuristic）</strong>：<br>$$w_i(x) &#x3D; \frac{n_i p_i(x)}{\sum_k n_k p_k(x)}$$</p>
+<p>将其代入 MIS 公式，得到：<br>$$I \approx \sum_{i&#x3D;1}^m \frac{1}{n_i} \sum_{j&#x3D;1}^{n_i} \frac{f(x_{i,j})}{\sum_k n_k p_k(x_{i,j})} \approx \frac{1}{N} \sum_{i&#x3D;1}^m \sum_{j&#x3D;1}^{n_i} \frac{f(x_{i,j})}{\sum_k (n_k &#x2F; N) p_k(x_{i,j})}$$</p>
+<p>平衡启发式在实践中效果非常好，它几乎总是比使用任何一种单一采样策略的方差要低。</p>
+<h4 id="例子：渲染中的直接光照（再次）"><a href="#例子：渲染中的直接光照（再次）" class="headerlink" title="例子：渲染中的直接光照（再次）"></a>例子：渲染中的直接光照（再次）</h4><p>计算光照积分 $L &#x3D; \int L_i(light) * BRDF * \cos\theta  d\omega$ 时，这个函数是两部分相乘：</p>
+<ol>
+<li>**光强分布 $L_i$**：可能是一个小窗户，适合用光源采样。</li>
+<li><strong>BRDF 分布</strong>：可能是镜面反射，适合用 BRDF 采样。</li>
+</ol>
+<p>单一的重要性采样会陷入两难：</p>
+<ul>
+<li>如果用光源采样，在BRDF值很小（非镜面反射方向）的地方采样会浪费样本。</li>
+<li>如果用BRDF采样，可能会错过重要的光源。</li>
+</ul>
+<p><strong>MIS 的解决方案</strong>：<br>同时使用两种采样策略。</p>
+<ul>
+<li>策略1（$p_1$）：根据光源分布采样（多朝窗户方向采样）。</li>
+<li>策略2（$p_2$）：根据BRDF分布采样（多朝镜面反射方向采样）。</li>
+</ul>
+<p>然后使用平衡启发式权重函数将这两组样本结合起来。结果是：</p>
+<ul>
+<li>当采样方向既指向光源又是镜面反射方向时（“好”样本），两种策略的 $p_i(x)$ 都较高，权重被合理分配。</li>
+<li>当采样方向指向光源但不是镜面反射方向时，BRDF采样策略的 $p_{brdf}(x)$ 会很小，因此其样本权重 $w_{brdf}(x)$ 会被降低，避免产生噪声。</li>
+<li>反之亦然。</li>
+</ul>
+<p>这样，MIS 巧妙地结合了两种策略的优点，得到了一个方差更低、更稳定的估计结果。</p>
+<hr>
+<h3 id="总结与对比"><a href="#总结与对比" class="headerlink" title="总结与对比"></a>总结与对比</h3><table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">重要性采样 (IS)</th>
+<th align="left">多重重要性采样 (MIS)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>核心思想</strong></td>
+<td align="left">用一个好的分布 $p(x)$ 来指导采样，聚焦重要区域。</td>
+<td align="left">组合多个采样分布，用加权函数智能地结合它们的样本。</td>
+</tr>
+<tr>
+<td align="left"><strong>采样分布</strong></td>
+<td align="left">单一分布 $p(x)$</td>
+<td align="left">多个分布 $p_1(x), p_2(x), …, p_m(x)$</td>
+</tr>
+<tr>
+<td align="left"><strong>权重</strong></td>
+<td align="left">简单的重要性权重 $1&#x2F;p(x)$</td>
+<td align="left">复杂的权重函数 $w_i(x)$（如平衡启发式）</td>
+</tr>
+<tr>
+<td align="left"><strong>优点</strong></td>
+<td align="left">概念简单，在 $p(x)$ 匹配 $f(x)$ 时极其高效。</td>
+<td align="left"><strong>非常鲁棒</strong>。能有效处理由多个因素相乘组成的复杂被积函数 $f(x)$，方差显著低于任何单一策略。</td>
+</tr>
+<tr>
+<td align="left"><strong>缺点</strong></td>
+<td align="left"><strong>极度依赖 $p(x)$ 的质量</strong>。选错 $p(x)$ 会导致方差极大。</td>
+<td align="left">计算开销更大，需要计算多个 PDF 的值。</td>
+</tr>
+<tr>
+<td align="left"><strong>适用场景</strong></td>
+<td align="left">被积函数 $f(x)$ 特征明显且单一，容易找到匹配的 $p(x)$。</td>
+<td align="left">被积函数是多个函数的乘积（如渲染中的 $Lighting * BRDF$），难以用单一分布描述。</td>
+</tr>
+</tbody></table>
+<p>简单来说，<strong>重要性采样是“把所有鸡蛋放在一个篮子里，但希望这个篮子足够结实”，而多重重要性采样是“把鸡蛋分开放到几个篮子里，并且有一个智能系统来决定从哪个篮子拿鸡蛋最安全”</strong>。MIS 是重要性采样思想的重大飞跃，使其在实践中变得更加实用和强大。</p>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>28-多光源渲染方案</title>
     <url>//posts/202428/</url>
     <content><![CDATA[<p>在现代实时渲染中，处理大量动态光源是一个核心挑战。传统的 <strong>Forward Rendering（正向渲染）</strong> 在每个物体绘制时遍历所有光源计算光照，其性能开销与 <strong>物体数量 × 光源数量</strong> 成正比，因此无法高效处理大量光源。</p>
@@ -8011,123 +8128,6 @@ OutColor.w &#x3D; MiddleGreyExposureCompensation &#x2F; EyeAdaptation_GreyMult;<
 <li><strong>Unreal Engine</strong>：传统上以<strong>延迟渲染</strong>为核心，并且其<strong>光照计算也使用了分块&#x2F;集群优化</strong>。UE5 的 Lumen 等全局光照系统也构建在延迟管线之上。</li>
 </ul>
 <p><strong>结论：</strong><br>目前，<strong>Clustered Shading</strong> 被认为是处理大量动态光源最强大和通用的解决方案，无论是与正向渲染结合（Clustered Forward）还是与延迟渲染结合（Clustered Deferred），它都提供了最佳的性能和灵活性，因此被许多3A游戏和现代游戏引擎所采用。<strong>Forward+</strong> 是一个优秀的折中方案，而<strong>延迟渲染</strong>在特定需求下依然非常强大。</p>
-]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>图形</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>重要性采样及多重重要性采样</title>
-    <url>//posts/202427/</url>
-    <content><![CDATA[<p><strong>重要性采样（Importance Sampling, IS）</strong> 和<strong>多重重要性采样（Multiple Importance Sampling, MIS）</strong> 技术在蒙特卡洛积分中至关重要。</p>
-<p>它们主要用于计算机图形学（如光线追踪渲染）、强化学习等领域，以高效地计算复杂积分。</p>
-<hr>
-<h3 id="1-蒙特卡洛积分基础"><a href="#1-蒙特卡洛积分基础" class="headerlink" title="1. 蒙特卡洛积分基础"></a>1. 蒙特卡洛积分基础</h3><p>首先，快速回顾一下蒙特卡洛积分。我们要计算一个积分：<br>$$I &#x3D; \int_a^b f(x) dx$$</p>
-<p>蒙特卡洛积分的基本思想是<strong>随机采样</strong>。它通过从定义域内随机抽取样本 $x_i$，计算 $f(x_i)$，然后取平均值来近似积分：<br>$$I \approx \frac{1}{N} \sum_{i&#x3D;1}^N f(x_i)$$</p>
-<p>但这里有一个问题：如果 $f(x)$ 在某些区域值很大，在另一些区域值很小（例如，一个尖锐的峰值），均匀随机采样会非常低效。大多数样本会落在 $f(x)$ 值很小的“不重要”区域，对最终结果的贡献微乎其微，从而造成方差很大，收敛速度很慢。</p>
-<hr>
-<h3 id="2-重要性采样-Importance-Sampling-IS"><a href="#2-重要性采样-Importance-Sampling-IS" class="headerlink" title="2. 重要性采样 (Importance Sampling, IS)"></a>2. 重要性采样 (Importance Sampling, IS)</h3><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><p><strong>重要性采样的核心思想是：我们应该把更多的样本放在函数值大（重要）的区域，而不是均匀地放置样本。</strong></p>
-<p>换句话说，我们不再使用均匀分布进行采样，而是使用一个与我们想要积分的函数 $f(x)$ <strong>形状相似</strong>的概率分布 $p(x)$ 来生成样本。</p>
-<h4 id="数学表达"><a href="#数学表达" class="headerlink" title="数学表达"></a>数学表达</h4><p>为了修正采样分布带来的偏差，我们需要对每个样本进行加权。蒙特卡洛积分公式变为：<br>$$I &#x3D; \int f(x) dx &#x3D; \int \frac{f(x)}{p(x)} p(x) dx \approx \frac{1}{N} \sum_{i&#x3D;1}^N \frac{f(x_i)}{p(x_i)}$$<br>其中：</p>
-<ul>
-<li>$x_i$ 是从分布 $p(x)$ 中抽取的样本。</li>
-<li>$\frac{f(x_i)}{p(x_i)}$ 被称为<strong>重要性权重</strong>。</li>
-</ul>
-<h4 id="关键要求与目标"><a href="#关键要求与目标" class="headerlink" title="关键要求与目标"></a>关键要求与目标</h4><ol>
-<li><strong>$p(x)$ 必须满足</strong>：$p(x) &gt; 0$  wherever $f(x) \neq 0$。即，在 $f(x)$ 有值的任何地方，$p(x)$ 都不能为零，否则我们会忽略掉一些本应有贡献的区域。</li>
-<li><strong>理想情况</strong>：如果 $p(x)$ 正比于 $f(x)$，即 $p(x) &#x3D; c|f(x)|$，那么方差会变为 0，每个样本的贡献都是常数。这是重要性采样的终极目标。</li>
-<li><strong>现实情况</strong>：我们很难找到完美的 $p(x)$，但只要 $p(x)$ 的形状大致与 $f(x)$ 相似，就能显著降低方差。</li>
-</ol>
-<h4 id="例子：渲染中的直接光照"><a href="#例子：渲染中的直接光照" class="headerlink" title="例子：渲染中的直接光照"></a>例子：渲染中的直接光照</h4><p>在计算一个点接收到来自环境的光照时，积分函数 $f(x)$ 是光的强度乘以BRDF（材质属性）。如果光来自一个很小的窗户（一个很小的区域贡献了大部分的光），均匀地在所有方向采样会非常低效。重要性采样会选择一个与光强分布相似的 $p(x)$，让我们更多地朝窗户的方向采样，从而快速收敛。</p>
-<h4 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h4><p>重要性采样有一个致命弱点：<strong>它严重依赖于所选采样分布 $p(x)$ 的质量</strong>。<br>如果 $p(x)$ 选得不好，比如：</p>
-<ul>
-<li>$p(x)$ 的形状与 $f(x)$ 相差甚远。</li>
-<li>$f(x)$ 本身由多个不同特征的函数相乘组成（例如，$f(x) &#x3D; g(x)h(x)$），很难找到一个 $p(x)$ 同时匹配 $g(x)$ 和 $h(x)$。</li>
-</ul>
-<p>这时，重要性采样的效果可能甚至不如简单采样，方差会变得非常大。</p>
-<hr>
-<h3 id="3-多重重要性采样-Multiple-Importance-Sampling-MIS"><a href="#3-多重重要性采样-Multiple-Importance-Sampling-MIS" class="headerlink" title="3. 多重重要性采样 (Multiple Importance Sampling, MIS)"></a>3. 多重重要性采样 (Multiple Importance Sampling, MIS)</h3><h4 id="核心思想-1"><a href="#核心思想-1" class="headerlink" title="核心思想"></a>核心思想</h4><p><strong>既然很难找到一个完美的采样分布，那我们为什么不结合多个不同的采样分布呢？</strong></p>
-<p>MIS 的核心智慧在于：它允许我们使用 <strong>多种采样策略</strong>（例如，从一个分布 $p_1$ 中取 $n_1$ 个样本，从另一个分布 $p_2$ 中取 $n_2$ 个样本），然后通过一个<strong>聪明的加权函数</strong>将这些样本结合起来，从而充分利用每种策略的优势，避免其劣势。</p>
-<h4 id="数学表达-1"><a href="#数学表达-1" class="headerlink" title="数学表达"></a>数学表达</h4><p>假设我们有 $m$ 种不同的采样分布 $p_1(x), p_2(x), …, p_m(x)$。<br>从每个分布 $p_i(x)$ 中采集 $n_i$ 个样本，总样本数 $N &#x3D; \sum n_i$。</p>
-<p>MIS 的估计量表示为：<br>$$I \approx \sum_{i&#x3D;1}^m \frac{1}{n_i} \sum_{j&#x3D;1}^{n_i} w_i(x_{i,j}) \frac{f(x_{i,j})}{p_i(x_{i,j})}$$<br>其中：</p>
-<ul>
-<li>$x_{i,j}$ 是从第 $i$ 个分布 $p_i$ 中抽取的第 $j$ 个样本。</li>
-<li>$w_i(x)$ 是<strong>权重函数</strong>，其关键作用是<strong>平衡不同采样方法在某个特定点 $x$ 上的贡献</strong>。所有权重函数必须满足 $\sum_{i&#x3D;1}^m w_i(x) &#x3D; 1$（当 $f(x) \neq 0$）。</li>
-</ul>
-<h4 id="关键：权重函数-w-i-x"><a href="#关键：权重函数-w-i-x" class="headerlink" title="关键：权重函数 $w_i(x)$"></a>关键：权重函数 $w_i(x)$</h4><p>权重函数的设计是 MIS 的精髓。一个好的权重函数应该：</p>
-<ul>
-<li>在某种采样策略表现好的地方，给予该策略产生的样本更高的权重。</li>
-<li>在某种采样策略表现差的地方（即该策略的概率密度函数值很小），降低其权重，以避免产生巨大的重要性权重（$f(x)&#x2F;p_i(x)$）。</li>
-</ul>
-<p>最著名和常用的权重函数是<strong>平衡启发式（Balance Heuristic）</strong>：<br>$$w_i(x) &#x3D; \frac{n_i p_i(x)}{\sum_k n_k p_k(x)}$$</p>
-<p>将其代入 MIS 公式，得到：<br>$$I \approx \sum_{i&#x3D;1}^m \frac{1}{n_i} \sum_{j&#x3D;1}^{n_i} \frac{f(x_{i,j})}{\sum_k n_k p_k(x_{i,j})} \approx \frac{1}{N} \sum_{i&#x3D;1}^m \sum_{j&#x3D;1}^{n_i} \frac{f(x_{i,j})}{\sum_k (n_k &#x2F; N) p_k(x_{i,j})}$$</p>
-<p>平衡启发式在实践中效果非常好，它几乎总是比使用任何一种单一采样策略的方差要低。</p>
-<h4 id="例子：渲染中的直接光照（再次）"><a href="#例子：渲染中的直接光照（再次）" class="headerlink" title="例子：渲染中的直接光照（再次）"></a>例子：渲染中的直接光照（再次）</h4><p>计算光照积分 $L &#x3D; \int L_i(light) * BRDF * \cos\theta  d\omega$ 时，这个函数是两部分相乘：</p>
-<ol>
-<li>**光强分布 $L_i$**：可能是一个小窗户，适合用光源采样。</li>
-<li><strong>BRDF 分布</strong>：可能是镜面反射，适合用 BRDF 采样。</li>
-</ol>
-<p>单一的重要性采样会陷入两难：</p>
-<ul>
-<li>如果用光源采样，在BRDF值很小（非镜面反射方向）的地方采样会浪费样本。</li>
-<li>如果用BRDF采样，可能会错过重要的光源。</li>
-</ul>
-<p><strong>MIS 的解决方案</strong>：<br>同时使用两种采样策略。</p>
-<ul>
-<li>策略1（$p_1$）：根据光源分布采样（多朝窗户方向采样）。</li>
-<li>策略2（$p_2$）：根据BRDF分布采样（多朝镜面反射方向采样）。</li>
-</ul>
-<p>然后使用平衡启发式权重函数将这两组样本结合起来。结果是：</p>
-<ul>
-<li>当采样方向既指向光源又是镜面反射方向时（“好”样本），两种策略的 $p_i(x)$ 都较高，权重被合理分配。</li>
-<li>当采样方向指向光源但不是镜面反射方向时，BRDF采样策略的 $p_{brdf}(x)$ 会很小，因此其样本权重 $w_{brdf}(x)$ 会被降低，避免产生噪声。</li>
-<li>反之亦然。</li>
-</ul>
-<p>这样，MIS 巧妙地结合了两种策略的优点，得到了一个方差更低、更稳定的估计结果。</p>
-<hr>
-<h3 id="总结与对比"><a href="#总结与对比" class="headerlink" title="总结与对比"></a>总结与对比</h3><table>
-<thead>
-<tr>
-<th align="left">特性</th>
-<th align="left">重要性采样 (IS)</th>
-<th align="left">多重重要性采样 (MIS)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>核心思想</strong></td>
-<td align="left">用一个好的分布 $p(x)$ 来指导采样，聚焦重要区域。</td>
-<td align="left">组合多个采样分布，用加权函数智能地结合它们的样本。</td>
-</tr>
-<tr>
-<td align="left"><strong>采样分布</strong></td>
-<td align="left">单一分布 $p(x)$</td>
-<td align="left">多个分布 $p_1(x), p_2(x), …, p_m(x)$</td>
-</tr>
-<tr>
-<td align="left"><strong>权重</strong></td>
-<td align="left">简单的重要性权重 $1&#x2F;p(x)$</td>
-<td align="left">复杂的权重函数 $w_i(x)$（如平衡启发式）</td>
-</tr>
-<tr>
-<td align="left"><strong>优点</strong></td>
-<td align="left">概念简单，在 $p(x)$ 匹配 $f(x)$ 时极其高效。</td>
-<td align="left"><strong>非常鲁棒</strong>。能有效处理由多个因素相乘组成的复杂被积函数 $f(x)$，方差显著低于任何单一策略。</td>
-</tr>
-<tr>
-<td align="left"><strong>缺点</strong></td>
-<td align="left"><strong>极度依赖 $p(x)$ 的质量</strong>。选错 $p(x)$ 会导致方差极大。</td>
-<td align="left">计算开销更大，需要计算多个 PDF 的值。</td>
-</tr>
-<tr>
-<td align="left"><strong>适用场景</strong></td>
-<td align="left">被积函数 $f(x)$ 特征明显且单一，容易找到匹配的 $p(x)$。</td>
-<td align="left">被积函数是多个函数的乘积（如渲染中的 $Lighting * BRDF$），难以用单一分布描述。</td>
-</tr>
-</tbody></table>
-<p>简单来说，<strong>重要性采样是“把所有鸡蛋放在一个篮子里，但希望这个篮子足够结实”，而多重重要性采样是“把鸡蛋分开放到几个篮子里，并且有一个智能系统来决定从哪个篮子拿鸡蛋最安全”</strong>。MIS 是重要性采样思想的重大飞跃，使其在实践中变得更加实用和强大。</p>
 ]]></content>
       <categories>
         <category>工业</category>
