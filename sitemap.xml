@@ -146,18 +146,18 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/201617/</loc>
+    <loc>https://blog.laxdu.com/posts/201618/</loc>
     
-    <lastmod>2016-05-17</lastmod>
+    <lastmod>2016-05-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/201618/</loc>
+    <loc>https://blog.laxdu.com/posts/201617/</loc>
     
-    <lastmod>2016-05-03</lastmod>
+    <lastmod>2016-05-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -245,18 +245,18 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202001/</loc>
+    <loc>https://blog.laxdu.com/posts/202002/</loc>
     
-    <lastmod>2020-06-13</lastmod>
+    <lastmod>2020-04-30</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202002/</loc>
+    <loc>https://blog.laxdu.com/posts/202001/</loc>
     
-    <lastmod>2020-04-30</lastmod>
+    <lastmod>2020-06-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -479,18 +479,18 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202415/</loc>
+    <loc>https://blog.laxdu.com/posts/202420/</loc>
     
-    <lastmod>2024-07-16</lastmod>
+    <lastmod>2024-07-26</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202420/</loc>
+    <loc>https://blog.laxdu.com/posts/202415/</loc>
     
-    <lastmod>2024-07-26</lastmod>
+    <lastmod>2024-07-16</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -515,18 +515,18 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202425/</loc>
+    <loc>https://blog.laxdu.com/posts/202424/</loc>
     
-    <lastmod>2024-10-16</lastmod>
+    <lastmod>2024-10-11</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/posts/202424/</loc>
+    <loc>https://blog.laxdu.com/posts/202425/</loc>
     
-    <lastmod>2024-10-11</lastmod>
+    <lastmod>2024-10-16</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -614,7 +614,7 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/links/index.html</loc>
+    <loc>https://blog.laxdu.com/links/life.json</loc>
     
     <lastmod>2026-01-30</lastmod>
     
@@ -623,7 +623,7 @@
   </url>
   
   <url>
-    <loc>https://blog.laxdu.com/links/life.json</loc>
+    <loc>https://blog.laxdu.com/links/index.html</loc>
     
     <lastmod>2026-01-30</lastmod>
     
