@@ -1260,77 +1260,6 @@ int countFIFO(size_t max_cache_size, std::vector&lt;int&gt;&amp; nums)
       </tags>
   </entry>
   <entry>
-    <title>Cocos2dx Android.mk</title>
-    <url>//posts/201618/</url>
-    <content><![CDATA[<p>用之前写过的Android.mk为例（见下面）来讲：</p>
-<h3 id="Vuforia-prebuilt模块"><a href="#Vuforia-prebuilt模块" class="headerlink" title="Vuforia-prebuilt模块"></a>Vuforia-prebuilt模块</h3><p>第一个模块Vuforia-prebuilt，是将已经编译好的.so以预编译库的形式添加进该工程，模块名为Vuforia-prebuilt，需要注意的是一个模块只能添加一个.so.<br><strong>LOCAL_EXPORT_C_INCLUDES</strong> 是头文件的路径，包含头文件的路径同时，并导出这个路径，意思就是说，如果有个名为A模块需要以LOCAL_STATIC_LIBRARIES的形式添加这个B模块，A模块就不需要添加这个B模块的include的路径，因为B模块的include路径已经以LOCAL_EXPORT_C_INCLUDES的形式一并导出了  </p>
-<span id="more"></span>
-
-<h3 id="OpenCV-prebuilt模块"><a href="#OpenCV-prebuilt模块" class="headerlink" title="OpenCV-prebuilt模块"></a>OpenCV-prebuilt模块</h3><p>第二个模块OpenCV-prebuilt，同上  </p>
-<h3 id="cocos2dcpp-shared模块"><a href="#cocos2dcpp-shared模块" class="headerlink" title="cocos2dcpp_shared模块"></a>cocos2dcpp_shared模块</h3><p>第三个模块cocos2dcpp_shared，这是汇总了其他模块的模块，讲到笔记的重点了，就是import-add-path，这是添加NDK_MODULE_PATH的意思，NDK编译的时候，需要指定的模块路径，当Android.mk中使用**$(call import-module, XXX)<strong>，函数引入外部模块时会用到，用来指示该去哪里找这个文件，比如这个cocos2dcpp_shared中，有个</strong>$(call import-add-path, $(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;Classes)**，如果我们在Classes&#x2F;FaceTracker文件下有个Android.mk文件，并且该文件里有个mytrack_static名字的模块，那么我们只需要在当前Android.mk（并非Classes目录下的）文件里的末端加上一句$(call import-module, FaceTracker)，那么它就会在FaceTracker目录(这个目录就是相对Classes目录的)下去找含有mytrack_static模块的Android.mk，并编译。<br>NOTES:当然为了简洁，我在笔记里就直接用相对cocos2d目录来写FaceTracker目录里的模块，也就是最后一句是$(call import-module, ..&#x2F;Classes&#x2F;FaceTracker)而不是$(call import-module, FaceTracker)</p>
-<pre class="language-make" data-language="make"><code class="language-make">LOCAL_PATH :&#x3D; $(call my-dir)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE :&#x3D; Vuforia-prebuilt
-LOCAL_SRC_FILES :&#x3D; thirdpartylibs&#x2F;libVuforia.so
-#LOCAL_C_INCLUDES :&#x3D; E:&#x2F;Libraries&#x2F;vuforia-sdk-android-5-5-9&#x2F;build&#x2F;include
-LOCAL_EXPORT_C_INCLUDES :&#x3D; E:&#x2F;Libraries&#x2F;vuforia-sdk-android-5-5-9&#x2F;build&#x2F;include
-include $(PREBUILT_SHARED_LIBRARY)
-
-#include $(CLEAR_VARS)
-#LOCAL_MODULE :&#x3D; OpenCV-prebuilt
-#LOCAL_SRC_FILES :&#x3D; thirdpartylibs&#x2F;libopencv_java.so
-##LOCAL_EXPORT_C_INCLUDES :&#x3D; E:&#x2F;Libraries&#x2F;opencv2410&#x2F;build&#x2F;include
-#include $(PREBUILT_SHARED_LIBRARY)
-
-include $(CLEAR_VARS)
-#$(call import-add-path,$(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;Classes)
-$(call import-add-path,$(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;cocos2d)
-$(call import-add-path,$(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;cocos2d&#x2F;external)
-$(call import-add-path,$(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;cocos2d&#x2F;cocos)
-
-LOCAL_MODULE :&#x3D; cocos2dcpp_shared
-
-LOCAL_MODULE_FILENAME :&#x3D; libcocos2dcpp
-
-LOCAL_SRC_FILES :&#x3D; hellocpp&#x2F;main.cpp \
-                   ..&#x2F;..&#x2F;..&#x2F;Classes&#x2F;AppDelegate.cpp \
-                   ..&#x2F;..&#x2F;..&#x2F;Classes&#x2F;HelloWorldScene.cpp
-
-LOCAL_C_INCLUDES :&#x3D; $(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;Classes \
-                                                $(LOCAL_PATH)..&#x2F;..&#x2F;..&#x2F;Classes&#x2F;FaceTracker
-
-# _COCOS_HEADER_ANDROID_BEGIN
-# _COCOS_HEADER_ANDROID_END
-
-
-LOCAL_STATIC_LIBRARIES :&#x3D; cocos2dx_static
-LOCAL_STATIC_LIBRARIES +&#x3D; mytrack_static
-LOCAL_SHARED_LIBRARIES +&#x3D; Vuforia-prebuilt
-#LOCAL_SHARED_LIBRARIES +&#x3D; OpenCV-prebuilt
-
-
-# _COCOS_LIB_ANDROID_BEGIN
-# _COCOS_LIB_ANDROID_END
-include $(BUILD_SHARED_LIBRARY)
-
-$(call import-module,.)
-$(call import-module,..&#x2F;Classes&#x2F;FaceTracker)
-
-# _COCOS_LIB_IMPORT_ANDROID_BEGIN
-# _COCOS_LIB_IMPORT_ANDROID_END
-</code></pre>
-
-
-]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>图形</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Cocos2dx中Android相机调用</title>
     <url>//posts/201617/</url>
     <content><![CDATA[<p>前言：因项目需求，需要在Cocos2dx中调用Android摄像头，但Cocos2dx中自身并没有API可调用，于是产生了这篇博文，这应该是我第一篇正式写博文，如有问题，请大家多多指教	</p>
@@ -1801,6 +1730,77 @@ OPENCV_INSTALL_MODULES :&#x3D;on</code></pre>
 &#125;</code></pre>
 
 <p><figure><img data-src="https://cdn.laxdu.com/ImageHosting/C/Cocos2dx-Camera/OpenCVCamera.webp" alt="最终的效果图"><figcaption aria-hidden="true">最终的效果图</figcaption></figure>  </p>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cocos2dx Android.mk</title>
+    <url>//posts/201618/</url>
+    <content><![CDATA[<p>用之前写过的Android.mk为例（见下面）来讲：</p>
+<h3 id="Vuforia-prebuilt模块"><a href="#Vuforia-prebuilt模块" class="headerlink" title="Vuforia-prebuilt模块"></a>Vuforia-prebuilt模块</h3><p>第一个模块Vuforia-prebuilt，是将已经编译好的.so以预编译库的形式添加进该工程，模块名为Vuforia-prebuilt，需要注意的是一个模块只能添加一个.so.<br><strong>LOCAL_EXPORT_C_INCLUDES</strong> 是头文件的路径，包含头文件的路径同时，并导出这个路径，意思就是说，如果有个名为A模块需要以LOCAL_STATIC_LIBRARIES的形式添加这个B模块，A模块就不需要添加这个B模块的include的路径，因为B模块的include路径已经以LOCAL_EXPORT_C_INCLUDES的形式一并导出了  </p>
+<span id="more"></span>
+
+<h3 id="OpenCV-prebuilt模块"><a href="#OpenCV-prebuilt模块" class="headerlink" title="OpenCV-prebuilt模块"></a>OpenCV-prebuilt模块</h3><p>第二个模块OpenCV-prebuilt，同上  </p>
+<h3 id="cocos2dcpp-shared模块"><a href="#cocos2dcpp-shared模块" class="headerlink" title="cocos2dcpp_shared模块"></a>cocos2dcpp_shared模块</h3><p>第三个模块cocos2dcpp_shared，这是汇总了其他模块的模块，讲到笔记的重点了，就是import-add-path，这是添加NDK_MODULE_PATH的意思，NDK编译的时候，需要指定的模块路径，当Android.mk中使用**$(call import-module, XXX)<strong>，函数引入外部模块时会用到，用来指示该去哪里找这个文件，比如这个cocos2dcpp_shared中，有个</strong>$(call import-add-path, $(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;Classes)**，如果我们在Classes&#x2F;FaceTracker文件下有个Android.mk文件，并且该文件里有个mytrack_static名字的模块，那么我们只需要在当前Android.mk（并非Classes目录下的）文件里的末端加上一句$(call import-module, FaceTracker)，那么它就会在FaceTracker目录(这个目录就是相对Classes目录的)下去找含有mytrack_static模块的Android.mk，并编译。<br>NOTES:当然为了简洁，我在笔记里就直接用相对cocos2d目录来写FaceTracker目录里的模块，也就是最后一句是$(call import-module, ..&#x2F;Classes&#x2F;FaceTracker)而不是$(call import-module, FaceTracker)</p>
+<pre class="language-make" data-language="make"><code class="language-make">LOCAL_PATH :&#x3D; $(call my-dir)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE :&#x3D; Vuforia-prebuilt
+LOCAL_SRC_FILES :&#x3D; thirdpartylibs&#x2F;libVuforia.so
+#LOCAL_C_INCLUDES :&#x3D; E:&#x2F;Libraries&#x2F;vuforia-sdk-android-5-5-9&#x2F;build&#x2F;include
+LOCAL_EXPORT_C_INCLUDES :&#x3D; E:&#x2F;Libraries&#x2F;vuforia-sdk-android-5-5-9&#x2F;build&#x2F;include
+include $(PREBUILT_SHARED_LIBRARY)
+
+#include $(CLEAR_VARS)
+#LOCAL_MODULE :&#x3D; OpenCV-prebuilt
+#LOCAL_SRC_FILES :&#x3D; thirdpartylibs&#x2F;libopencv_java.so
+##LOCAL_EXPORT_C_INCLUDES :&#x3D; E:&#x2F;Libraries&#x2F;opencv2410&#x2F;build&#x2F;include
+#include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+#$(call import-add-path,$(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;Classes)
+$(call import-add-path,$(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;cocos2d)
+$(call import-add-path,$(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;cocos2d&#x2F;external)
+$(call import-add-path,$(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;cocos2d&#x2F;cocos)
+
+LOCAL_MODULE :&#x3D; cocos2dcpp_shared
+
+LOCAL_MODULE_FILENAME :&#x3D; libcocos2dcpp
+
+LOCAL_SRC_FILES :&#x3D; hellocpp&#x2F;main.cpp \
+                   ..&#x2F;..&#x2F;..&#x2F;Classes&#x2F;AppDelegate.cpp \
+                   ..&#x2F;..&#x2F;..&#x2F;Classes&#x2F;HelloWorldScene.cpp
+
+LOCAL_C_INCLUDES :&#x3D; $(LOCAL_PATH)&#x2F;..&#x2F;..&#x2F;..&#x2F;Classes \
+                                                $(LOCAL_PATH)..&#x2F;..&#x2F;..&#x2F;Classes&#x2F;FaceTracker
+
+# _COCOS_HEADER_ANDROID_BEGIN
+# _COCOS_HEADER_ANDROID_END
+
+
+LOCAL_STATIC_LIBRARIES :&#x3D; cocos2dx_static
+LOCAL_STATIC_LIBRARIES +&#x3D; mytrack_static
+LOCAL_SHARED_LIBRARIES +&#x3D; Vuforia-prebuilt
+#LOCAL_SHARED_LIBRARIES +&#x3D; OpenCV-prebuilt
+
+
+# _COCOS_LIB_ANDROID_BEGIN
+# _COCOS_LIB_ANDROID_END
+include $(BUILD_SHARED_LIBRARY)
+
+$(call import-module,.)
+$(call import-module,..&#x2F;Classes&#x2F;FaceTracker)
+
+# _COCOS_LIB_IMPORT_ANDROID_BEGIN
+# _COCOS_LIB_IMPORT_ANDROID_END
+</code></pre>
+
+
 ]]></content>
       <categories>
         <category>工业</category>
@@ -2598,18 +2598,6 @@ brew install glfw3</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Hello Twikoo</title>
-    <url>//posts/202002/</url>
-    <content><![CDATA[<p>测试Twikoo评论系统</p>
-<span id="more"></span>]]></content>
-      <categories>
-        <category>随记</category>
-      </categories>
-      <tags>
-        <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>平台工具总结篇</title>
     <url>//posts/202001/</url>
     <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/A/Altas/altas3005.webp">  </p>
@@ -2726,6 +2714,18 @@ brew install glfw3</code></pre>
       </categories>
       <tags>
         <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello Twikoo</title>
+    <url>//posts/202002/</url>
+    <content><![CDATA[<p>测试Twikoo评论系统</p>
+<span id="more"></span>]]></content>
+      <categories>
+        <category>随记</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -6635,23 +6635,6 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
       </tags>
   </entry>
   <entry>
-    <title>平台资源总结篇</title>
-    <url>//posts/202420/</url>
-    <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/A/Altas/82bcb8592d4948b3996d968bae0bb7ff_640.webp">  </p>
-<span id="more"></span>  
-
-<p>网盘资源搜索引擎, 不定时更新  </p>
-<h3 id="盘搜"><a href="#盘搜" class="headerlink" title="盘搜"></a>盘搜</h3><p>1.<span class="exturl" data-url="aHR0cHM6Ly9hbGlwYW5zb3UuY29tLw==">猫狸盘搜<i class="fa fa-external-link-alt"></i></span><br>2.<span class="exturl" data-url="aHR0cHM6Ly9qdWp1c28uY29tLw==">优聚搜<i class="fa fa-external-link-alt"></i></span><br>3.<span class="exturl" data-url="aHR0cHM6Ly9zaGFyZXJ3LmxhbnpvdWkuY29tL2IwYWdpcXp5Zg==">阿里网盘TV版<i class="fa fa-external-link-alt"></i></span><br>4.<span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW5zby5jb20v">Up云搜1<i class="fa fa-external-link-alt"></i></span>, <span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW5zbzMuY29tLw==">Up云搜3<i class="fa fa-external-link-alt"></i></span>  </p>
-<h3 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h3><p>1.<span class="exturl" data-url="aHR0cHM6Ly9waW96LmNuLw==">夸克短剧<i class="fa fa-external-link-alt"></i></span>  </p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>随记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VDB相关阅读资料</title>
     <url>//posts/202415/</url>
     <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/V/VDB/banner.webp">  </p>
@@ -6963,6 +6946,23 @@ gl_FragColor <span class="token operator">=</span> <span class="token function">
       </categories>
       <tags>
         <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>平台资源总结篇</title>
+    <url>//posts/202420/</url>
+    <content><![CDATA[<p><img data-src="https://cdn.laxdu.com/ImageHosting/A/Altas/82bcb8592d4948b3996d968bae0bb7ff_640.webp">  </p>
+<span id="more"></span>  
+
+<p>网盘资源搜索引擎, 不定时更新  </p>
+<h3 id="盘搜"><a href="#盘搜" class="headerlink" title="盘搜"></a>盘搜</h3><p>1.<span class="exturl" data-url="aHR0cHM6Ly9hbGlwYW5zb3UuY29tLw==">猫狸盘搜<i class="fa fa-external-link-alt"></i></span><br>2.<span class="exturl" data-url="aHR0cHM6Ly9qdWp1c28uY29tLw==">优聚搜<i class="fa fa-external-link-alt"></i></span><br>3.<span class="exturl" data-url="aHR0cHM6Ly9zaGFyZXJ3LmxhbnpvdWkuY29tL2IwYWdpcXp5Zg==">阿里网盘TV版<i class="fa fa-external-link-alt"></i></span><br>4.<span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW5zby5jb20v">Up云搜1<i class="fa fa-external-link-alt"></i></span>, <span class="exturl" data-url="aHR0cHM6Ly93d3cudXB5dW5zbzMuY29tLw==">Up云搜3<i class="fa fa-external-link-alt"></i></span>  </p>
+<h3 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h3><p>1.<span class="exturl" data-url="aHR0cHM6Ly9waW96LmNuLw==">夸克短剧<i class="fa fa-external-link-alt"></i></span>  </p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>随记</tag>
       </tags>
   </entry>
   <entry>
@@ -7879,123 +7879,6 @@ OutColor.w &#x3D; MiddleGreyExposureCompensation &#x2F; EyeAdaptation_GreyMult;<
       </tags>
   </entry>
   <entry>
-    <title>重要性采样及多重重要性采样</title>
-    <url>//posts/202427/</url>
-    <content><![CDATA[<p><strong>重要性采样（Importance Sampling, IS）</strong> 和<strong>多重重要性采样（Multiple Importance Sampling, MIS）</strong> 技术在蒙特卡洛积分中至关重要。</p>
-<p>它们主要用于计算机图形学（如光线追踪渲染）、强化学习等领域，以高效地计算复杂积分。</p>
-<hr>
-<h3 id="1-蒙特卡洛积分基础"><a href="#1-蒙特卡洛积分基础" class="headerlink" title="1. 蒙特卡洛积分基础"></a>1. 蒙特卡洛积分基础</h3><p>首先，快速回顾一下蒙特卡洛积分。我们要计算一个积分：<br>$$I &#x3D; \int_a^b f(x) dx$$</p>
-<p>蒙特卡洛积分的基本思想是<strong>随机采样</strong>。它通过从定义域内随机抽取样本 $x_i$，计算 $f(x_i)$，然后取平均值来近似积分：<br>$$I \approx \frac{1}{N} \sum_{i&#x3D;1}^N f(x_i)$$</p>
-<p>但这里有一个问题：如果 $f(x)$ 在某些区域值很大，在另一些区域值很小（例如，一个尖锐的峰值），均匀随机采样会非常低效。大多数样本会落在 $f(x)$ 值很小的“不重要”区域，对最终结果的贡献微乎其微，从而造成方差很大，收敛速度很慢。</p>
-<hr>
-<h3 id="2-重要性采样-Importance-Sampling-IS"><a href="#2-重要性采样-Importance-Sampling-IS" class="headerlink" title="2. 重要性采样 (Importance Sampling, IS)"></a>2. 重要性采样 (Importance Sampling, IS)</h3><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><p><strong>重要性采样的核心思想是：我们应该把更多的样本放在函数值大（重要）的区域，而不是均匀地放置样本。</strong></p>
-<p>换句话说，我们不再使用均匀分布进行采样，而是使用一个与我们想要积分的函数 $f(x)$ <strong>形状相似</strong>的概率分布 $p(x)$ 来生成样本。</p>
-<h4 id="数学表达"><a href="#数学表达" class="headerlink" title="数学表达"></a>数学表达</h4><p>为了修正采样分布带来的偏差，我们需要对每个样本进行加权。蒙特卡洛积分公式变为：<br>$$I &#x3D; \int f(x) dx &#x3D; \int \frac{f(x)}{p(x)} p(x) dx \approx \frac{1}{N} \sum_{i&#x3D;1}^N \frac{f(x_i)}{p(x_i)}$$<br>其中：</p>
-<ul>
-<li>$x_i$ 是从分布 $p(x)$ 中抽取的样本。</li>
-<li>$\frac{f(x_i)}{p(x_i)}$ 被称为<strong>重要性权重</strong>。</li>
-</ul>
-<h4 id="关键要求与目标"><a href="#关键要求与目标" class="headerlink" title="关键要求与目标"></a>关键要求与目标</h4><ol>
-<li><strong>$p(x)$ 必须满足</strong>：$p(x) &gt; 0$  wherever $f(x) \neq 0$。即，在 $f(x)$ 有值的任何地方，$p(x)$ 都不能为零，否则我们会忽略掉一些本应有贡献的区域。</li>
-<li><strong>理想情况</strong>：如果 $p(x)$ 正比于 $f(x)$，即 $p(x) &#x3D; c|f(x)|$，那么方差会变为 0，每个样本的贡献都是常数。这是重要性采样的终极目标。</li>
-<li><strong>现实情况</strong>：我们很难找到完美的 $p(x)$，但只要 $p(x)$ 的形状大致与 $f(x)$ 相似，就能显著降低方差。</li>
-</ol>
-<h4 id="例子：渲染中的直接光照"><a href="#例子：渲染中的直接光照" class="headerlink" title="例子：渲染中的直接光照"></a>例子：渲染中的直接光照</h4><p>在计算一个点接收到来自环境的光照时，积分函数 $f(x)$ 是光的强度乘以BRDF（材质属性）。如果光来自一个很小的窗户（一个很小的区域贡献了大部分的光），均匀地在所有方向采样会非常低效。重要性采样会选择一个与光强分布相似的 $p(x)$，让我们更多地朝窗户的方向采样，从而快速收敛。</p>
-<h4 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h4><p>重要性采样有一个致命弱点：<strong>它严重依赖于所选采样分布 $p(x)$ 的质量</strong>。<br>如果 $p(x)$ 选得不好，比如：</p>
-<ul>
-<li>$p(x)$ 的形状与 $f(x)$ 相差甚远。</li>
-<li>$f(x)$ 本身由多个不同特征的函数相乘组成（例如，$f(x) &#x3D; g(x)h(x)$），很难找到一个 $p(x)$ 同时匹配 $g(x)$ 和 $h(x)$。</li>
-</ul>
-<p>这时，重要性采样的效果可能甚至不如简单采样，方差会变得非常大。</p>
-<hr>
-<h3 id="3-多重重要性采样-Multiple-Importance-Sampling-MIS"><a href="#3-多重重要性采样-Multiple-Importance-Sampling-MIS" class="headerlink" title="3. 多重重要性采样 (Multiple Importance Sampling, MIS)"></a>3. 多重重要性采样 (Multiple Importance Sampling, MIS)</h3><h4 id="核心思想-1"><a href="#核心思想-1" class="headerlink" title="核心思想"></a>核心思想</h4><p><strong>既然很难找到一个完美的采样分布，那我们为什么不结合多个不同的采样分布呢？</strong></p>
-<p>MIS 的核心智慧在于：它允许我们使用 <strong>多种采样策略</strong>（例如，从一个分布 $p_1$ 中取 $n_1$ 个样本，从另一个分布 $p_2$ 中取 $n_2$ 个样本），然后通过一个<strong>聪明的加权函数</strong>将这些样本结合起来，从而充分利用每种策略的优势，避免其劣势。</p>
-<h4 id="数学表达-1"><a href="#数学表达-1" class="headerlink" title="数学表达"></a>数学表达</h4><p>假设我们有 $m$ 种不同的采样分布 $p_1(x), p_2(x), …, p_m(x)$。<br>从每个分布 $p_i(x)$ 中采集 $n_i$ 个样本，总样本数 $N &#x3D; \sum n_i$。</p>
-<p>MIS 的估计量表示为：<br>$$I \approx \sum_{i&#x3D;1}^m \frac{1}{n_i} \sum_{j&#x3D;1}^{n_i} w_i(x_{i,j}) \frac{f(x_{i,j})}{p_i(x_{i,j})}$$<br>其中：</p>
-<ul>
-<li>$x_{i,j}$ 是从第 $i$ 个分布 $p_i$ 中抽取的第 $j$ 个样本。</li>
-<li>$w_i(x)$ 是<strong>权重函数</strong>，其关键作用是<strong>平衡不同采样方法在某个特定点 $x$ 上的贡献</strong>。所有权重函数必须满足 $\sum_{i&#x3D;1}^m w_i(x) &#x3D; 1$（当 $f(x) \neq 0$）。</li>
-</ul>
-<h4 id="关键：权重函数-w-i-x"><a href="#关键：权重函数-w-i-x" class="headerlink" title="关键：权重函数 $w_i(x)$"></a>关键：权重函数 $w_i(x)$</h4><p>权重函数的设计是 MIS 的精髓。一个好的权重函数应该：</p>
-<ul>
-<li>在某种采样策略表现好的地方，给予该策略产生的样本更高的权重。</li>
-<li>在某种采样策略表现差的地方（即该策略的概率密度函数值很小），降低其权重，以避免产生巨大的重要性权重（$f(x)&#x2F;p_i(x)$）。</li>
-</ul>
-<p>最著名和常用的权重函数是<strong>平衡启发式（Balance Heuristic）</strong>：<br>$$w_i(x) &#x3D; \frac{n_i p_i(x)}{\sum_k n_k p_k(x)}$$</p>
-<p>将其代入 MIS 公式，得到：<br>$$I \approx \sum_{i&#x3D;1}^m \frac{1}{n_i} \sum_{j&#x3D;1}^{n_i} \frac{f(x_{i,j})}{\sum_k n_k p_k(x_{i,j})} \approx \frac{1}{N} \sum_{i&#x3D;1}^m \sum_{j&#x3D;1}^{n_i} \frac{f(x_{i,j})}{\sum_k (n_k &#x2F; N) p_k(x_{i,j})}$$</p>
-<p>平衡启发式在实践中效果非常好，它几乎总是比使用任何一种单一采样策略的方差要低。</p>
-<h4 id="例子：渲染中的直接光照（再次）"><a href="#例子：渲染中的直接光照（再次）" class="headerlink" title="例子：渲染中的直接光照（再次）"></a>例子：渲染中的直接光照（再次）</h4><p>计算光照积分 $L &#x3D; \int L_i(light) * BRDF * \cos\theta  d\omega$ 时，这个函数是两部分相乘：</p>
-<ol>
-<li>**光强分布 $L_i$**：可能是一个小窗户，适合用光源采样。</li>
-<li><strong>BRDF 分布</strong>：可能是镜面反射，适合用 BRDF 采样。</li>
-</ol>
-<p>单一的重要性采样会陷入两难：</p>
-<ul>
-<li>如果用光源采样，在BRDF值很小（非镜面反射方向）的地方采样会浪费样本。</li>
-<li>如果用BRDF采样，可能会错过重要的光源。</li>
-</ul>
-<p><strong>MIS 的解决方案</strong>：<br>同时使用两种采样策略。</p>
-<ul>
-<li>策略1（$p_1$）：根据光源分布采样（多朝窗户方向采样）。</li>
-<li>策略2（$p_2$）：根据BRDF分布采样（多朝镜面反射方向采样）。</li>
-</ul>
-<p>然后使用平衡启发式权重函数将这两组样本结合起来。结果是：</p>
-<ul>
-<li>当采样方向既指向光源又是镜面反射方向时（“好”样本），两种策略的 $p_i(x)$ 都较高，权重被合理分配。</li>
-<li>当采样方向指向光源但不是镜面反射方向时，BRDF采样策略的 $p_{brdf}(x)$ 会很小，因此其样本权重 $w_{brdf}(x)$ 会被降低，避免产生噪声。</li>
-<li>反之亦然。</li>
-</ul>
-<p>这样，MIS 巧妙地结合了两种策略的优点，得到了一个方差更低、更稳定的估计结果。</p>
-<hr>
-<h3 id="总结与对比"><a href="#总结与对比" class="headerlink" title="总结与对比"></a>总结与对比</h3><table>
-<thead>
-<tr>
-<th align="left">特性</th>
-<th align="left">重要性采样 (IS)</th>
-<th align="left">多重重要性采样 (MIS)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>核心思想</strong></td>
-<td align="left">用一个好的分布 $p(x)$ 来指导采样，聚焦重要区域。</td>
-<td align="left">组合多个采样分布，用加权函数智能地结合它们的样本。</td>
-</tr>
-<tr>
-<td align="left"><strong>采样分布</strong></td>
-<td align="left">单一分布 $p(x)$</td>
-<td align="left">多个分布 $p_1(x), p_2(x), …, p_m(x)$</td>
-</tr>
-<tr>
-<td align="left"><strong>权重</strong></td>
-<td align="left">简单的重要性权重 $1&#x2F;p(x)$</td>
-<td align="left">复杂的权重函数 $w_i(x)$（如平衡启发式）</td>
-</tr>
-<tr>
-<td align="left"><strong>优点</strong></td>
-<td align="left">概念简单，在 $p(x)$ 匹配 $f(x)$ 时极其高效。</td>
-<td align="left"><strong>非常鲁棒</strong>。能有效处理由多个因素相乘组成的复杂被积函数 $f(x)$，方差显著低于任何单一策略。</td>
-</tr>
-<tr>
-<td align="left"><strong>缺点</strong></td>
-<td align="left"><strong>极度依赖 $p(x)$ 的质量</strong>。选错 $p(x)$ 会导致方差极大。</td>
-<td align="left">计算开销更大，需要计算多个 PDF 的值。</td>
-</tr>
-<tr>
-<td align="left"><strong>适用场景</strong></td>
-<td align="left">被积函数 $f(x)$ 特征明显且单一，容易找到匹配的 $p(x)$。</td>
-<td align="left">被积函数是多个函数的乘积（如渲染中的 $Lighting * BRDF$），难以用单一分布描述。</td>
-</tr>
-</tbody></table>
-<p>简单来说，<strong>重要性采样是“把所有鸡蛋放在一个篮子里，但希望这个篮子足够结实”，而多重重要性采样是“把鸡蛋分开放到几个篮子里，并且有一个智能系统来决定从哪个篮子拿鸡蛋最安全”</strong>。MIS 是重要性采样思想的重大飞跃，使其在实践中变得更加实用和强大。</p>
-]]></content>
-      <categories>
-        <category>工业</category>
-      </categories>
-      <tags>
-        <tag>图形</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>28-多光源渲染方案</title>
     <url>//posts/202428/</url>
     <content><![CDATA[<p>在现代实时渲染中，处理大量动态光源是一个核心挑战。传统的 <strong>Forward Rendering（正向渲染）</strong> 在每个物体绘制时遍历所有光源计算光照，其性能开销与 <strong>物体数量 × 光源数量</strong> 成正比，因此无法高效处理大量光源。</p>
@@ -8128,6 +8011,123 @@ OutColor.w &#x3D; MiddleGreyExposureCompensation &#x2F; EyeAdaptation_GreyMult;<
 <li><strong>Unreal Engine</strong>：传统上以<strong>延迟渲染</strong>为核心，并且其<strong>光照计算也使用了分块&#x2F;集群优化</strong>。UE5 的 Lumen 等全局光照系统也构建在延迟管线之上。</li>
 </ul>
 <p><strong>结论：</strong><br>目前，<strong>Clustered Shading</strong> 被认为是处理大量动态光源最强大和通用的解决方案，无论是与正向渲染结合（Clustered Forward）还是与延迟渲染结合（Clustered Deferred），它都提供了最佳的性能和灵活性，因此被许多3A游戏和现代游戏引擎所采用。<strong>Forward+</strong> 是一个优秀的折中方案，而<strong>延迟渲染</strong>在特定需求下依然非常强大。</p>
+]]></content>
+      <categories>
+        <category>工业</category>
+      </categories>
+      <tags>
+        <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重要性采样及多重重要性采样</title>
+    <url>//posts/202427/</url>
+    <content><![CDATA[<p><strong>重要性采样（Importance Sampling, IS）</strong> 和<strong>多重重要性采样（Multiple Importance Sampling, MIS）</strong> 技术在蒙特卡洛积分中至关重要。</p>
+<p>它们主要用于计算机图形学（如光线追踪渲染）、强化学习等领域，以高效地计算复杂积分。</p>
+<hr>
+<h3 id="1-蒙特卡洛积分基础"><a href="#1-蒙特卡洛积分基础" class="headerlink" title="1. 蒙特卡洛积分基础"></a>1. 蒙特卡洛积分基础</h3><p>首先，快速回顾一下蒙特卡洛积分。我们要计算一个积分：<br>$$I &#x3D; \int_a^b f(x) dx$$</p>
+<p>蒙特卡洛积分的基本思想是<strong>随机采样</strong>。它通过从定义域内随机抽取样本 $x_i$，计算 $f(x_i)$，然后取平均值来近似积分：<br>$$I \approx \frac{1}{N} \sum_{i&#x3D;1}^N f(x_i)$$</p>
+<p>但这里有一个问题：如果 $f(x)$ 在某些区域值很大，在另一些区域值很小（例如，一个尖锐的峰值），均匀随机采样会非常低效。大多数样本会落在 $f(x)$ 值很小的“不重要”区域，对最终结果的贡献微乎其微，从而造成方差很大，收敛速度很慢。</p>
+<hr>
+<h3 id="2-重要性采样-Importance-Sampling-IS"><a href="#2-重要性采样-Importance-Sampling-IS" class="headerlink" title="2. 重要性采样 (Importance Sampling, IS)"></a>2. 重要性采样 (Importance Sampling, IS)</h3><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><p><strong>重要性采样的核心思想是：我们应该把更多的样本放在函数值大（重要）的区域，而不是均匀地放置样本。</strong></p>
+<p>换句话说，我们不再使用均匀分布进行采样，而是使用一个与我们想要积分的函数 $f(x)$ <strong>形状相似</strong>的概率分布 $p(x)$ 来生成样本。</p>
+<h4 id="数学表达"><a href="#数学表达" class="headerlink" title="数学表达"></a>数学表达</h4><p>为了修正采样分布带来的偏差，我们需要对每个样本进行加权。蒙特卡洛积分公式变为：<br>$$I &#x3D; \int f(x) dx &#x3D; \int \frac{f(x)}{p(x)} p(x) dx \approx \frac{1}{N} \sum_{i&#x3D;1}^N \frac{f(x_i)}{p(x_i)}$$<br>其中：</p>
+<ul>
+<li>$x_i$ 是从分布 $p(x)$ 中抽取的样本。</li>
+<li>$\frac{f(x_i)}{p(x_i)}$ 被称为<strong>重要性权重</strong>。</li>
+</ul>
+<h4 id="关键要求与目标"><a href="#关键要求与目标" class="headerlink" title="关键要求与目标"></a>关键要求与目标</h4><ol>
+<li><strong>$p(x)$ 必须满足</strong>：$p(x) &gt; 0$  wherever $f(x) \neq 0$。即，在 $f(x)$ 有值的任何地方，$p(x)$ 都不能为零，否则我们会忽略掉一些本应有贡献的区域。</li>
+<li><strong>理想情况</strong>：如果 $p(x)$ 正比于 $f(x)$，即 $p(x) &#x3D; c|f(x)|$，那么方差会变为 0，每个样本的贡献都是常数。这是重要性采样的终极目标。</li>
+<li><strong>现实情况</strong>：我们很难找到完美的 $p(x)$，但只要 $p(x)$ 的形状大致与 $f(x)$ 相似，就能显著降低方差。</li>
+</ol>
+<h4 id="例子：渲染中的直接光照"><a href="#例子：渲染中的直接光照" class="headerlink" title="例子：渲染中的直接光照"></a>例子：渲染中的直接光照</h4><p>在计算一个点接收到来自环境的光照时，积分函数 $f(x)$ 是光的强度乘以BRDF（材质属性）。如果光来自一个很小的窗户（一个很小的区域贡献了大部分的光），均匀地在所有方向采样会非常低效。重要性采样会选择一个与光强分布相似的 $p(x)$，让我们更多地朝窗户的方向采样，从而快速收敛。</p>
+<h4 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h4><p>重要性采样有一个致命弱点：<strong>它严重依赖于所选采样分布 $p(x)$ 的质量</strong>。<br>如果 $p(x)$ 选得不好，比如：</p>
+<ul>
+<li>$p(x)$ 的形状与 $f(x)$ 相差甚远。</li>
+<li>$f(x)$ 本身由多个不同特征的函数相乘组成（例如，$f(x) &#x3D; g(x)h(x)$），很难找到一个 $p(x)$ 同时匹配 $g(x)$ 和 $h(x)$。</li>
+</ul>
+<p>这时，重要性采样的效果可能甚至不如简单采样，方差会变得非常大。</p>
+<hr>
+<h3 id="3-多重重要性采样-Multiple-Importance-Sampling-MIS"><a href="#3-多重重要性采样-Multiple-Importance-Sampling-MIS" class="headerlink" title="3. 多重重要性采样 (Multiple Importance Sampling, MIS)"></a>3. 多重重要性采样 (Multiple Importance Sampling, MIS)</h3><h4 id="核心思想-1"><a href="#核心思想-1" class="headerlink" title="核心思想"></a>核心思想</h4><p><strong>既然很难找到一个完美的采样分布，那我们为什么不结合多个不同的采样分布呢？</strong></p>
+<p>MIS 的核心智慧在于：它允许我们使用 <strong>多种采样策略</strong>（例如，从一个分布 $p_1$ 中取 $n_1$ 个样本，从另一个分布 $p_2$ 中取 $n_2$ 个样本），然后通过一个<strong>聪明的加权函数</strong>将这些样本结合起来，从而充分利用每种策略的优势，避免其劣势。</p>
+<h4 id="数学表达-1"><a href="#数学表达-1" class="headerlink" title="数学表达"></a>数学表达</h4><p>假设我们有 $m$ 种不同的采样分布 $p_1(x), p_2(x), …, p_m(x)$。<br>从每个分布 $p_i(x)$ 中采集 $n_i$ 个样本，总样本数 $N &#x3D; \sum n_i$。</p>
+<p>MIS 的估计量表示为：<br>$$I \approx \sum_{i&#x3D;1}^m \frac{1}{n_i} \sum_{j&#x3D;1}^{n_i} w_i(x_{i,j}) \frac{f(x_{i,j})}{p_i(x_{i,j})}$$<br>其中：</p>
+<ul>
+<li>$x_{i,j}$ 是从第 $i$ 个分布 $p_i$ 中抽取的第 $j$ 个样本。</li>
+<li>$w_i(x)$ 是<strong>权重函数</strong>，其关键作用是<strong>平衡不同采样方法在某个特定点 $x$ 上的贡献</strong>。所有权重函数必须满足 $\sum_{i&#x3D;1}^m w_i(x) &#x3D; 1$（当 $f(x) \neq 0$）。</li>
+</ul>
+<h4 id="关键：权重函数-w-i-x"><a href="#关键：权重函数-w-i-x" class="headerlink" title="关键：权重函数 $w_i(x)$"></a>关键：权重函数 $w_i(x)$</h4><p>权重函数的设计是 MIS 的精髓。一个好的权重函数应该：</p>
+<ul>
+<li>在某种采样策略表现好的地方，给予该策略产生的样本更高的权重。</li>
+<li>在某种采样策略表现差的地方（即该策略的概率密度函数值很小），降低其权重，以避免产生巨大的重要性权重（$f(x)&#x2F;p_i(x)$）。</li>
+</ul>
+<p>最著名和常用的权重函数是<strong>平衡启发式（Balance Heuristic）</strong>：<br>$$w_i(x) &#x3D; \frac{n_i p_i(x)}{\sum_k n_k p_k(x)}$$</p>
+<p>将其代入 MIS 公式，得到：<br>$$I \approx \sum_{i&#x3D;1}^m \frac{1}{n_i} \sum_{j&#x3D;1}^{n_i} \frac{f(x_{i,j})}{\sum_k n_k p_k(x_{i,j})} \approx \frac{1}{N} \sum_{i&#x3D;1}^m \sum_{j&#x3D;1}^{n_i} \frac{f(x_{i,j})}{\sum_k (n_k &#x2F; N) p_k(x_{i,j})}$$</p>
+<p>平衡启发式在实践中效果非常好，它几乎总是比使用任何一种单一采样策略的方差要低。</p>
+<h4 id="例子：渲染中的直接光照（再次）"><a href="#例子：渲染中的直接光照（再次）" class="headerlink" title="例子：渲染中的直接光照（再次）"></a>例子：渲染中的直接光照（再次）</h4><p>计算光照积分 $L &#x3D; \int L_i(light) * BRDF * \cos\theta  d\omega$ 时，这个函数是两部分相乘：</p>
+<ol>
+<li>**光强分布 $L_i$**：可能是一个小窗户，适合用光源采样。</li>
+<li><strong>BRDF 分布</strong>：可能是镜面反射，适合用 BRDF 采样。</li>
+</ol>
+<p>单一的重要性采样会陷入两难：</p>
+<ul>
+<li>如果用光源采样，在BRDF值很小（非镜面反射方向）的地方采样会浪费样本。</li>
+<li>如果用BRDF采样，可能会错过重要的光源。</li>
+</ul>
+<p><strong>MIS 的解决方案</strong>：<br>同时使用两种采样策略。</p>
+<ul>
+<li>策略1（$p_1$）：根据光源分布采样（多朝窗户方向采样）。</li>
+<li>策略2（$p_2$）：根据BRDF分布采样（多朝镜面反射方向采样）。</li>
+</ul>
+<p>然后使用平衡启发式权重函数将这两组样本结合起来。结果是：</p>
+<ul>
+<li>当采样方向既指向光源又是镜面反射方向时（“好”样本），两种策略的 $p_i(x)$ 都较高，权重被合理分配。</li>
+<li>当采样方向指向光源但不是镜面反射方向时，BRDF采样策略的 $p_{brdf}(x)$ 会很小，因此其样本权重 $w_{brdf}(x)$ 会被降低，避免产生噪声。</li>
+<li>反之亦然。</li>
+</ul>
+<p>这样，MIS 巧妙地结合了两种策略的优点，得到了一个方差更低、更稳定的估计结果。</p>
+<hr>
+<h3 id="总结与对比"><a href="#总结与对比" class="headerlink" title="总结与对比"></a>总结与对比</h3><table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">重要性采样 (IS)</th>
+<th align="left">多重重要性采样 (MIS)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>核心思想</strong></td>
+<td align="left">用一个好的分布 $p(x)$ 来指导采样，聚焦重要区域。</td>
+<td align="left">组合多个采样分布，用加权函数智能地结合它们的样本。</td>
+</tr>
+<tr>
+<td align="left"><strong>采样分布</strong></td>
+<td align="left">单一分布 $p(x)$</td>
+<td align="left">多个分布 $p_1(x), p_2(x), …, p_m(x)$</td>
+</tr>
+<tr>
+<td align="left"><strong>权重</strong></td>
+<td align="left">简单的重要性权重 $1&#x2F;p(x)$</td>
+<td align="left">复杂的权重函数 $w_i(x)$（如平衡启发式）</td>
+</tr>
+<tr>
+<td align="left"><strong>优点</strong></td>
+<td align="left">概念简单，在 $p(x)$ 匹配 $f(x)$ 时极其高效。</td>
+<td align="left"><strong>非常鲁棒</strong>。能有效处理由多个因素相乘组成的复杂被积函数 $f(x)$，方差显著低于任何单一策略。</td>
+</tr>
+<tr>
+<td align="left"><strong>缺点</strong></td>
+<td align="left"><strong>极度依赖 $p(x)$ 的质量</strong>。选错 $p(x)$ 会导致方差极大。</td>
+<td align="left">计算开销更大，需要计算多个 PDF 的值。</td>
+</tr>
+<tr>
+<td align="left"><strong>适用场景</strong></td>
+<td align="left">被积函数 $f(x)$ 特征明显且单一，容易找到匹配的 $p(x)$。</td>
+<td align="left">被积函数是多个函数的乘积（如渲染中的 $Lighting * BRDF$），难以用单一分布描述。</td>
+</tr>
+</tbody></table>
+<p>简单来说，<strong>重要性采样是“把所有鸡蛋放在一个篮子里，但希望这个篮子足够结实”，而多重重要性采样是“把鸡蛋分开放到几个篮子里，并且有一个智能系统来决定从哪个篮子拿鸡蛋最安全”</strong>。MIS 是重要性采样思想的重大飞跃，使其在实践中变得更加实用和强大。</p>
 ]]></content>
       <categories>
         <category>工业</category>
